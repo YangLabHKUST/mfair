@@ -20,7 +20,7 @@
 setClass(
   # Set the name for the class
   "MFAI",
-  
+
   # Define the slots
   slots = c(
     Y = "matrix",
@@ -37,7 +37,7 @@ setClass(
     boosting_parameters = "list",
     project = "character"
   ),
-  
+
   # Assign the default prototypes
   prototype = list(
     project = "MFAI",
@@ -58,7 +58,7 @@ createMFAI <- function(Y, X, project = "MFAI") {
   if (nrow(Y) != nrow(X)) {
     stop("The number of samples in Y and X should be consistent!")
   } # End
-  
+
   # Inheriting
   object <- new(
     Class = "MFAI",
@@ -66,6 +66,6 @@ createMFAI <- function(Y, X, project = "MFAI") {
     X = as.data.frame(X),
     project = project
   )
-  
+
   return(object)
 }
