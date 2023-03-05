@@ -19,6 +19,8 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{Y_missing}}{Logical. Whether the main data matrix Y is partially observed.}
 
+\item{\code{n_obs}}{integer. Total number of observed entries in Y.}
+
 \item{\code{N}}{An integer. Number of rows (samples) of Y, also the number of rows (samples) of X.}
 
 \item{\code{M}}{An integer. Number of columns (features) of Y.}
@@ -46,6 +48,8 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 \item{\code{tree_lists}}{A list of length K, containing K fitted tree lists and each list corresponding to function F_k(.) in the MFAI model.}
 
 \item{\code{initialization}}{A list. Initialization of the fitted model.}
+
+\item{\code{learning_rate}}{Numeric. The learning rate in the gradient boosting part.}
 
 \item{\code{boosting_parameters}}{A list of options that control details of the rpart algorithm.}
 

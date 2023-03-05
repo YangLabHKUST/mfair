@@ -3,6 +3,7 @@
 #' @slot Y A matrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
 #' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
+#' @slot n_obs integer. Total number of observed entries in Y.
 #' @slot N An integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
 #' @slot M An integer. Number of columns (features) of Y.
 #' @slot C An integer. Number of columns (auxiliary covariates) of X.
@@ -17,6 +18,7 @@
 #' @slot FX An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
 #' @slot tree_lists A list of length K, containing K fitted tree lists and each list corresponding to function F_k(.) in the MFAI model.
 #' @slot initialization A list. Initialization of the fitted model.
+#' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
 #' @slot boosting_parameters A list of options that control details of the rpart algorithm.
 #' @slot project Character. Name of the project (for record keeping).
 #' @slot  .
@@ -32,6 +34,7 @@ setClass(
     Y = "matrix",
     X = "data.frame",
     Y_missing = "logical",
+    n_obs = "integer",
     N = "integer",
     M = "integer",
     C = "integer",
@@ -46,6 +49,7 @@ setClass(
     FX = "matrix",
     tree_lists = "list",
     initialization = "list",
+    learning_rate = "numeric",
     boosting_parameters = "list",
     project = "character"
   ),
@@ -68,8 +72,8 @@ setClass(
 #' @export
 createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
   # Data dimension
-  N = nrow(Y)
-  M = ncol(Y)
+  N <- nrow(Y)
+  M <- ncol(Y)
 
   # Check dimension
   if (N != nrow(X)) {
@@ -86,10 +90,10 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     } # End
   }
 
-  if(Y_missing){
+  if (Y_missing) {
     a_sq <- matrix(nrow = N, ncol = 0)
     b_sq <- matrix(nrow = M, ncol = 0)
-  }else{
+  } else {
     a_sq <- matrix(nrow = 1, ncol = 0)
     b_sq <- matrix(nrow = 1, ncol = 0)
   }
@@ -100,6 +104,7 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     Y = Y,
     X = as.data.frame(X),
     Y_missing = Y_missing,
+    n_obs = N * M - n_missing,
     N = N,
     M = M,
     C = ncol(X),
@@ -113,3 +118,45 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
 
   return(object)
 }
+
+#' MFAIRSingleFactor object contains the key information about the fitted single factor MFAI model.
+#'
+#' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
+#' @slot n_obs Integer. Total number of observed entries in Y.
+#' @slot mu An vector of length N representing the inferred loading, corresponding to the posterior mean of z in the single factor MFAI model.
+#' @slot a_sq Numeric. The posterior variance of the loading z. For fully observed Y, all N elements of the loading share the same posterior variance, then a_sq is a single number. For Y with missing data, the elements have different posterior variances, then a_sq is a vector of length N.
+#' @slot nu An vector of length M representing the inferred factor, corresponding to the posterior mean of w in the single factor MFAI model.
+#' @slot b_sq Numeric. The posterior variance of the factor w. For fully observed Y, all M elements of the factor share the same posterior variance, then b_sq is a single number. For Y with missing data, the elements have different posterior variances, then b_sq is a vector of length M.
+#' @slot tau Numeric. Precision parameter this pair of loading/factor.
+#' @slot beta Numeric. Precision parameter for this loading z.
+#' @slot FX An vector of length N representing the prior mean of z, corresponding to F(X) in the single factor MFAI model.
+#' @slot tree_list A list containing multiple decision trees, corresponding to function F(.) in the single factor MFAI model.
+#' @slot project Character. Name of the project (for record keeping).
+#'
+#' @return MFAIRSingleFactor class.
+#' @export
+setClass(
+  # Set the name for the class
+  "MFAIRSingleFactor",
+
+  # Define the slots
+  slots = c(
+    Y_missing = "logical",
+    n_obs = "integer",
+    mu = "numeric",
+    a_sq = "numeric",
+    nu = "numeric",
+    b_sq = "numeric",
+    tau = "numeric",
+    beta = "numeric",
+    FX = "numeric",
+    tree_list = "list",
+    project = "character"
+  ),
+
+  # Assign the default prototypes
+  prototype = list(
+    project = "MFAIRSingleFactor",
+    tree_list = list()
+  )
+)

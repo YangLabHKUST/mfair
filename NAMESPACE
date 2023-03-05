@@ -2,10 +2,9 @@
 
 export(createMFAIR)
 export(fitGreedy)
-export(fitGreedyFully)
-export(initFully)
-export(initMissing)
+export(fitSFMissing)
+export(getELBO)
+export(initSF)
 exportClasses(MFAIR)
 exportClasses(MFAIRSingleFactor)
-exportMethods(fitGreedy)
 exportMethods(predict)

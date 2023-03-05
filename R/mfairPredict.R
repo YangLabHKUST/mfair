@@ -43,6 +43,6 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = as,matrix(object@mu) %*% t(object@nu))
+    return(Y_hat = as, matrix(object@mu) %*% t(object@nu))
   }
 )
