@@ -4,14 +4,16 @@
 \alias{createMFAIR}
 \title{Create the MFAIR object with main data matrix and auxiliary information.}
 \usage{
-createMFAIR(Y, X, project = "MFAIR")
+createMFAIR(Y, X, K_max = 1L, project = "MFAIR")
 }
 \arguments{
-\item{Y}{numeric. The main data matrix.}
+\item{Y}{A matrix. The main data matrix of N samples and M features.}
 
-\item{X}{data.frame. The auxiliary information.}
+\item{X}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
 
-\item{project}{Name of the project (for record keeping).}
+\item{K_max}{An integer. The maximum rank allowed in the model.}
+
+\item{project}{Character. Name of the project (for record keeping).}
 }
 \value{
 Returns MFAIR object, with main data matrix and auxiliary information.
