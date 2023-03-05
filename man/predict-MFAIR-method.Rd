@@ -16,7 +16,7 @@ Predicted matrix with the same dimension as that of Y.
 Predict function for MFAIR object.
 }
 \examples{
-MFAIR <- createMFAIR(Y, X)
-MFAIR <- fitGreedy(MFAIR)
-Y_hat <- predict(MFAIR)
+mfairObject <- createMFAIR(Y, X)
+mfairObject <- fitGreedy(mfairObject)
+Y_hat <- predict(mfairObject)
 }
