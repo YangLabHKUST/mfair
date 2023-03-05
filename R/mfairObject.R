@@ -62,6 +62,7 @@ createMFAIR <- function(Y, X, project = "MFAIR") {
   } # End
 
   # Check Y
+  Y_missing <- FALSE
   n_missing <- sum(is.na(Y))
   if(n_missing >= 1){
     Y_missing = TRUE
