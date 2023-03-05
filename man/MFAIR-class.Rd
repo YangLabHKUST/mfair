@@ -19,6 +19,12 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{Y_missing}}{logical. Whether the main data matrix Y is partially observed.}
 
+\item{\code{N}}{integer. Number of rows (samples) of Y, also the number of rows (samples) of X.}
+
+\item{\code{M}}{integer. Number of columns (features) of Y.}
+
+\item{\code{C}}{integer. Number of columns (auxiliary covariates) of X.}
+
 \item{\code{K_max}}{integer. The maximum rank allowed in the model.}
 
 \item{\code{K}}{integer. The inferred rank of Y.}

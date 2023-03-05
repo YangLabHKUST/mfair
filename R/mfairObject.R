@@ -3,6 +3,9 @@
 #' @slot Y numeric. The main data matrix of N samples and M features.
 #' @slot X data.frame. The auxiliary information data frame of N samples and C covariates.
 #' @slot Y_missing logical. Whether the main data matrix Y is partially observed.
+#' @slot N integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
+#' @slot M integer. Number of columns (features) of Y.
+#' @slot C integer. Number of columns (auxiliary covariates) of X.
 #' @slot K_max integer. The maximum rank allowed in the model.
 #' @slot K integer. The inferred rank of Y.
 #' @slot Z numeric. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.
@@ -27,6 +30,9 @@ setClass(
     Y = "matrix",
     X = "data.frame",
     Y_missing = "logical",
+    N = "integer",
+    M = "integer",
+    C = "integer",
     K_max = "integer",
     K = "integer",
     Z = "matrix",
@@ -77,6 +83,9 @@ createMFAIR <- function(Y, X, project = "MFAIR") {
     Y = Y,
     X = as.data.frame(X),
     Y_missing = Y_missing,
+    N = nrow(Y),
+    M = ncol(Y),
+    C = ncol(X),
     project = project
   )
 
