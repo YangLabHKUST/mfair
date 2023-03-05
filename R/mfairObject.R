@@ -1,4 +1,4 @@
-#' Each MFAI object has a number of slots which store information. Key slots to access are listed below.
+#' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
 #' @slot Y numeric. The main data matrix of N samples and M features.
 #' @slot X data.frame. The auxiliary information data frame of N samples and C covariates.
@@ -15,11 +15,11 @@
 #' @slot project character. Name of the project (for record keeping).
 #' @slot  .
 #'
-#' @return MFAI class.
+#' @return MFAIR class.
 #' @export
 setClass(
   # Set the name for the class
-  "MFAI",
+  "MFAIR",
 
   # Define the slots
   slots = c(
@@ -40,20 +40,20 @@ setClass(
 
   # Assign the default prototypes
   prototype = list(
-    project = "MFAI",
+    project = "MFAIR",
     K_max = 1L
   )
 )
 
-#' Create the MFAI object with main data matrix and auxiliary information.
+#' Create the MFAIR object with main data matrix and auxiliary information.
 #'
 #' @param Y numeric. The main data matrix.
 #' @param X data.frame. The auxiliary information.
 #' @param project Name of the project (for record keeping).
 #'
-#' @return Returns MFAI object, with main data matrix and auxiliary information.
+#' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
-createMFAI <- function(Y, X, project = "MFAI") {
+createMFAIR <- function(Y, X, project = "MFAIR") {
   # Check dimension
   if (nrow(Y) != nrow(X)) {
     stop("The number of samples in Y and X should be consistent!")
@@ -61,7 +61,7 @@ createMFAI <- function(Y, X, project = "MFAI") {
 
   # Inheriting
   object <- new(
-    Class = "MFAI",
+    Class = "MFAIR",
     Y = Y,
     X = as.data.frame(X),
     project = project
