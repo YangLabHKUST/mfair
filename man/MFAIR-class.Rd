@@ -17,6 +17,8 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{X}}{data.frame. The auxiliary information data frame of N samples and C covariates.}
 
+\item{\code{Y_missing}}{logical. Whether the main data matrix Y is partially observed.}
+
 \item{\code{K_max}}{integer. The maximum rank allowed in the model.}
 
 \item{\code{K}}{integer. The inferred rank of Y.}

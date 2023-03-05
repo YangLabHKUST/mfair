@@ -2,6 +2,7 @@
 #'
 #' @slot Y numeric. The main data matrix of N samples and M features.
 #' @slot X data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @slot Y_missing logical. Whether the main data matrix Y is partially observed.
 #' @slot K_max integer. The maximum rank allowed in the model.
 #' @slot K integer. The inferred rank of Y.
 #' @slot Z numeric. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.
@@ -25,6 +26,7 @@ setClass(
   slots = c(
     Y = "matrix",
     X = "data.frame",
+    Y_missing = "logical",
     K_max = "integer",
     K = "integer",
     Z = "matrix",
@@ -59,11 +61,21 @@ createMFAIR <- function(Y, X, project = "MFAIR") {
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
+  # Check Y
+  n_missing <- sum(is.na(Y))
+  if(n_missing >= 1){
+    Y_missing = TRUE
+    if(n_missing == length(Y)){
+      stop("The main data matrix Y has no observed values!")
+    } # End
+  }
+
   # Inheriting
   object <- new(
     Class = "MFAIR",
     Y = Y,
     X = as.data.frame(X),
+    Y_missing = Y_missing,
     project = project
   )
 
