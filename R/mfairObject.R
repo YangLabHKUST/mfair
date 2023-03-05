@@ -67,8 +67,12 @@ setClass(
 #' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
 createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
+  # Data dimension
+  N = nrow(Y)
+  M = ncol(Y)
+
   # Check dimension
-  if (nrow(Y) != nrow(X)) {
+  if (N != nrow(X)) {
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
@@ -82,16 +86,28 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     } # End
   }
 
+  if(Y_missing){
+    a_sq <- matrix(nrow = N, ncol = 0)
+    b_sq <- matrix(nrow = M, ncol = 0)
+  }else{
+    a_sq <- matrix(nrow = 1, ncol = 0)
+    b_sq <- matrix(nrow = 1, ncol = 0)
+  }
+
   # Inheriting
   object <- new(
     Class = "MFAIR",
     Y = Y,
     X = as.data.frame(X),
     Y_missing = Y_missing,
-    N = nrow(Y),
-    M = ncol(Y),
+    N = N,
+    M = M,
     C = ncol(X),
     K_max = K_max,
+    Z = matrix(nrow = N, ncol = 0),
+    a_sq = a_sq,
+    W = matrix(nrow = M, ncol = 0),
+    b_sq = b_sq,
     project = project
   )
 

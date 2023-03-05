@@ -1,6 +1,6 @@
 #' Predict function for MFAIR object.
 #'
-#' @param MFAIR MFAIR object.
+#' @param MFAIR a model object for which prediction is desired.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
@@ -24,5 +24,25 @@ setMethod(
     } # End
 
     return(Y_hat = object@Z %*% t(object@W))
+  }
+)
+
+#' Predict function for MFAIRSingleFactor object.
+#'
+#' @param MFAIRSingleFactor MFAIRSingleFactor object.
+#'
+#' @return Predicted matrix with the same dimension as that of Y.
+#' @export
+#'
+setMethod(
+  f = "predict",
+  signature = "MFAIRSingleFactor",
+  definition = function(object) {
+    # Check inferred loading Z and factor W
+    if (length(object@mu) == 0 || length(object@nu) == 0) {
+      stop("The model has not been fitted!")
+    } # End
+
+    return(Y_hat = as,matrix(object@mu) %*% t(object@nu))
   }
 )
