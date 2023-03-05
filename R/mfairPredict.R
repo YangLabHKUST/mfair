@@ -19,7 +19,7 @@ setMethod(
     } # End
 
     # Check inferred loading Z and factor W
-    if (length(object@Z) == 0 && length(object@W) == 0) {
+    if (length(object@Z) == 0 || length(object@W) == 0) {
       stop("The model has not been fitted!")
     } # End
 
