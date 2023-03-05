@@ -74,9 +74,9 @@ createMFAIR <- function(Y, X, project = "MFAIR") {
   # Check Y
   Y_missing <- FALSE
   n_missing <- sum(is.na(Y))
-  if(n_missing >= 1){
-    Y_missing = TRUE
-    if(n_missing == length(Y)){
+  if (n_missing >= 1) {
+    Y_missing <- TRUE
+    if (n_missing == length(Y)) {
       stop("The main data matrix Y has no observed values!")
     } # End
   }

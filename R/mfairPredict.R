@@ -16,7 +16,7 @@ setMethod(
     # Check Y
     if (object@Y_missing == FALSE) {
       message("The main data matrix Y has no missing entries!")
-    } # End
+    }
 
     # Check inferred loading Z and factor W
     if (length(object@Z) == 0 || length(object@W) == 0) {
