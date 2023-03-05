@@ -8,8 +8,10 @@
 #' @slot C integer. Number of columns (auxiliary covariates) of X.
 #' @slot K_max integer. The maximum rank allowed in the model.
 #' @slot K integer. The inferred rank of Y.
-#' @slot Z numeric. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.
-#' @slot W numeric. Estimated factor matrix with dimension M * K, corresponding to the inferred posterior mean of W in the MFAI model.
+#' @slot Z matrix. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.
+#' @slot a_sq matrix. Posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of the k-th loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of the k-th loading have different posterior variances, then a_sq is an N * K matrix.
+#' @slot W matrix. Estimated factor matrix with dimension M * K, corresponding to the inferred posterior mean of W in the MFAI model.
+#' @slot b_sq matrix. Posterior variance of W with k-th column corresponding to the k-th factor For fully observed Y, all M elements of the k-th factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of the k-th factor have different posterior variances, then b_sq is an M * K matrix.
 #' @slot tau numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
 #' @slot beta numeric. A vector of length K, containing the precision parameter for each loading Z_k.
 #' @slot FX numeric. An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
@@ -36,7 +38,9 @@ setClass(
     K_max = "integer",
     K = "integer",
     Z = "matrix",
+    a_sq = "matrix",
     W = "matrix",
+    b_sq = "matrix",
     tau = "numeric",
     beta = "numeric",
     FX = "matrix",

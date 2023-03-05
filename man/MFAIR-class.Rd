@@ -29,9 +29,13 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{K}}{integer. The inferred rank of Y.}
 
-\item{\code{Z}}{numeric. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.}
+\item{\code{Z}}{matrix. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.}
 
-\item{\code{W}}{numeric. Estimated factor matrix with dimension M * K, corresponding to the inferred posterior mean of W in the MFAI model.}
+\item{\code{a_sq}}{matrix. Posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of the k-th loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of the k-th loading have different posterior variances, then a_sq is an N * K matrix.}
+
+\item{\code{W}}{matrix. Estimated factor matrix with dimension M * K, corresponding to the inferred posterior mean of W in the MFAI model.}
+
+\item{\code{b_sq}}{matrix. Posterior variance of W with k-th column corresponding to the k-th factor For fully observed Y, all M elements of the k-th factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of the k-th factor have different posterior variances, then b_sq is an M * K matrix.}
 
 \item{\code{tau}}{numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.}
 
