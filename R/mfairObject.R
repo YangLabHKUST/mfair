@@ -1,24 +1,24 @@
 #' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
-#' @slot Y numeric. The main data matrix of N samples and M features.
-#' @slot X data.frame. The auxiliary information data frame of N samples and C covariates.
-#' @slot Y_missing logical. Whether the main data matrix Y is partially observed.
-#' @slot N integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
-#' @slot M integer. Number of columns (features) of Y.
-#' @slot C integer. Number of columns (auxiliary covariates) of X.
-#' @slot K_max integer. The maximum rank allowed in the model.
-#' @slot K integer. The inferred rank of Y.
-#' @slot Z matrix. Estimated loading matrix with dimension N * K, corresponding to the inferred posterior mean of Z in the MFAI model.
-#' @slot a_sq matrix. Posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of the k-th loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of the k-th loading have different posterior variances, then a_sq is an N * K matrix.
-#' @slot W matrix. Estimated factor matrix with dimension M * K, corresponding to the inferred posterior mean of W in the MFAI model.
-#' @slot b_sq matrix. Posterior variance of W with k-th column corresponding to the k-th factor For fully observed Y, all M elements of the k-th factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of the k-th factor have different posterior variances, then b_sq is an M * K matrix.
-#' @slot tau numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
-#' @slot beta numeric. A vector of length K, containing the precision parameter for each loading Z_k.
-#' @slot FX numeric. An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
-#' @slot tree_lists list. A list containing K fitted tree lists, each corresponding to function F_k(.) in the MFAI model.
-#' @slot initialization list. Initialization of the fitted model.
-#' @slot boosting_parameters list. A list of options that control details of the rpart algorithm.
-#' @slot project character. Name of the project (for record keeping).
+#' @slot Y A matrix. The main data matrix of N samples and M features.
+#' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
+#' @slot N An integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
+#' @slot M An integer Number of columns (features) of Y.
+#' @slot C An integer Number of columns (auxiliary covariates) of X.
+#' @slot K_max An integer The maximum rank allowed in the model.
+#' @slot K An integer The inferred rank of Y.
+#' @slot Z An N * K matrix. Estimated loading matrix, corresponding to the inferred posterior mean of Z in the MFAI model.
+#' @slot a_sq A matrix. Posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of the k-th loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of the k-th loading have different posterior variances, then a_sq is an N * K matrix.
+#' @slot W An M * K matrix. Estimated factor matrix, corresponding to the inferred posterior mean of W in the MFAI model.
+#' @slot b_sq A matrix. Posterior variance of W with k-th column corresponding to the k-th factor. For fully observed Y, all M elements of the k-th factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of the k-th factor have different posterior variances, then b_sq is an M * K matrix.
+#' @slot tau Numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
+#' @slot beta Numeric. A vector of length K, containing the precision parameter for each loading Z_k.
+#' @slot FX Numeric. An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
+#' @slot tree_lists A list of length K, containing K fitted tree lists and each list corresponding to function F_k(.) in the MFAI model.
+#' @slot initialization A list. Initialization of the fitted model.
+#' @slot boosting_parameters A list of options that control details of the rpart algorithm.
+#' @slot project Character. Name of the project (for record keeping).
 #' @slot  .
 #'
 #' @return MFAIR class.
