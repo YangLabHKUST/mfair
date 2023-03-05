@@ -58,7 +58,7 @@ fitGreedy <- function(object, K_max = NULL,
   for (k in 1:object@K_max) {
     # Initialize
     if (need_init[k]) {
-      init <- initSF(R)
+      init <- initSF(R, object@Y_missing, object@n_obs)
     } else {
       init <- object@initialization[[k]]
     }
