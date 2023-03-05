@@ -15,12 +15,12 @@ setMethod(
   definition = function(object) {
     # Check Y
     if (object@Y_missing == FALSE) {
-      stop("The main data matrix Y has no missing entries!")
+      message("The main data matrix Y has no missing entries!")
     } # End
 
     # Check inferred loading Z and factor W
     if (length(object@Z) == 0 && length(object@W) == 0) {
-      stop("The model has not beed fitted!")
+      stop("The model has not been fitted!")
     } # End
 
     return(Y_hat = object@Z %*% t(object@W))
