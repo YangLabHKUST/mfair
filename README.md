@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on the paper MFAI. The name of the package, `mfair`, comes from “Matrix
+on the paper MFAI. The name of the package `mfair` comes from “Matrix
 Factorization with Auxiliary Information in R”.
 
 ## Installation
@@ -31,8 +31,7 @@ library(mfair)
 
 ## Development
 
-The package `mfair` is developed by Zhiwei Wang
-(<zhiwei.wang@connect.ust.hk>).
+The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
 
 ## Contact Information
 
