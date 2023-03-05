@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mfair
+# mfair: Matrix Factorization with Auxiliary Information in R
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on MFAI. The name of the package, `mfair`, comes from “Matrix
+on the paper MFAI. The name of the package, `mfair`, comes from “Matrix
 Factorization with Auxiliary Information in R”.
 
 ## Installation
