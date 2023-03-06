@@ -9,7 +9,7 @@
 #' @param iter_max Integer. Maximum iterations allowed.
 #' @param tol_stage1 Numeric. Convergence criterion in the first step.
 #' @param tol_stage2 Numeric. Convergence criterion in the first step.
-#' @param verbose Logical. Whether to display the detailed information.
+#' @param verbose_sf Logical. Whether to display the detailed information.
 #' @param verbose_loop Logical. Whether to display the detailed information when looping.
 #' @param save_tree_list Logical. Whether to save the tree list.
 #'
@@ -20,7 +20,7 @@
 fitSFMissing <- function(Y, obs_indices, X, init,
                          learning_rate, tree_parameters,
                          iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
-                         verbose = TRUE, verbose_loop = TRUE,
+                         verbose_sf = TRUE, verbose_loop = TRUE,
                          save_tree_list = TRUE) {
   N <- nrow(Y)
   M <- ncol(Y)
@@ -76,7 +76,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     ELBO_old <- ELBO_current
   }
 
-  if (verbose) {
+  if (verbose_sf) {
     cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
   }
 
@@ -131,7 +131,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     ELBO_old <- ELBO_current
   }
 
-  if (verbose) {
+  if (verbose_sf) {
     cat("After ", iter, " iterations stage 2 ends!\n", sep = "")
   }
 
@@ -147,7 +147,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 #' @param iter_max Integer. Maximum iterations allowed.
 #' @param tol_stage1 Numeric. Convergence criterion in the first step.
 #' @param tol_stage2 Numeric. Convergence criterion in the first step.
-#' @param verbose Logical. Whether to display the detailed information.
+#' @param verbose_sf Logical. Whether to display the detailed information.
 #' @param verbose_loop Logical. Whether to display the detailed information when looping.
 #' @param save_tree_list Logical. Whether to save the tree list.
 #'
@@ -157,7 +157,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 fitSFFully <- function(Y, X, init,
                        learning_rate, tree_parameters,
                        iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
-                       verbose = TRUE, verbose_loop = TRUE,
+                       verbose_sf = TRUE, verbose_loop = TRUE,
                        save_tree_list = TRUE) {
   N <- nrow(Y)
   M <- ncol(Y)
@@ -198,7 +198,7 @@ fitSFFully <- function(Y, X, init,
     ELBO_old <- ELBO_current
   }
 
-  if (verbose) {
+  if (verbose_sf) {
     cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
   }
 
@@ -247,7 +247,7 @@ fitSFFully <- function(Y, X, init,
     ELBO_old <- ELBO_current
   }
 
-  if (verbose) {
+  if (verbose_sf) {
     cat("After ", iter, " iterations stage 2 ends!\n", sep = "")
   }
 
