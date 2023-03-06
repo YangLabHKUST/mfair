@@ -1,6 +1,7 @@
 #' Prediction function for MFAIR object.
 #'
-#' @param MFAIR A model object for which prediction is desired.
+#' @param object A model object for which prediction is desired.
+#' @param which_factor Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export

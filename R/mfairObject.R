@@ -103,7 +103,7 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     Y = Y,
     X = as.data.frame(X),
     Y_missing = Y_missing,
-    n_obs = N * M - n_missing,
+    n_obs = as.integer(N * M - n_missing),
     N = N,
     M = M,
     C = ncol(X),

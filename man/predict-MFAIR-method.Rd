@@ -4,10 +4,12 @@
 \alias{predict,MFAIR-method}
 \title{Prediction function for MFAIR object.}
 \usage{
-\S4method{predict}{MFAIR}(object)
+\S4method{predict}{MFAIR}(object, which_factor = c(1:object@K))
 }
 \arguments{
-\item{MFAIR}{A model object for which prediction is desired.}
+\item{object}{A model object for which prediction is desired.}
+
+\item{which_factor}{Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.}
 }
 \value{
 Predicted matrix with the same dimension as that of Y.

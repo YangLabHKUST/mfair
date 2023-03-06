@@ -9,7 +9,7 @@
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
-#' @param ... See fitSF()
+#' @param ... See fitSF() and rpart::rpart.control()
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.
 #' @export
@@ -49,7 +49,9 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart::rpart.control(minsplit = minsplit, minbucket = minbucket, maxdepth = maxdepth)
+  object@tree_parameters <- rpart::rpart.control(minsplit = minsplit,
+                                                 minbucket = minbucket,
+                                                 maxdepth = maxdepth)
 
   # Residual in the first step is Y itself
   R <- object@Y
@@ -65,16 +67,20 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Fit the single factor MFAI model
     if (object@Y_missing) {
-      mfairSF <- fitSFMissing(R, obs_indices, object@X, init, object@learning_rate, tree_parameters = object@tree_parameters, ...)
+      mfair_sf <- fitSFMissing(R, obs_indices, object@X, init,
+                              object@learning_rate, tree_parameters = object@tree_parameters,
+                              ...)
     } else {
-      mfairSF <- fitSFFully(R, object@X, init, object@learning_rate, tree_parameters = object@tree_parameters, ...)
+      mfair_sf <- fitSFFully(R, object@X, init,
+                            object@learning_rate, tree_parameters = object@tree_parameters,
+                            ...)
     }
 
     # Predict Y based on one pair of loading/factor
-    Y_k <- predict(mfairSF)
+    Y_k <- predict(mfair_sf)
 
     # Whether to stop the greedy algorithm
-    if ((var(as.vector(Y_k)) * mfairSF@tau) > tol_snr) {
+    if ((var(as.vector(Y_k)) * mfair_sf@tau) > tol_snr) {
       if (verbose_greedy) {
         message("Factor ", k, " retained!")
       }
@@ -89,18 +95,7 @@ fitGreedy <- function(object, K_max = NULL,
     R <- R - Y_k
 
     # Save the information about the fitted single factor MFAI model
-    object@Z <- cbind(object@Z, mfairSF@mu)
-    object@a_sq <- cbind(object@a_sq, mfairSF@a_sq)
-    object@W <- cbind(object@W, mfairSF@nu)
-    object@b_sq <- cbind(object@b_sq, mfairSF@b_sq)
-
-    object@tau <- c(object@tau, mfairSF@tau)
-    object@beta <- c(object@beta, mfairSF@beta)
-
-    object@FX <- cbind(object@FX, mfairSF@FX)
-
-    # Update the inferred rank of the data
-    object@K <- as.integer(object@K + 1)
+    object <- appendMFAIR(object, mfair_sf)
 
     # Save the initialization
     if (save_init) {
@@ -108,14 +103,6 @@ fitGreedy <- function(object, K_max = NULL,
     }
     # Free the memory
     rm(init)
-
-    # # Save the tree list
-    # if (save_tree_lists) {
-    #   object@tree_lists <- c(object@tree_lists, list(mfairSF@tree_list))
-    # }
-
-    # Save the tree list
-    object@tree_lists <- c(object@tree_lists, list(mfairSF@tree_list))
   }
 
   return(object)
