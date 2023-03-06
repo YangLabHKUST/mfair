@@ -7,8 +7,8 @@
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on the paper MFAI. The name of the package `mfair` comes from “Matrix
-Factorization with Auxiliary Information in R”.
+on the paper MFAI. The name of the package `mfair` comes from **Matrix
+Factorization with Auxiliary Information in R**.
 
 ## Installation
 
@@ -65,7 +65,7 @@ mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject)
 #> Iteration: 1, ELBO: -43170.78, tau: 0.003129733, beta: 0.2875156, difference: Inf
-#> After 2, iterations, stage 1 ends!
+#> After 2 iterations stage 1 ends!
 #> Iteration: 1, ELBO: -41695.68, tau: 0.004643328, beta: 0.06469208, difference: 0.03416902
 #> Iteration: 2, ELBO: -41623.89, tau: 0.004650919, beta: 0.05657566, difference: 0.001721655
 #> Iteration: 3, ELBO: -41578.36, tau: 0.004652564, beta: 0.05127748, difference: 0.001093858
@@ -116,10 +116,10 @@ mfairObject <- fitGreedy(mfairObject)
 #> Iteration: 48, ELBO: -41385.68, tau: 0.004656752, beta: 0.04519142, difference: 1.297569e-05
 #> Iteration: 49, ELBO: -41384.28, tau: 0.004656704, beta: 0.04559305, difference: 3.368592e-05
 #> Iteration: 50, ELBO: -41383.5, tau: 0.004656749, beta: 0.04673016, difference: 1.906052e-05
-#> After 51, iterations, stage 2 ends!
+#> After 51 iterations stage 2 ends!
 #> Factor 1 retained!
 #> Iteration: 1, ELBO: -40972.13, tau: 0.00475246, beta: 2.298006, difference: Inf
-#> After 2, iterations, stage 1 ends!
+#> After 2 iterations stage 1 ends!
 #> Iteration: 1, ELBO: -40802.62, tau: 0.004979535, beta: 0.7394195, difference: 0.004137369
 #> Iteration: 2, ELBO: -40297.54, tau: 0.005788384, beta: 0.1951493, difference: 0.01237845
 #> Iteration: 3, ELBO: -40202.95, tau: 0.005981478, beta: 0.1402107, difference: 0.002347298
@@ -163,7 +163,7 @@ mfairObject <- fitGreedy(mfairObject)
 #> Iteration: 41, ELBO: -40005.23, tau: 0.00600417, beta: 0.3345829, difference: 1.678143e-05
 #> Iteration: 42, ELBO: -40004.49, tau: 0.006004161, beta: 0.3389327, difference: 1.841276e-05
 #> Iteration: 43, ELBO: -40003.99, tau: 0.006004192, beta: 0.3437831, difference: 1.259482e-05
-#> After 44, iterations, stage 2 ends!
+#> After 44 iterations stage 2 ends!
 #> Factor 2 retained!
 ```
 

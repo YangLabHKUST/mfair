@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based on the paper MFAI.
-The name of the package `mfair` comes from "Matrix Factorization with Auxiliary Information in R".
+The name of the package `mfair` comes from **Matrix Factorization with Auxiliary Information in R**.
 
 ## Installation
 
