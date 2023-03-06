@@ -30,29 +30,36 @@ library(mfair)
 library(MASS)
 
 # Simulate data
+# Set the data dimension and rank
 N <- 100
 M <- 100
 K_true <- 2L
 
+# Set the proportion of variance explained (PVE)
 PVE_Z <- 0.8
 PVE_Y <- 0.5
 
+# Generate auxiliary information X
 X1 <- runif(N, min = -10, max = 10)
 X2 <- runif(N, min = -10, max = 10)
 X <- cbind(X1, X2)
 
+# F(X)
 FX1 <- X1 / 2 - X2
 FX2 <- (X1^2 - X2^2 + 2 * X1 * X2) / 10
 FX <- cbind(FX1, FX2)
 
+# Generate loadings
 beta1 <- var(FX1) * (1 / PVE_Z - 1)
 Z1 <- mvrnorm(n = 1, mu = FX1, Sigma = beta1 * diag(N))
 beta2 <- var(FX2) * (1 / PVE_Z - 1)
 Z2 <- mvrnorm(n = 1, mu = FX2, Sigma = beta2 * diag(N))
 Z <- cbind(Z1, Z2)
 
+# Generate factors
 W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 
+# Generate the main data matrix Y
 Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
 epsilon <- sqrt(Y_var * (1 / PVE_Y - 1))
@@ -64,105 +71,106 @@ mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject)
-#> Iteration: 1, ELBO: -43170.38, tau: 0.00313005, beta: 0.2874784, difference: Inf
-#> After 2 iterations stage 1 ends!
-#> Iteration: 1, ELBO: -41696.03, tau: 0.004642825, beta: 0.06469098, difference: 0.03415181
-#> Iteration: 2, ELBO: -41624.25, tau: 0.004650448, beta: 0.05657293, difference: 0.001721528
-#> Iteration: 3, ELBO: -41578.73, tau: 0.004652098, beta: 0.05127436, difference: 0.001093435
-#> Iteration: 4, ELBO: -41546.8, tau: 0.004652959, beta: 0.04688818, difference: 0.0007681498
-#> Iteration: 5, ELBO: -41524.18, tau: 0.004653569, beta: 0.04425139, difference: 0.0005442874
-#> Iteration: 6, ELBO: -41506.31, tau: 0.004653987, beta: 0.04161936, difference: 0.0004304285
-#> Iteration: 7, ELBO: -41493, tau: 0.004654337, beta: 0.04008187, difference: 0.0003206757
-#> Iteration: 8, ELBO: -41481.48, tau: 0.004654583, beta: 0.03828924, difference: 0.0002776407
-#> Iteration: 9, ELBO: -41472.76, tau: 0.004654817, beta: 0.03741257, difference: 0.0002101555
-#> Iteration: 10, ELBO: -41464.79, tau: 0.004654974, beta: 0.03615787, difference: 0.0001922829
-#> Iteration: 11, ELBO: -41457.91, tau: 0.00465514, beta: 0.03559209, difference: 0.0001657973
-#> Iteration: 12, ELBO: -41452.74, tau: 0.004655269, beta: 0.03521355, difference: 0.0001247932
-#> Iteration: 13, ELBO: -41447.68, tau: 0.004655354, beta: 0.03437566, difference: 0.0001219774
-#> Iteration: 14, ELBO: -41443.15, tau: 0.004655463, beta: 0.03405664, difference: 0.0001093549
-#> Iteration: 15, ELBO: -41439.24, tau: 0.004655548, beta: 0.03387444, difference: 9.442968e-05
-#> Iteration: 16, ELBO: -41435.81, tau: 0.004655615, beta: 0.03365024, difference: 8.262388e-05
-#> Iteration: 17, ELBO: -41432.15, tau: 0.004655675, beta: 0.03341724, difference: 8.830401e-05
-#> Iteration: 18, ELBO: -41429.84, tau: 0.004655749, beta: 0.03361785, difference: 5.573319e-05
-#> Iteration: 19, ELBO: -41427.31, tau: 0.004655766, beta: 0.03317627, difference: 6.119996e-05
-#> Iteration: 20, ELBO: -41424.58, tau: 0.004655823, beta: 0.03307976, difference: 6.578433e-05
-#> Iteration: 21, ELBO: -41422.94, tau: 0.004655878, beta: 0.03328862, difference: 3.979912e-05
-#> Iteration: 22, ELBO: -41421, tau: 0.004655885, beta: 0.03294401, difference: 4.66231e-05
-#> Iteration: 23, ELBO: -41418.9, tau: 0.00465593, beta: 0.03290331, difference: 5.080613e-05
-#> Iteration: 24, ELBO: -41417.22, tau: 0.004655972, beta: 0.03309614, difference: 4.054556e-05
-#> Iteration: 25, ELBO: -41415.45, tau: 0.004655988, beta: 0.03311052, difference: 4.276809e-05
-#> Iteration: 26, ELBO: -41414.43, tau: 0.004656019, beta: 0.0332732, difference: 2.450408e-05
-#> Iteration: 27, ELBO: -41413.14, tau: 0.004656017, beta: 0.03303393, difference: 3.123153e-05
-#> Iteration: 28, ELBO: -41411.68, tau: 0.004656048, beta: 0.03303158, difference: 3.526986e-05
-#> Iteration: 29, ELBO: -41410.51, tau: 0.004656078, beta: 0.03319705, difference: 2.827204e-05
-#> Iteration: 30, ELBO: -41407.36, tau: 0.004656092, beta: 0.03324507, difference: 7.598194e-05
-#> Iteration: 31, ELBO: -41406.27, tau: 0.004656188, beta: 0.03467596, difference: 2.634995e-05
-#> Iteration: 32, ELBO: -41403.43, tau: 0.004656133, beta: 0.03480447, difference: 6.858272e-05
-#> Iteration: 33, ELBO: -41402.31, tau: 0.004656216, beta: 0.03620671, difference: 2.710306e-05
-#> Iteration: 34, ELBO: -41401.5, tau: 0.004656167, beta: 0.03650764, difference: 1.955337e-05
-#> Iteration: 35, ELBO: -41399.09, tau: 0.004656163, beta: 0.03664485, difference: 5.811014e-05
-#> Iteration: 36, ELBO: -41398.2, tau: 0.00465624, beta: 0.03799111, difference: 2.150632e-05
-#> Iteration: 37, ELBO: -41396.02, tau: 0.004656188, beta: 0.03830291, difference: 5.27422e-05
-#> Iteration: 38, ELBO: -41395.26, tau: 0.004656251, beta: 0.03962186, difference: 1.824912e-05
-#> Iteration: 39, ELBO: -41394.66, tau: 0.004656198, beta: 0.03992401, difference: 1.45007e-05
-#> Iteration: 40, ELBO: -41392.74, tau: 0.004656192, beta: 0.04011209, difference: 4.638525e-05
-#> Iteration: 41, ELBO: -41392.22, tau: 0.004656258, beta: 0.04136164, difference: 1.260637e-05
-#> Iteration: 42, ELBO: -41391.44, tau: 0.0046562, beta: 0.04156937, difference: 1.883329e-05
-#> Iteration: 43, ELBO: -41391.01, tau: 0.004656208, beta: 0.04197014, difference: 1.040398e-05
-#> Iteration: 44, ELBO: -41389.28, tau: 0.004656194, beta: 0.04212405, difference: 4.192996e-05
-#> Iteration: 45, ELBO: -41388.85, tau: 0.004656267, beta: 0.04336824, difference: 1.026675e-05
-#> Iteration: 46, ELBO: -41388.21, tau: 0.004656218, beta: 0.04360438, difference: 1.546563e-05
-#> Iteration: 47, ELBO: -41386.64, tau: 0.00465623, beta: 0.04400889, difference: 3.79818e-05
-#> Iteration: 48, ELBO: -41386.1, tau: 0.004656286, beta: 0.04524735, difference: 1.308068e-05
-#> Iteration: 49, ELBO: -41384.71, tau: 0.004656238, beta: 0.04565636, difference: 3.358408e-05
-#> Iteration: 50, ELBO: -41383.92, tau: 0.004656283, beta: 0.04679467, difference: 1.916733e-05
-#> After 51 iterations stage 2 ends!
+#> Iteration: 1, ELBO: -43170.38, tau: 0.00313005, beta: 0.2874784, relative difference: 0.0423111
+#> After 1 iterations stage 1 ends!
+#> Iteration: 1, ELBO: -41826.83, tau: 0.004514965, beta: 0.08873725, relative difference: 0.07211624
+#> Iteration: 2, ELBO: -41692.51, tau: 0.004642941, beta: 0.06979789, relative difference: 0.003211431
+#> Iteration: 3, ELBO: -41621.75, tau: 0.004650445, beta: 0.06025599, relative difference: 0.001697063
+#> Iteration: 4, ELBO: -41576.37, tau: 0.004652064, beta: 0.0533675, relative difference: 0.001090411
+#> Iteration: 5, ELBO: -41545.74, tau: 0.004652957, beta: 0.04924563, relative difference: 0.00073673
+#> Iteration: 6, ELBO: -41522.64, tau: 0.004653533, beta: 0.04552413, relative difference: 0.0005560182
+#> Iteration: 7, ELBO: -41505.79, tau: 0.004653987, beta: 0.04328231, relative difference: 0.0004057907
+#> Iteration: 8, ELBO: -41491.73, tau: 0.004654303, beta: 0.04090716, relative difference: 0.0003385632
+#> Iteration: 9, ELBO: -41480.55, tau: 0.004654588, beta: 0.03962692, relative difference: 0.0002696195
+#> Iteration: 10, ELBO: -41471.88, tau: 0.0046548, beta: 0.03849449, relative difference: 0.000208998
+#> Iteration: 11, ELBO: -41463.94, tau: 0.004654961, beta: 0.0371369, relative difference: 0.0001913086
+#> Iteration: 12, ELBO: -41457.38, tau: 0.004655129, beta: 0.03652199, relative difference: 0.000158377
+#> Iteration: 13, ELBO: -41452.16, tau: 0.004655251, beta: 0.03589739, relative difference: 0.0001259126
+#> Iteration: 14, ELBO: -41447.05, tau: 0.004655346, beta: 0.03507123, relative difference: 0.0001231061
+#> Iteration: 15, ELBO: -41442.77, tau: 0.004655457, beta: 0.03478304, relative difference: 0.0001033695
+#> Iteration: 16, ELBO: -41439.4, tau: 0.004655533, beta: 0.03440735, relative difference: 8.127395e-05
+#> Iteration: 17, ELBO: -41436.07, tau: 0.004655591, beta: 0.03380002, relative difference: 8.048962e-05
+#> Iteration: 18, ELBO: -41432.4, tau: 0.004655665, beta: 0.03350743, relative difference: 8.850561e-05
+#> Iteration: 19, ELBO: -41429.53, tau: 0.004655744, beta: 0.03370584, relative difference: 6.913295e-05
+#> Iteration: 20, ELBO: -41427.49, tau: 0.004655779, beta: 0.03360688, relative difference: 4.928165e-05
+#> Iteration: 21, ELBO: -41425.18, tau: 0.004655803, beta: 0.03316877, relative difference: 5.571946e-05
+#> Iteration: 22, ELBO: -41422.62, tau: 0.004655858, beta: 0.03307876, relative difference: 6.19407e-05
+#> Iteration: 23, ELBO: -41420.71, tau: 0.004655911, beta: 0.03330846, relative difference: 4.598959e-05
+#> Iteration: 24, ELBO: -41418.58, tau: 0.004655928, beta: 0.03323611, relative difference: 5.146727e-05
+#> Iteration: 25, ELBO: -41417.36, tau: 0.00465597, beta: 0.03342904, relative difference: 2.954727e-05
+#> Iteration: 26, ELBO: -41415.86, tau: 0.004655969, beta: 0.03314601, relative difference: 3.608314e-05
+#> Iteration: 27, ELBO: -41414.2, tau: 0.004656005, beta: 0.03311532, relative difference: 4.021069e-05
+#> Iteration: 28, ELBO: -41412.92, tau: 0.004656038, beta: 0.03328036, relative difference: 3.07583e-05
+#> Iteration: 29, ELBO: -41411.43, tau: 0.004656048, beta: 0.03326005, relative difference: 3.609213e-05
+#> Iteration: 30, ELBO: -41408.24, tau: 0.004656077, beta: 0.03343867, relative difference: 7.703718e-05
+#> Iteration: 31, ELBO: -41407.1, tau: 0.004656168, beta: 0.03485079, relative difference: 2.761558e-05
+#> Iteration: 32, ELBO: -41404.27, tau: 0.004656116, beta: 0.0349643, relative difference: 6.829299e-05
+#> Iteration: 33, ELBO: -41403.12, tau: 0.004656197, beta: 0.03632297, relative difference: 2.777162e-05
+#> Iteration: 34, ELBO: -41402.25, tau: 0.004656151, beta: 0.03659401, relative difference: 2.085768e-05
+#> Iteration: 35, ELBO: -41399.7, tau: 0.00465615, beta: 0.0367209, relative difference: 6.171548e-05
+#> Iteration: 36, ELBO: -41398.89, tau: 0.004656235, beta: 0.03813469, relative difference: 1.951381e-05
+#> Iteration: 37, ELBO: -41396.67, tau: 0.004656176, beta: 0.03834549, relative difference: 5.366795e-05
+#> Iteration: 38, ELBO: -41395.9, tau: 0.004656242, beta: 0.03965539, relative difference: 1.860799e-05
+#> Iteration: 39, ELBO: -41395.27, tau: 0.004656188, beta: 0.03994257, relative difference: 1.512592e-05
+#> Iteration: 40, ELBO: -41394.46, tau: 0.004656182, beta: 0.04012693, relative difference: 1.97483e-05
+#> Iteration: 41, ELBO: -41392.49, tau: 0.004656193, beta: 0.0404769, relative difference: 4.739802e-05
+#> Iteration: 42, ELBO: -41391.96, tau: 0.004656257, beta: 0.0417793, relative difference: 1.278454e-05
+#> Iteration: 43, ELBO: -41391.52, tau: 0.004656197, beta: 0.04200306, relative difference: 1.065772e-05
+#> Iteration: 44, ELBO: -41391.11, tau: 0.004656187, beta: 0.04214314, relative difference: 9.97081e-06
+#> After 44 iterations stage 2 ends!
 #> Factor 1 retained!
-#> Iteration: 1, ELBO: -40972.63, tau: 0.004751977, beta: 2.297962, difference: Inf
-#> After 2 iterations stage 1 ends!
-#> Iteration: 1, ELBO: -40799.14, tau: 0.004984733, beta: 0.725531, difference: 0.004234403
-#> Iteration: 2, ELBO: -40295.22, tau: 0.005794689, beta: 0.193989, difference: 0.01235132
-#> Iteration: 3, ELBO: -40202.34, tau: 0.005982072, beta: 0.1398687, difference: 0.002304846
-#> Iteration: 4, ELBO: -40156.31, tau: 0.005995614, beta: 0.1198, difference: 0.001145041
-#> Iteration: 5, ELBO: -40128.48, tau: 0.005998863, beta: 0.1096819, difference: 0.0006929496
-#> Iteration: 6, ELBO: -40109.75, tau: 0.006000561, beta: 0.1043514, difference: 0.0004668111
-#> Iteration: 7, ELBO: -40096.26, tau: 0.006001666, beta: 0.1021556, difference: 0.0003363525
-#> Iteration: 8, ELBO: -40085.76, tau: 0.006002427, beta: 0.101702, difference: 0.0002617623
-#> Iteration: 9, ELBO: -40077.52, tau: 0.006003003, beta: 0.1029533, difference: 0.0002055841
-#> Iteration: 10, ELBO: -40070.6, tau: 0.006003415, beta: 0.1049133, difference: 0.0001726344
-#> Iteration: 11, ELBO: -40064.76, tau: 0.006003756, beta: 0.1079678, difference: 0.0001459019
-#> Iteration: 12, ELBO: -40059.51, tau: 0.006004016, beta: 0.11167, difference: 0.0001308579
-#> Iteration: 13, ELBO: -40054.95, tau: 0.006004246, beta: 0.1164117, difference: 0.0001139653
-#> Iteration: 14, ELBO: -40050.63, tau: 0.006004411, beta: 0.1216059, difference: 0.0001077248
-#> Iteration: 15, ELBO: -40046.75, tau: 0.00600458, beta: 0.1279506, difference: 9.696821e-05
-#> Iteration: 16, ELBO: -40043.2, tau: 0.006004699, beta: 0.1349067, difference: 8.868589e-05
-#> Iteration: 17, ELBO: -40039.99, tau: 0.006004792, beta: 0.1424245, difference: 7.999283e-05
-#> Iteration: 18, ELBO: -40037.13, tau: 0.006004857, beta: 0.1503036, difference: 7.149488e-05
-#> Iteration: 19, ELBO: -40034.25, tau: 0.006004902, beta: 0.1584762, difference: 7.210457e-05
-#> Iteration: 20, ELBO: -40031.73, tau: 0.006004978, beta: 0.1677794, difference: 6.272856e-05
-#> Iteration: 21, ELBO: -40029.42, tau: 0.006004981, beta: 0.1769218, difference: 5.785599e-05
-#> Iteration: 22, ELBO: -40027.33, tau: 0.006004991, beta: 0.1863014, difference: 5.214015e-05
-#> Iteration: 23, ELBO: -40025.37, tau: 0.006004978, beta: 0.195626, difference: 4.909271e-05
-#> Iteration: 24, ELBO: -40023.4, tau: 0.006004964, beta: 0.2049647, difference: 4.910207e-05
-#> Iteration: 25, ELBO: -40021.75, tau: 0.006004981, beta: 0.2148892, difference: 4.135256e-05
-#> Iteration: 26, ELBO: -40020.29, tau: 0.006004929, beta: 0.2241837, difference: 3.647724e-05
-#> Iteration: 27, ELBO: -40018.51, tau: 0.006004878, beta: 0.2329631, difference: 4.428697e-05
-#> Iteration: 28, ELBO: -40016.96, tau: 0.006004932, beta: 0.2431397, difference: 3.882921e-05
-#> Iteration: 29, ELBO: -40015.65, tau: 0.006004895, beta: 0.2529303, difference: 3.262754e-05
-#> Iteration: 30, ELBO: -40014.35, tau: 0.006004821, beta: 0.2617873, difference: 3.26281e-05
-#> Iteration: 31, ELBO: -40013.36, tau: 0.006004802, beta: 0.2706927, difference: 2.461082e-05
-#> Iteration: 32, ELBO: -40012.37, tau: 0.006004716, beta: 0.2784238, difference: 2.494008e-05
-#> Iteration: 33, ELBO: -40011.21, tau: 0.006004673, beta: 0.2858503, difference: 2.877593e-05
-#> Iteration: 34, ELBO: -40010.37, tau: 0.006004692, beta: 0.293891, difference: 2.108943e-05
-#> Iteration: 35, ELBO: -40009.38, tau: 0.006004601, beta: 0.3005346, difference: 2.471472e-05
-#> Iteration: 36, ELBO: -40008.66, tau: 0.006004603, beta: 0.3075263, difference: 1.796591e-05
-#> Iteration: 37, ELBO: -40007.76, tau: 0.006004527, beta: 0.3133752, difference: 2.265214e-05
-#> Iteration: 38, ELBO: -40007.13, tau: 0.006004543, beta: 0.3197471, difference: 1.568382e-05
-#> Iteration: 39, ELBO: -40006.33, tau: 0.006004455, beta: 0.3247015, difference: 1.997731e-05
-#> Iteration: 40, ELBO: -40005.78, tau: 0.006004468, beta: 0.3301181, difference: 1.376341e-05
-#> Iteration: 41, ELBO: -40005.04, tau: 0.0060044, beta: 0.3344323, difference: 1.854854e-05
-#> Iteration: 42, ELBO: -40004.53, tau: 0.006004413, beta: 0.3391524, difference: 1.272821e-05
-#> After 43 iterations stage 2 ends!
+#> Iteration: 1, ELBO: -40975, tau: 0.004752181, beta: 2.082172, relative difference: 0.04005003
+#> After 1 iterations stage 1 ends!
+#> Iteration: 1, ELBO: -40945.35, tau: 0.004755508, beta: 2.103296, relative difference: 0.04074471
+#> Iteration: 2, ELBO: -40851.42, tau: 0.004904824, beta: 0.9394679, relative difference: 0.002293882
+#> Iteration: 3, ELBO: -40337.62, tau: 0.005692732, beta: 0.2163247, relative difference: 0.0125774
+#> Iteration: 4, ELBO: -40210.05, tau: 0.005976268, beta: 0.1468454, relative difference: 0.003162459
+#> Iteration: 5, ELBO: -40160.58, tau: 0.00599527, beta: 0.1236717, relative difference: 0.00123037
+#> Iteration: 6, ELBO: -40130.99, tau: 0.005999016, beta: 0.1122164, relative difference: 0.0007368561
+#> Iteration: 7, ELBO: -40111.32, tau: 0.00600085, beta: 0.1061432, relative difference: 0.0004900061
+#> Iteration: 8, ELBO: -40097.29, tau: 0.006002023, beta: 0.1034686, relative difference: 0.000349781
+#> Iteration: 9, ELBO: -40086.46, tau: 0.006002823, beta: 0.1026805, relative difference: 0.0002700955
+#> Iteration: 10, ELBO: -40078, tau: 0.006003424, beta: 0.1036829, relative difference: 0.0002110526
+#> Iteration: 11, ELBO: -40070.93, tau: 0.006003855, beta: 0.105444, relative difference: 0.0001764187
+#> Iteration: 12, ELBO: -40064.97, tau: 0.006004209, beta: 0.1083375, relative difference: 0.0001486744
+#> Iteration: 13, ELBO: -40059.62, tau: 0.006004478, beta: 0.1119039, relative difference: 0.0001337229
+#> Iteration: 14, ELBO: -40055.02, tau: 0.00600472, beta: 0.116613, relative difference: 0.0001147329
+#> Iteration: 15, ELBO: -40050.66, tau: 0.006004884, beta: 0.1216548, relative difference: 0.0001087517
+#> Iteration: 16, ELBO: -40046.91, tau: 0.006005059, beta: 0.127906, relative difference: 9.380948e-05
+#> Iteration: 17, ELBO: -40043.29, tau: 0.006005156, beta: 0.134277, relative difference: 9.020971e-05
+#> Iteration: 18, ELBO: -40039.96, tau: 0.006005276, beta: 0.1416863, relative difference: 8.317924e-05
+#> Iteration: 19, ELBO: -40036.99, tau: 0.006005356, beta: 0.1496436, relative difference: 7.413818e-05
+#> Iteration: 20, ELBO: -40034.39, tau: 0.006005405, beta: 0.1578692, relative difference: 6.493461e-05
+#> Iteration: 21, ELBO: -40031.78, tau: 0.006005428, beta: 0.1661624, relative difference: 6.541195e-05
+#> Iteration: 22, ELBO: -40029.36, tau: 0.006005482, beta: 0.1753365, relative difference: 6.028283e-05
+#> Iteration: 23, ELBO: -40027.22, tau: 0.006005496, beta: 0.1846911, relative difference: 5.340042e-05
+#> Iteration: 24, ELBO: -40025.11, tau: 0.006005491, beta: 0.1940252, relative difference: 5.27701e-05
+#> Iteration: 25, ELBO: -40023.29, tau: 0.006005507, beta: 0.2039036, relative difference: 4.557246e-05
+#> Iteration: 26, ELBO: -40021.61, tau: 0.006005471, beta: 0.2133716, relative difference: 4.205264e-05
+#> Iteration: 27, ELBO: -40019.91, tau: 0.006005443, beta: 0.2227326, relative difference: 4.245581e-05
+#> Iteration: 28, ELBO: -40018.53, tau: 0.006005437, beta: 0.2323958, relative difference: 3.433869e-05
+#> Iteration: 29, ELBO: -40016.91, tau: 0.006005358, beta: 0.2409607, relative difference: 4.061319e-05
+#> Iteration: 30, ELBO: -40015.59, tau: 0.006005393, beta: 0.250586, relative difference: 3.284857e-05
+#> Iteration: 31, ELBO: -40014.25, tau: 0.006005325, beta: 0.2592651, relative difference: 3.364351e-05
+#> Iteration: 32, ELBO: -40013.13, tau: 0.006005315, beta: 0.2681352, relative difference: 2.775883e-05
+#> Iteration: 33, ELBO: -40011.92, tau: 0.006005257, beta: 0.2762826, relative difference: 3.048414e-05
+#> Iteration: 34, ELBO: -40011.08, tau: 0.006005261, beta: 0.2848773, relative difference: 2.088641e-05
+#> Iteration: 35, ELBO: -40010.21, tau: 0.006005147, beta: 0.2917749, relative difference: 2.181973e-05
+#> Iteration: 36, ELBO: -40009.22, tau: 0.006005101, beta: 0.2982882, relative difference: 2.465201e-05
+#> Iteration: 37, ELBO: -40008.26, tau: 0.006005108, beta: 0.3051575, relative difference: 2.395932e-05
+#> Iteration: 38, ELBO: -40007.56, tau: 0.006005103, beta: 0.3120786, relative difference: 1.760662e-05
+#> Iteration: 39, ELBO: -40006.75, tau: 0.006005014, beta: 0.3176339, relative difference: 2.01958e-05
+#> Iteration: 40, ELBO: -40006.13, tau: 0.006005005, beta: 0.3232548, relative difference: 1.553132e-05
+#> Iteration: 41, ELBO: -40005.58, tau: 0.006004947, beta: 0.3279908, relative difference: 1.376891e-05
+#> Iteration: 42, ELBO: -40004.82, tau: 0.006004897, beta: 0.3320841, relative difference: 1.895344e-05
+#> Iteration: 43, ELBO: -40004.12, tau: 0.006004923, beta: 0.3367596, relative difference: 1.740847e-05
+#> Iteration: 44, ELBO: -40003.7, tau: 0.006004916, beta: 0.3412813, relative difference: 1.061965e-05
+#> Iteration: 45, ELBO: -40003.24, tau: 0.00600485, beta: 0.3446567, relative difference: 1.146337e-05
+#> Iteration: 46, ELBO: -40002.64, tau: 0.006004842, beta: 0.3480187, relative difference: 1.497478e-05
+#> Iteration: 47, ELBO: -40002.19, tau: 0.006004861, beta: 0.3517664, relative difference: 1.122406e-05
+#> Iteration: 48, ELBO: -40001.6, tau: 0.006004837, beta: 0.3550417, relative difference: 1.486838e-05
+#> Iteration: 49, ELBO: -40001.2, tau: 0.006004866, beta: 0.3588804, relative difference: 9.788869e-06
+#> After 49 iterations stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -172,7 +180,7 @@ Y_hat <- predict(mfairObject) + Y_mean
 # Root-mean-square-error
 rmse <- sqrt(mean(Y_obs - Y_hat)^2)
 rmse
-#> [1] 0.05206072
+#> [1] 0.0515441
 
 # Standard deviation of Y_obs
 sd(as.vector(Y_obs))
