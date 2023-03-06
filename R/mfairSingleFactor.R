@@ -101,7 +101,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
+    fitted_tree <- rpart::rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list
@@ -215,7 +215,7 @@ fitSFFully <- function(Y, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
+    fitted_tree <- rpart::rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list
