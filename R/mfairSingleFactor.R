@@ -31,8 +31,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
   tau_mat <- matrix(init@tau, N, M)
   tau_mat[!obs_indices] <- 0
 
-  ELBO_old <- 0
-  ELBOs <- NULL
+  ELBO_old <- getELBO(Y, init)
 
   # Stage 1
   for (iter in 1:iter_max) {
@@ -57,26 +56,28 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     # init@beta <- ifelse(init@beta < 1e-8, 1e-8, init@beta)
 
     ELBO_current <- getELBO(Y, init)
-    gap <- abs(ELBO_current - ELBO_old) / abs(ELBO_old)
-    if (gap < tol_stage1) {
-      break
+    if (ELBO_current < ELBO_old) {
+      warning("ELBO decreasing!\n")
     }
-    if (iter > 1 && ELBO_current < ELBO_old) {
-      message("ELBO decreasing!")
-    }
-    ELBO_old <- ELBO_current
-    ELBOs <- c(ELBOs, ELBO_current)
 
+    gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_inner) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
         sep = ""
       )
     }
+    if (gap < tol_stage1) {
+      break
+    }
+
+    ELBO_old <- ELBO_current
   }
+
   if (verbose_inner) {
     cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
   }
+
   # Stage 2
   gb_data <- data.frame(r = init@mu, X)
   for (iter in 1:iter_max) {
@@ -110,22 +111,22 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     }
 
     ELBO_current <- getELBO(Y, init)
-    gap <- abs(ELBO_current - ELBO_old) / abs(ELBO_old)
-    if (gap < tol_stage2) {
-      break
+    if (ELBO_current < ELBO_old) {
+      warning("ELBO decreasing!\n")
     }
-    if (iter > 1 && ELBO_current < ELBO_old) {
-      message("ELBO decreasing!")
-    }
-    ELBO_old <- ELBO_current
-    ELBOs <- c(ELBOs, ELBO_current)
 
+    gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_inner) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
         ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
+    if (gap < tol_stage2) {
+      break
+    }
+
+    ELBO_old <- ELBO_current
   }
 
   if (verbose_inner) {
@@ -157,8 +158,7 @@ fitSFFully <- function(Y, X, init,
   N <- nrow(Y)
   M <- ncol(Y)
 
-  ELBO_old <- 0
-  ELBOs <- NULL
+  ELBO_old <- getELBO(Y, init)
 
   # Stage 1
   for (iter in 1:iter_max) {
@@ -176,23 +176,24 @@ fitSFFully <- function(Y, X, init,
     # init@beta <- ifelse(init@beta < 1e-8, 1e-8, init@beta)
 
     ELBO_current <- getELBO(Y, init)
-    gap <- abs(ELBO_current - ELBO_old) / abs(ELBO_old)
-    if (gap < tol_stage1) {
-      break
+    if (ELBO_current < ELBO_old) {
+      warning("ELBO decreasing!\n")
     }
-    if (iter > 1 && ELBO_current < ELBO_old) {
-      message("ELBO decreasing!")
-    }
-    ELBO_old <- ELBO_current
-    ELBOs <- c(ELBOs, ELBO_current)
 
+    gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_inner) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
         sep = ""
       )
     }
+    if (gap < tol_stage1) {
+      break
+    }
+
+    ELBO_old <- ELBO_current
   }
+
   if (verbose_inner) {
     cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
   }
@@ -224,22 +225,22 @@ fitSFFully <- function(Y, X, init,
     }
 
     ELBO_current <- getELBO(Y, init)
-    gap <- abs(ELBO_current - ELBO_old) / abs(ELBO_old)
-    if (gap < tol_stage2) {
-      break
+    if (ELBO_current < ELBO_old) {
+      warning("ELBO decreasing!\n")
     }
-    if (iter > 1 && ELBO_current < ELBO_old) {
-      message("ELBO decreasing!")
-    }
-    ELBO_old <- ELBO_current
-    ELBOs <- c(ELBOs, ELBO_current)
 
+    gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_inner) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
         ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
+    if (gap < tol_stage2) {
+      break
+    }
+
+    ELBO_old <- ELBO_current
   }
 
   if (verbose_inner) {
