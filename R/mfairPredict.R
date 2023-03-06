@@ -12,7 +12,7 @@
 setMethod(
   f = "predict",
   signature = "MFAIR",
-  definition = function(object) {
+  definition = function(object, which_factor = c(1:object@K)) {
     # Check Y
     if (object@Y_missing == FALSE) {
       message("The main data matrix Y has no missing entries!")
@@ -23,7 +23,7 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = object@Z %*% t(object@W))
+    return(Y_hat = object@Z[, which_factor] %*% t(object@W[, which_factor]))
   }
 )
 
