@@ -68,8 +68,8 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     ELBOs <- c(ELBOs, ELBO_current)
 
     if (verbose_inner) {
-      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", tau,
-        ", beta: ", beta, ", difference: ", gap, "\n",
+      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
+        ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
@@ -121,8 +121,8 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     ELBOs <- c(ELBOs, ELBO_current)
 
     if (verbose_inner) {
-      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", tau,
-        ", beta: ", beta, ", difference: ", gap, "\n",
+      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
+        ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
@@ -187,8 +187,8 @@ fitSFFully <- function(Y, X, init,
     ELBOs <- c(ELBOs, ELBO_current)
 
     if (verbose_inner) {
-      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", tau,
-        ", beta: ", beta, ", difference: ", gap, "\n",
+      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
+        ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
@@ -235,8 +235,8 @@ fitSFFully <- function(Y, X, init,
     ELBOs <- c(ELBOs, ELBO_current)
 
     if (verbose_inner) {
-      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", tau,
-        ", beta: ", beta, ", difference: ", gap, "\n",
+      cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
+        ", beta: ", init@beta, ", difference: ", gap, "\n",
         sep = ""
       )
     }
