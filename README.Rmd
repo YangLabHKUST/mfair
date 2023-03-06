@@ -68,12 +68,23 @@ Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
 epsilon <- sqrt(Y_var * (1 / PVE_Y - 1))
 Y_obs <- Y + matrix(rnorm(N * M, sd = epsilon), nrow = N, ncol = M)
+Y_mean <- mean(Y_obs)
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject)
+
+# Prediction based on the low-rank approximation
+Y_hat <- predict(mfairObject) + Y_mean
+
+# Root-mean-square-error
+rmse <- sqrt(mean(Y_obs - Y_hat)^2)
+rmse
+
+# Standard deviation of Y_obs
+sd(as.vector(Y_obs))
 ```
 
 ## Development
