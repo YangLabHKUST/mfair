@@ -38,7 +38,7 @@ appendMFAIR <- function(object, object_sf) {
 #'
 updateMFAIR <- function(object, object_sf, k) {
   # Update the information about the k-factor
-  object@Z[, k] <- object_sf
+  object@Z[, k] <- object_sf@mu
   object@a_sq[, k] <- object_sf@a_sq
   object@W[, k] <- object_sf@nu
   object@b_sq[, k] <- object_sf@b_sq

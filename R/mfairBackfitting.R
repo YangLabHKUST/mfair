@@ -49,7 +49,7 @@ fitBack <- function(object,
       for (k in 1:object@K) {
         # The residual (low-rank approximation using all factors but k-th)
         R <- object@Y - predict(object, which_factor = -k)
-        mfairSF <- new(
+        mfair_sf <- new(
           Class = "MFAIRSingleFactor",
           Y_missing = object@Y_missing,
           n_obs = object@n_obs,
@@ -63,13 +63,13 @@ fitBack <- function(object,
           tree_list = object@tree_lists[[k]]
         )
 
-        mfairSF <- fitSFMissing(R, obs_indices, object@X, mfairSF,
+        mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
         )
 
-        object <- updateMFAIR(object, mfairSF, k)
+        object <- updateMFAIR(object, mfair_sf, k)
 
         if (verbose_bf_inner) {
           cat(
@@ -99,7 +99,7 @@ fitBack <- function(object,
       for (k in 1:object@K) {
         # The residual (low-rank approximation using all factors but k-th)
         R <- object@Y - predict(object, which_factor = -k)
-        mfairSF <- new(
+        mfair_sf <- new(
           Class = "MFAIRSingleFactor",
           Y_missing = object@Y_missing,
           n_obs = object@n_obs,
@@ -113,13 +113,13 @@ fitBack <- function(object,
           tree_list = object@tree_lists[[k]]
         )
 
-        mfairSF <- fitSFFully(R, object@X, mfairSF,
+        mfair_sf <- fitSFFully(R, object@X, mfair_sf,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
         )
 
-        object <- updateMFAIR(object, mfairSF, k)
+        object <- updateMFAIR(object, mfair_sf, k)
 
         if (verbose_bf_inner) {
           cat(
