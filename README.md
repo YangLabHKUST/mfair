@@ -63,7 +63,8 @@ Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
 epsilon <- sqrt(Y_var * (1 / PVE_Y - 1))
 Y_obs <- Y + matrix(rnorm(N * M, mean = 0, sd = epsilon),
-                    nrow = N, ncol = M)
+  nrow = N, ncol = M
+)
 Y_mean <- mean(Y_obs)
 
 # Create MFAIR object
