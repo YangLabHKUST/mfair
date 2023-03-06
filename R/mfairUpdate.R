@@ -6,7 +6,7 @@
 #' @return MFAIR object containing the information about the new fitted single factor.
 #' @export
 #'
-appendMFAIR <-function(object, object_sf){
+appendMFAIR <- function(object, object_sf) {
   # Save the information about the fitted single factor MFAI model
   object@Z <- cbind(object@Z, object_sf@mu)
   object@a_sq <- cbind(object@a_sq, object_sf@a_sq)
@@ -36,7 +36,7 @@ appendMFAIR <-function(object, object_sf){
 #' @return MFAIR object containing the information about the new fitted single factor.
 #' @export
 #'
-updateMFAIR <-function(object, object_sf, k){
+updateMFAIR <- function(object, object_sf, k) {
   # Update the information about the k-factor
   object@Z[, k] <- object_sf
   object@a_sq[, k] <- object_sf@a_sq
@@ -53,4 +53,3 @@ updateMFAIR <-function(object, object_sf, k){
 
   return(object)
 }
-

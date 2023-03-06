@@ -65,7 +65,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_loop) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, ".\n",
         sep = ""
       )
     }
@@ -120,7 +120,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_loop) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, ".\n",
         sep = ""
       )
     }
@@ -187,7 +187,7 @@ fitSFFully <- function(Y, X, init,
     gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_loop) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, ".\n",
         sep = ""
       )
     }
@@ -236,7 +236,7 @@ fitSFFully <- function(Y, X, init,
     gap <- abs((ELBO_current - ELBO_old) / ELBO_old)
     if (verbose_loop) {
       cat("Iteration: ", iter, ", ELBO: ", ELBO_current, ", tau: ", init@tau,
-        ", beta: ", init@beta, ", relative difference: ", gap, "\n",
+        ", beta: ", init@beta, ", relative difference: ", gap, ".\n",
         sep = ""
       )
     }

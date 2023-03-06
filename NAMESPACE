@@ -2,6 +2,7 @@
 
 export(appendMFAIR)
 export(createMFAIR)
+export(fitBack)
 export(fitGreedy)
 export(fitSFFully)
 export(fitSFMissing)
