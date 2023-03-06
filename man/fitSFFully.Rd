@@ -13,7 +13,8 @@ fitSFFully(
   iter_max = 5000,
   tol_stage1 = 0.1,
   tol_stage2 = 1e-05,
-  verbose_inner = TRUE,
+  verbose = TRUE,
+  verbose_loop = TRUE,
   save_tree_list = TRUE
 )
 }
@@ -34,7 +35,9 @@ fitSFFully(
 
 \item{tol_stage2}{Numeric. Convergence criterion in the first step.}
 
-\item{verbose_inner}{Logical. Whether to display the detailed information when fitting the model.}
+\item{verbose}{Logical. Whether to display the detailed information.}
+
+\item{verbose_loop}{Logical. Whether to display the detailed information when looping.}
 
 \item{save_tree_list}{Logical. Whether to save the tree list.}
 }

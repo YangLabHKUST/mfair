@@ -7,7 +7,7 @@
 #' @param minbucket Integer. Parameter for the gradient boosting part.
 #' @param maxdepth Integer. Parameter for the gradient boosting part.
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
-#' @param verbose_outer Logical. Whether to display the detailed information when fitting the model.
+#' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
 #' @param ... See fitSF()
 #'
@@ -16,7 +16,7 @@
 fitGreedy <- function(object, K_max = NULL,
                       learning_rate = 0.1,
                       minsplit = 10, minbucket = round(minsplit / 3), maxdepth = 2,
-                      tol_snr = 2e-3, verbose_outer = TRUE,
+                      tol_snr = 2e-3, verbose_greedy = TRUE,
                       save_init = FALSE, ...) {
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
@@ -75,11 +75,11 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Whether to stop the greedy algorithm
     if ((var(as.vector(Y_k)) * mfairSF@tau) > tol_snr) {
-      if (verbose_outer) {
+      if (verbose_greedy) {
         message("Factor ", k, " retained!")
       }
     } else {
-      if (verbose_outer) {
+      if (verbose_greedy) {
         message("Factor ", k, " zeroed out!")
       }
       break

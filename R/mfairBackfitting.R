@@ -1,0 +1,4 @@
+fitBack <- function(object) {
+
+
+}

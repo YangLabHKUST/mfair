@@ -12,7 +12,7 @@ fitGreedy(
   minbucket = round(minsplit/3),
   maxdepth = 2,
   tol_snr = 0.002,
-  verbose_outer = TRUE,
+  verbose_greedy = TRUE,
   save_init = FALSE,
   ...
 )
@@ -32,7 +32,7 @@ fitGreedy(
 
 \item{tol_snr}{Numeric. The convergence criterion which determine the inferred rank of data.}
 
-\item{verbose_outer}{Logical. Whether to display the detailed information when fitting the model.}
+\item{verbose_greedy}{Logical. Whether to display the detailed information when fitting the model.}
 
 \item{save_init}{Logical. Whether to save the initialization of the model.}
 
