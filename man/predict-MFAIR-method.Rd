@@ -2,18 +2,18 @@
 % Please edit documentation in R/mfairPredict.R
 \name{predict,MFAIR-method}
 \alias{predict,MFAIR-method}
-\title{Predict function for MFAIR object.}
+\title{Prediction function for MFAIR object.}
 \usage{
 \S4method{predict}{MFAIR}(object)
 }
 \arguments{
-\item{MFAIR}{a model object for which prediction is desired.}
+\item{MFAIR}{A model object for which prediction is desired.}
 }
 \value{
 Predicted matrix with the same dimension as that of Y.
 }
 \description{
-Predict function for MFAIR object.
+Prediction function for MFAIR object.
 }
 \examples{
 mfairObject <- createMFAIR(Y, X)

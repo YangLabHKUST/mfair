@@ -2,16 +2,16 @@
 % Please edit documentation in R/mfairPredict.R
 \name{predict,MFAIRSingleFactor-method}
 \alias{predict,MFAIRSingleFactor-method}
-\title{Predict function for MFAIRSingleFactor object.}
+\title{Prediction function for MFAIRSingleFactor object.}
 \usage{
 \S4method{predict}{MFAIRSingleFactor}(object)
 }
 \arguments{
-\item{MFAIRSingleFactor}{MFAIRSingleFactor object.}
+\item{MFAIRSingleFactor}{A model object for which prediction is desired.}
 }
 \value{
 Predicted matrix with the same dimension as that of Y.
 }
 \description{
-Predict function for MFAIRSingleFactor object.
+Prediction function for MFAIRSingleFactor object.
 }

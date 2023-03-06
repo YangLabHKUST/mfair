@@ -1,6 +1,6 @@
-#' Predict function for MFAIR object.
+#' Prediction function for MFAIR object.
 #'
-#' @param MFAIR a model object for which prediction is desired.
+#' @param MFAIR A model object for which prediction is desired.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
@@ -27,9 +27,9 @@ setMethod(
   }
 )
 
-#' Predict function for MFAIRSingleFactor object.
+#' Prediction function for MFAIRSingleFactor object.
 #'
-#' @param MFAIRSingleFactor MFAIRSingleFactor object.
+#' @param MFAIRSingleFactor A model object for which prediction is desired.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
@@ -43,6 +43,6 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = as, matrix(object@mu) %*% t(object@nu))
+    return(Y_hat = as.matrix(object@mu) %*% t(object@nu))
   }
 )
