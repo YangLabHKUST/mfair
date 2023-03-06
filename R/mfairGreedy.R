@@ -49,7 +49,7 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart.control(minsplit = minsplit, minbucket = minbucket, maxdepth = maxdepth)
+  object@tree_parameters <- rpart::rpart.control(minsplit = minsplit, minbucket = minbucket, maxdepth = maxdepth)
 
   # Residual in the first step is Y itself
   R <- object@Y
@@ -65,9 +65,9 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Fit the single factor MFAI model
     if (object@Y_missing) {
-      mfairSF <- fitSFMissing(R, obs_indices, object@X, init, object@learning_rate, rpart_control = object@tree_parameters, ...)
+      mfairSF <- fitSFMissing(R, obs_indices, object@X, init, object@learning_rate, tree_parameters = object@tree_parameters, ...)
     } else {
-      mfairSF <- fitSFFully(R, object@X, init, object@learning_rate, rpart_control = object@tree_parameters, ...)
+      mfairSF <- fitSFFully(R, object@X, init, object@learning_rate, tree_parameters = object@tree_parameters, ...)
     }
 
     # Predict Y based on one pair of loading/factor

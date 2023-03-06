@@ -5,7 +5,7 @@
 #' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
 #' @param obs_indices Indices of the observed entries in the main data matrix.
 #' @param learning_rate Numeric. Parameter for the gradient boosting part.
-#' @param rpart_control A list containing the parameters for the gradient boosting part.
+#' @param tree_parameters A list containing the parameters for the gradient boosting part.
 #' @param iter_max Integer. Maximum iterations allowed.
 #' @param tol_stage1 Numeric. Convergence criterion in the first step.
 #' @param tol_stage2 Numeric. Convergence criterion in the first step.
@@ -17,7 +17,7 @@
 #'
 
 fitSFMissing <- function(Y, obs_indices, X, init,
-                         learning_rate, rpart_control,
+                         learning_rate, tree_parameters,
                          iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
                          verbose_inner = TRUE, save_tree_list = TRUE) {
   N <- nrow(Y)
@@ -101,7 +101,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart(r ~ ., data = gb_data, control = rpart_control)
+    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list
@@ -140,7 +140,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 #' @param X A data.frame containing the auxiliary information.
 #' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
 #' @param learning_rate Numeric. Parameter for the gradient boosting part.
-#' @param rpart_control A list containing the parameters for the gradient boosting part.
+#' @param tree_parameters A list containing the parameters for the gradient boosting part.
 #' @param iter_max Integer. Maximum iterations allowed.
 #' @param tol_stage1 Numeric. Convergence criterion in the first step.
 #' @param tol_stage2 Numeric. Convergence criterion in the first step.
@@ -151,7 +151,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 #' @export
 #'
 fitSFFully <- function(Y, X, init,
-                       learning_rate, rpart_control,
+                       learning_rate, tree_parameters,
                        iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
                        verbose_inner = TRUE, save_tree_list = TRUE) {
   N <- nrow(Y)
@@ -215,7 +215,7 @@ fitSFFully <- function(Y, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart(r ~ ., data = gb_data, control = rpart_control)
+    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list

@@ -10,7 +10,7 @@ fitSFMissing(
   X,
   init,
   learning_rate,
-  rpart_control,
+  tree_parameters,
   iter_max = 5000,
   tol_stage1 = 0.1,
   tol_stage2 = 1e-05,
@@ -29,7 +29,7 @@ fitSFMissing(
 
 \item{learning_rate}{Numeric. Parameter for the gradient boosting part.}
 
-\item{rpart_control}{A list containing the parameters for the gradient boosting part.}
+\item{tree_parameters}{A list containing the parameters for the gradient boosting part.}
 
 \item{iter_max}{Integer. Maximum iterations allowed.}
 
