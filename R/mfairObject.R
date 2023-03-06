@@ -56,8 +56,8 @@ setClass(
 
   # Assign the default prototypes
   prototype = list(
-    project = "MFAIR",
-    K_max = 1L
+    K_max = 1L,
+    project = "MFAIR"
   )
 )
 
@@ -157,7 +157,7 @@ setClass(
 
   # Assign the default prototypes
   prototype = list(
-    project = "MFAIRSingleFactor",
-    tree_list = list()
+    tree_list = list(),
+    project = "MFAIRSingleFactor"
   )
 )

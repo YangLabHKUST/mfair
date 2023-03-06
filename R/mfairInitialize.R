@@ -17,19 +17,19 @@ initSF <- function(Y, Y_missing, n_obs) {
   if (Y_missing) {
     a_sq <- rep(1, N)
     b_sq <- rep(1, M)
-    tau <- 2 / var(as.vector(Y), na.rm = TRUE)
   } else {
     a_sq <- 1
     b_sq <- 1
-    tau <- 2 / var(as.vector(Y))
   }
 
+  tau <- 2 / var(as.vector(Y), na.rm = TRUE)
   beta <- 2 / var(mu)
   FX <- rep(0.0, N)
 
   object <- new(
+    Class = "MFAIRSingleFactor",
     Y_missing = Y_missing,
-    n_obs = n_obs,
+    n_obs = as.integer(n_obs),
     mu = mu,
     a_sq = a_sq,
     nu = nu,
