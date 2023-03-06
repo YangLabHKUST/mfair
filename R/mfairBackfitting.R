@@ -17,7 +17,7 @@
 fitBack <- function(object,
                     learning_rate = 0.1,
                     minsplit = 10, minbucket = round(minsplit / 3), maxdepth = 2,
-                    iter_max_bf = 5000, tol_bf = 1e-3,
+                    iter_max_bf = 5000, tol_bf = 0.01,
                     verbose_bf_inner = TRUE, verbose_bf_outer = TRUE, ...) {
   # Check K
   if (object@K == 1) {
