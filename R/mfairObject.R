@@ -113,6 +113,7 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     a_sq = a_sq,
     W = matrix(nrow = M, ncol = 0),
     b_sq = b_sq,
+    FX = matrix(nrow = N, ncol = 0),
     project = project
   )
 
