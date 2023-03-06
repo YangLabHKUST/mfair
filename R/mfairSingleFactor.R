@@ -1,10 +1,16 @@
-#' Fit the single factor MFAI model.
+#' Fit the single factor MFAI model with partially observed main data matrix.
 #'
 #' @param Y Main data matrix.
 #' @param X A data.frame containing the auxiliary information.
 #' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
+#' @param obs_indices Indices of the observed entries in the main data matrix.
+#' @param learning_rate Numeric. Parameter for the gradient boosting part.
 #' @param rpart_control A list containing the parameters for the gradient boosting part.
-#' @param ... see fitSFFully() and fitSFMissing()
+#' @param iter_max Integer. Maximum iterations allowed.
+#' @param tol_stage1 Numeric. Convergence criterion in the first step.
+#' @param tol_stage2 Numeric. Convergence criterion in the first step.
+#' @param verbose_inner Logical. Whether to display the detailed information when fitting the model.
+#' @param save_tree_list Logical. Whether to save the tree list.
 #'
 #' @return A MFAIRSingleFactor object containing the information about the fitted single factor MFAI model.
 #' @export
@@ -129,6 +135,21 @@ fitSFMissing <- function(Y, obs_indices, X, init,
   return(init)
 }
 
+#' Fit the single factor MFAI model with fully observed main data matrix.
+#' @param Y Main data matrix.
+#' @param X A data.frame containing the auxiliary information.
+#' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
+#' @param learning_rate Numeric. Parameter for the gradient boosting part.
+#' @param rpart_control A list containing the parameters for the gradient boosting part.
+#' @param iter_max Integer. Maximum iterations allowed.
+#' @param tol_stage1 Numeric. Convergence criterion in the first step.
+#' @param tol_stage2 Numeric. Convergence criterion in the first step.
+#' @param verbose_inner Logical. Whether to display the detailed information when fitting the model.
+#' @param save_tree_list Logical. Whether to save the tree list.
+#'
+#' @return A MFAIRSingleFactor object containing the information about the fitted single factor MFAI model.
+#' @export
+#'
 fitSFFully <- function(Y, X, init,
                        learning_rate, rpart_control,
                        iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,

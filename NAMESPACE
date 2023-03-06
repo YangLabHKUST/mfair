@@ -2,6 +2,7 @@
 
 export(createMFAIR)
 export(fitGreedy)
+export(fitSFFully)
 export(fitSFMissing)
 export(getELBO)
 export(initSF)

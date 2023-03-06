@@ -21,7 +21,6 @@
 #' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
 #' @slot tree_parameters A list of options that control details of the rpart algorithm.
 #' @slot project Character. Name of the project (for record keeping).
-#' @slot  .
 #'
 #' @return MFAIR class.
 #' @export
