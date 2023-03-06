@@ -100,7 +100,7 @@ fitGreedy <- function(object, K_max = NULL,
     object@FX <- cbind(object@FX, mfairSF@FX)
 
     # Update the inferred rank of the data
-    object@K <- object@K + 1
+    object@K <- as.integer(object@K + 1)
 
     # Save the initialization
     if (save_init) {
