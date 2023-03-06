@@ -73,7 +73,7 @@ Y_obs <- Y + matrix(rnorm(N * M, sd = epsilon), nrow = N, ncol = M)
 mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
 
 # Fit the MFAI model
-# mfairObject <- fitGreedy(mfairObject)
+mfairObject <- fitGreedy(mfairObject)
 ```
 
 ## Development
