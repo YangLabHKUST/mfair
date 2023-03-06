@@ -34,7 +34,7 @@ devtools::install_github("YangLabHKUST/mfair")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r example1}
 set.seed(20230306)
 library(mfair)
 library(MASS)
@@ -80,18 +80,41 @@ Y_mean <- mean(Y_obs)
 mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 
 # Fit the MFAI model
-mfairObject <- fitGreedy(mfairObject)
+mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject) + Y_mean
 
 # Root-mean-square-error
-rmse <- sqrt(mean(Y_obs - Y_hat)^2)
+rmse <- sqrt(mean((Y_obs - Y_hat)^2))
 rmse
-
-# Standard deviation of Y_obs
-sd(as.vector(Y_obs))
 ```
+
+`mfair` can also handle the matrix with missing entries:
+```{r example2}
+# Split the data into the training set and test set
+n_all <- N * M
+training_ratio <- 0.5
+train_set <- sample(1:n_all, n_all * training_ratio, replace = FALSE)
+Y_train <- Y_test <- Y_obs
+Y_train[-train_set] <- NA
+Y_test[train_set] <- NA
+train_mean <- mean(Y_train, na.rm = TRUE)
+
+# Create MFAIR object
+mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
+
+# Fit the MFAI model
+mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
+
+# Prediction based on the low-rank approximation
+Y_hat <- predict(mfairObject) + train_mean
+
+# Root-mean-square-error
+rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
+rmse
+```
+
 
 ## Development
 
