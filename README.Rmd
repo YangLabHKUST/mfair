@@ -38,7 +38,6 @@ This is a basic example which shows you how to solve a common problem:
 set.seed(20230306)
 library(mfair)
 library(MASS)
-library(rpart)
 
 # Simulate data
 N <- 100
