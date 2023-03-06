@@ -27,7 +27,6 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 set.seed(20230306)
 library(mfair)
-library(MASS)
 
 # Simulate data
 # Set the data dimension and rank
@@ -50,10 +49,10 @@ FX2 <- (X1^2 - X2^2 + 2 * X1 * X2) / 10
 FX <- cbind(FX1, FX2)
 
 # Generate loadings
-beta1 <- var(FX1) * (1 / PVE_Z - 1)
-Z1 <- mvrnorm(n = 1, mu = FX1, Sigma = beta1 * diag(N))
-beta2 <- var(FX2) * (1 / PVE_Z - 1)
-Z2 <- mvrnorm(n = 1, mu = FX2, Sigma = beta2 * diag(N))
+sig1 <- var(FX1) * (1 / PVE_Z - 1)
+Z1 <- FX1 + rnorm(n = N, mean = 0, sd = sqrt(sig1))
+sig2 <- var(FX2) * (1 / PVE_Z - 1)
+Z2 <- FX2 + rnorm(n = N, mean = 0, sd = sqrt(sig2))
 Z <- cbind(Z1, Z2)
 
 # Generate factors
@@ -63,7 +62,8 @@ W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
 epsilon <- sqrt(Y_var * (1 / PVE_Y - 1))
-Y_obs <- Y + matrix(rnorm(N * M, sd = epsilon), nrow = N, ncol = M)
+Y_obs <- Y + matrix(rnorm(N * M, mean = 0, sd = epsilon),
+                    nrow = N, ncol = M)
 Y_mean <- mean(Y_obs)
 
 # Create MFAIR object
@@ -72,10 +72,10 @@ mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
 #> After 1 iterations stage 1 ends!
-#> After 44 iterations stage 2 ends!
+#> After 43 iterations stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations stage 1 ends!
-#> After 49 iterations stage 2 ends!
+#> After 40 iterations stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -85,7 +85,7 @@ Y_hat <- predict(mfairObject) + Y_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_obs - Y_hat)^2))
 rmse
-#> [1] 12.79798
+#> [1] 12.22526
 ```
 
 `mfair` can also handle the matrix with missing entries:
@@ -106,7 +106,7 @@ mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
 #> After 1 iterations stage 1 ends!
-#> After 68 iterations stage 2 ends!
+#> After 57 iterations stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations stage 1 ends!
 #> After 59 iterations stage 2 ends!
@@ -118,7 +118,7 @@ Y_hat <- predict(mfairObject) + train_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
 rmse
-#> [1] 13.52591
+#> [1] 12.8915
 ```
 
 ## Development
