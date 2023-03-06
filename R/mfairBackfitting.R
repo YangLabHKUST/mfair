@@ -63,7 +63,7 @@ fitBack <- function(object,
           tree_list = object@tree_lists[[k]]
         )
 
-        mfairSF <- fitSFMissing(R, obs_indices, object@X, init,
+        mfairSF <- fitSFMissing(R, obs_indices, object@X, mfairSF,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
@@ -113,7 +113,7 @@ fitBack <- function(object,
           tree_list = object@tree_lists[[k]]
         )
 
-        mfairSF <- fitSFFully(R, object@X, init,
+        mfairSF <- fitSFFully(R, object@X, mfairSF,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
