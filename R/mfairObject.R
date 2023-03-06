@@ -19,7 +19,7 @@
 #' @slot tree_lists A list of length K, containing K fitted tree lists and each list corresponding to function F_k(.) in the MFAI model.
 #' @slot initialization A list. Initialization of the fitted model.
 #' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
-#' @slot boosting_parameters A list of options that control details of the rpart algorithm.
+#' @slot tree_parameters A list of options that control details of the rpart algorithm.
 #' @slot project Character. Name of the project (for record keeping).
 #' @slot  .
 #'
@@ -50,7 +50,7 @@ setClass(
     tree_lists = "list",
     initialization = "list",
     learning_rate = "numeric",
-    boosting_parameters = "list",
+    tree_parameters = "list",
     project = "character"
   ),
 
@@ -108,7 +108,7 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     N = N,
     M = M,
     C = ncol(X),
-    K_max = K_max,
+    K_max = as.integer(K_max),
     K = 0L,
     Z = matrix(nrow = N, ncol = 0),
     a_sq = a_sq,

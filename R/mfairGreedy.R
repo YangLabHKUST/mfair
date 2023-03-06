@@ -25,10 +25,10 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set K_max
   if (!is.null(K_max)) {
-    object@K_max <- K_max
+    object@K_max <- as.integer(K_max)
   }
   # Check K_max
-  if (object@K_max > object@N || object@K_max > object@N) {
+  if (object@K_max > object@N || object@K_max > object@M) {
     warning("The maximum rank allowed can not be larger than the rank of the main data matrix!\n")
     object@K_max <- min(object@N, object@M)
     warning("Reset K_max = ", object@K_max, "!\n")
@@ -49,7 +49,7 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@boosting_parameters <- rpart.control(minsplit = minsplit, minbucket = minbucket, maxdepth = maxdepth)
+  object@tree_parameters <- rpart.control(minsplit = minsplit, minbucket = minbucket, maxdepth = maxdepth)
 
   # Residual in the first step is Y itself
   R <- object@Y
@@ -65,9 +65,9 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Fit the single factor MFAI model
     if (object@Y_missing) {
-      mfairSF <- fitSFMissing(R, obs_indices, object@X, init, object@learning_rate, rpart_control = object@boosting_parameters, ...)
+      mfairSF <- fitSFMissing(R, obs_indices, object@X, init, object@learning_rate, rpart_control = object@tree_parameters, ...)
     } else {
-      mfairSF <- fitSFFully(R, object@X, init, object@learning_rate, rpart_control = object@boosting_parameters, ...)
+      mfairSF <- fitSFFully(R, object@X, init, object@learning_rate, rpart_control = object@tree_parameters, ...)
     }
 
     # Predict Y based on one pair of loading/factor
