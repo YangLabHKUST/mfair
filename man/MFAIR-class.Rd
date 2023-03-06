@@ -51,7 +51,7 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{learning_rate}}{Numeric. The learning rate in the gradient boosting part.}
 
-\item{\code{boosting_parameters}}{A list of options that control details of the rpart algorithm.}
+\item{\code{tree_parameters}}{A list of options that control details of the rpart algorithm.}
 
 \item{\code{project}}{Character. Name of the project (for record keeping).}
 
