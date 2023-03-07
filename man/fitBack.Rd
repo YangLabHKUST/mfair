@@ -2,7 +2,7 @@
 % Please edit documentation in R/mfairBackfitting.R
 \name{fitBack}
 \alias{fitBack}
-\title{Fit the MFAI model using greedy algorithm.}
+\title{Fit the MFAI model using backfitting algorithm.}
 \usage{
 fitBack(
   object,
@@ -42,5 +42,5 @@ fitBack(
 An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
 }
 \description{
-Fit the MFAI model using greedy algorithm.
+Fit the MFAI model using backfitting algorithm.
 }

@@ -1,4 +1,4 @@
-#' Fit the MFAI model using greedy algorithm.
+#' Fit the MFAI model using backfitting algorithm.
 #'
 #' @param object MFAIR object.
 #' @param learning_rate Numeric. Parameter for the gradient boosting part.
