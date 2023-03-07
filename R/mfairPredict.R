@@ -6,10 +6,6 @@
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
 #'
-#' @examples
-#' mfairObject <- createMFAIR(Y, X)
-#' mfairObject <- fitGreedy(mfairObject)
-#' Y_hat <- predict(mfairObject)
 setMethod(
   f = "predict",
   signature = "MFAIR",

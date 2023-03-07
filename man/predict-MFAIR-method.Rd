@@ -17,8 +17,3 @@ Predicted matrix with the same dimension as that of Y.
 \description{
 Prediction function for MFAIR object.
 }
-\examples{
-mfairObject <- createMFAIR(Y, X)
-mfairObject <- fitGreedy(mfairObject)
-Y_hat <- predict(mfairObject)
-}
