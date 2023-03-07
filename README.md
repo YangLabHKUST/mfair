@@ -7,8 +7,9 @@
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on the paper MFAI. The name of the package `mfair` comes from **Matrix
-Factorization with Auxiliary Information in R**.
+on the paper [MFAI](https://arxiv.org/abs/2303.02566). The name of the
+package `mfair` comes from **Matrix Factorization with Auxiliary
+Information in R**.
 
 ## Installation
 
@@ -72,11 +73,11 @@ mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
-#> After 1 iterations stage 1 ends!
-#> After 43 iterations stage 2 ends!
+#> After 1 iterations Stage 1 ends!
+#> After 43 iterations Stage 2 ends!
 #> Factor 1 retained!
-#> After 1 iterations stage 1 ends!
-#> After 40 iterations stage 2 ends!
+#> After 1 iterations Stage 1 ends!
+#> After 40 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -106,11 +107,11 @@ mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
-#> After 1 iterations stage 1 ends!
-#> After 57 iterations stage 2 ends!
+#> After 1 iterations Stage 1 ends!
+#> After 57 iterations Stage 2 ends!
 #> Factor 1 retained!
-#> After 1 iterations stage 1 ends!
-#> After 59 iterations stage 2 ends!
+#> After 1 iterations Stage 1 ends!
+#> After 59 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -121,6 +122,18 @@ rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
 rmse
 #> [1] 12.8915
 ```
+
+For more documentation and examples, please visit our package
+[website](https://yanglabhkust.github.io/mfair/).
+
+## Citing this work
+
+If you find the `mfair` package or any of the source code in this
+repository useful for your work, please cite:
+
+> Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023). MFAI:
+> A scalable Bayesian matrix factorization approach to leveraging
+> auxiliary information. arXiv preprint arXiv:2303.02566.
 
 ## Development
 
