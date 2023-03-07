@@ -7,8 +7,8 @@
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on the paper [MFAI](https://arxiv.org/abs/2303.02566). The name of the
-package `mfair` comes from **Matrix Factorization with Auxiliary
+on the paper [MFAI](https://doi.org/10.48550/arXiv.2303.02566). The name
+of the package `mfair` comes from **Matrix Factorization with Auxiliary
 Information in R**.
 
 ## Installation
@@ -134,7 +134,7 @@ repository useful for your work, please cite:
 > Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023). MFAI:
 > A scalable Bayesian matrix factorization approach to leveraging
 > auxiliary information. arXiv preprint arXiv:2303.02566. URL:
-> <https://arxiv.org/abs/2303.02566>.
+> <https://doi.org/10.48550/arXiv.2303.02566>.
 
 ## Development
 
