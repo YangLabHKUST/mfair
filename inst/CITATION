@@ -6,7 +6,7 @@ citEntry(
   author   = personList(as.person("Zhiwei Wang"), as.person("Fa Zhang"), as.person("Cong Zheng"), as.person("Xianghong Hu"), as.person("Mingxuan Cai"), as.person("Can Yang")),
   journal  = "arXiv preprint arXiv:2303.02566",
   year     = "2023",
-  url      = "https://arxiv.org/abs/2303.02566",
+  url      = "https://doi.org/10.48550/arXiv.2303.02566",
   textVersion = paste(
     "Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023).",
     "MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information.",
