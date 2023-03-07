@@ -133,7 +133,8 @@ repository useful for your work, please cite:
 
 > Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023). MFAI:
 > A scalable Bayesian matrix factorization approach to leveraging
-> auxiliary information. arXiv preprint arXiv:2303.02566.
+> auxiliary information. arXiv preprint arXiv:2303.02566. URL:
+> <https://arxiv.org/abs/2303.02566>.
 
 ## Development
 
