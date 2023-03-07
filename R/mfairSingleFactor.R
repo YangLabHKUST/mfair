@@ -77,7 +77,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
   }
 
   if (verbose_sf) {
-    cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
+    cat("After ", iter, " iterations Stage 1 ends!\n", sep = "")
   }
 
   # Stage 2
@@ -132,7 +132,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
   }
 
   if (verbose_sf) {
-    cat("After ", iter, " iterations stage 2 ends!\n", sep = "")
+    cat("After ", iter, " iterations Stage 2 ends!\n", sep = "")
   }
 
   return(init)
@@ -199,7 +199,7 @@ fitSFFully <- function(Y, X, init,
   }
 
   if (verbose_sf) {
-    cat("After ", iter, " iterations stage 1 ends!\n", sep = "")
+    cat("After ", iter, " iterations Stage 1 ends!\n", sep = "")
   }
 
   # Stage 2
@@ -248,7 +248,7 @@ fitSFFully <- function(Y, X, init,
   }
 
   if (verbose_sf) {
-    cat("After ", iter, " iterations stage 2 ends!\n", sep = "")
+    cat("After ", iter, " iterations Stage 2 ends!\n", sep = "")
   }
 
   return(init)

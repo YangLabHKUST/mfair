@@ -11,7 +11,7 @@ fitBack(
   minbucket = round(minsplit/3),
   maxdepth = 2,
   iter_max_bf = 5000,
-  tol_bf = 0.001,
+  tol_bf = 0.01,
   verbose_bf_inner = TRUE,
   verbose_bf_outer = TRUE,
   ...
@@ -32,9 +32,9 @@ fitBack(
 
 \item{tol_bf}{Numeric. The convergence criterion.}
 
-\item{verbose_bf_inner}{Logical. Whether to display the detailed information when fitting the model.}
+\item{verbose_bf_inner}{Logical. Whether to display the detailed information during the inner loop.}
 
-\item{verbose_bf_outer}{Logical. Whether to display the detailed information when fitting the model.}
+\item{verbose_bf_outer}{Logical. Whether to display the detailed information during the outer loop.}
 
 \item{...}{}
 }

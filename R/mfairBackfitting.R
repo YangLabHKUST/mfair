@@ -7,8 +7,8 @@
 #' @param maxdepth Numeric. Parameter for the gradient boosting part.
 #' @param iter_max_bf Integer. Maximum iterations allowed.
 #' @param tol_bf Numeric. The convergence criterion.
-#' @param verbose_bf_inner Logical. Whether to display the detailed information when fitting the model.
-#' @param verbose_bf_outer Logical. Whether to display the detailed information when fitting the model.
+#' @param verbose_bf_inner Logical. Whether to display the detailed information during the inner loop.
+#' @param verbose_bf_outer Logical. Whether to display the detailed information during the outer loop.
 #' @param ...
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
@@ -38,111 +38,69 @@ fitBack <- function(object,
     maxdepth = maxdepth
   )
 
+  # Will be used for the partially observed matrix fitting
+  if (object@Y_missing) {
+    obs_indices <- !is.na(object@Y)
+  }
+
   tau <- object@tau
   beta <- object@beta
 
   # Begin backfitting algorithm
-  if (object@Y_missing) {
-    obs_indices <- !is.na(object@Y)
+  for (iter in 1:iter_max_bf) {
+    for (k in 1:object@K) {
+      # The residual (low-rank approximation using all factors but k-th)
+      R <- object@Y - predict(object, which_factor = -k)
+      mfair_sf <- new(
+        Class = "MFAIRSingleFactor",
+        Y_missing = object@Y_missing,
+        n_obs = object@n_obs,
+        mu = object@Z[, k],
+        a_sq = object@a_sq[, k],
+        nu = object@W[, k],
+        b_sq = object@b_sq[, k],
+        tau = object@tau[k],
+        beta = object@beta[k],
+        FX = object@FX[, k],
+        tree_list = object@tree_lists[[k]]
+      )
 
-    for (iter in 1:iter_max_bf) {
-      for (k in 1:object@K) {
-        # The residual (low-rank approximation using all factors but k-th)
-        R <- object@Y - predict(object, which_factor = -k)
-        mfair_sf <- new(
-          Class = "MFAIRSingleFactor",
-          Y_missing = object@Y_missing,
-          n_obs = object@n_obs,
-          mu = object@Z[, k],
-          a_sq = object@a_sq[, k],
-          nu = object@W[, k],
-          b_sq = object@b_sq[, k],
-          tau = object@tau[k],
-          beta = object@beta[k],
-          FX = object@FX[, k],
-          tree_list = object@tree_lists[[k]]
-        )
-
+      if (object@Y_missing) {
         mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
         )
-
-        object <- updateMFAIR(object, mfair_sf, k)
-
-        if (verbose_bf_inner) {
-          cat(
-            "Backfitting for ", k, "-th factor finished!\n",
-            sep = ""
-          )
-        }
-      }
-
-      tau_new <- object@tau
-      beta_new <- object@beta
-
-      gap <- mean(abs(tau_new - tau) / abs(tau)) + mean(abs(beta_new - beta) / abs(beta))
-      if (verbose_bf_outer) {
-        cat("Iteration: ", iter, ", relative difference of model parameters: ", gap, ".\n", sep = "")
-      }
-      if (gap < tol_bf) {
-        break
-      }
-
-      tau <- tau_new
-      beta <- beta_new
-    }
-    return(object)
-  } else {
-    for (iter in 1:iter_max_bf) {
-      for (k in 1:object@K) {
-        # The residual (low-rank approximation using all factors but k-th)
-        R <- object@Y - predict(object, which_factor = -k)
-        mfair_sf <- new(
-          Class = "MFAIRSingleFactor",
-          Y_missing = object@Y_missing,
-          n_obs = object@n_obs,
-          mu = object@Z[, k],
-          a_sq = object@a_sq[, k],
-          nu = object@W[, k],
-          b_sq = object@b_sq[, k],
-          tau = object@tau[k],
-          beta = object@beta[k],
-          FX = object@FX[, k],
-          tree_list = object@tree_lists[[k]]
-        )
-
+      } else {
         mfair_sf <- fitSFFully(R, object@X, mfair_sf,
           object@learning_rate,
           tree_parameters = object@tree_parameters,
           ...
         )
-
-        object <- updateMFAIR(object, mfair_sf, k)
-
-        if (verbose_bf_inner) {
-          cat(
-            "Backfitting for ", k, "-th factor finished!\n",
-            sep = ""
-          )
-        }
       }
+      object <- updateMFAIR(object, mfair_sf, k)
 
-      tau_new <- object@tau
-      beta_new <- object@beta
-
-      gap <- mean(abs(tau_new - tau) / abs(tau)) + mean(abs(beta_new - beta) / abs(beta))
-      if (verbose_bf_outer) {
-        cat("Iteration: ", iter, ", relative difference of model parameters: ", gap, ".\n", sep = "")
+      if (verbose_bf_inner) {
+        cat(
+          "Backfitting for ", k, "-th factor finished!\n",
+          sep = ""
+        )
       }
-      if (gap < tol_bf) {
-        break
-      }
-
-      tau <- tau_new
-      beta <- beta_new
     }
-    return(object)
+
+    tau_new <- object@tau
+    beta_new <- object@beta
+
+    gap <- mean(abs(tau_new - tau) / abs(tau)) + mean(abs(beta_new - beta) / abs(beta))
+    if (verbose_bf_outer) {
+      cat("Iteration: ", iter, ", relative difference of model parameters: ", gap, ".\n", sep = "")
+    }
+    if (gap < tol_bf) {
+      break
+    }
+
+    tau <- tau_new
+    beta <- beta_new
   }
+  return(object)
 }
