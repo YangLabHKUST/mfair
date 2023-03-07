@@ -1,0 +1,30 @@
+citHeader("To cite mfair in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "MFAI: A Scalable Bayesian Matrix Factorization Approach to Leveraging Auxiliary Information",
+  author   = personList(as.person("Zhiwei Wang"), as.person("Fa Zhang"), as.person("Cong Zheng"), as.person("Xianghong Hu"), as.person("Mingxuan Cai"), as.person("Can Yang")),
+  journal  = "arXiv preprint arXiv:2303.02566",
+  year     = "2023",
+  volume   = ,
+  number   = ,
+  pages    = ,
+  url      = "https://arxiv.org/abs/2303.02566",
+  textVersion = paste(
+    "Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023). MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information. arXiv preprint arXiv:2303.02566"
+  ),
+)
+
+citEntry(
+  entry    = "Manual",
+  title    = "mfair: Matrix Factorization with Auxiliary Information in R",
+  author   = personList(as.person("Zhiwei Wang")),
+  journal  = "arXiv preprint arXiv:2303.02566",
+  year     = "2023",
+  note     = "R package version 0.0.0.9000",
+  url      = "https://yanglabhkust.github.io/mfair/",
+  textVersion = paste(
+    "Kratzer, G. and Furrer, R. (2022). mfair: Matrix Factorization with Auxiliary Information in R. R package version 0.0.0.9000.
+    https://yanglabhkust.github.io/mfair/"
+  ),
+)
