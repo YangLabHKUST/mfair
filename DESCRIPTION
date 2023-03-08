@@ -1,10 +1,10 @@
 Package: mfair
-Title: What the Package Does (One Line, Title Case)
+Title: Matrix Factorization with Auxiliary Information in R
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Zhiwei", "Wang", , "zhiwei.wang@connect.ust.hk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-7682-0070"))
+Description: The package mfair implements the methods based on MFAI, which integrates gradient boosted trees in the probabilistic matrix factorization framework to effectively leverage auxiliary information.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
