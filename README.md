@@ -28,6 +28,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 set.seed(20230306)
 library(mfair)
+#> Loading required package: rpart
 
 # Simulate data
 # Set the data dimension and rank
@@ -126,7 +127,7 @@ rmse
 For more documentation and examples, please visit our package
 [website](https://yanglabhkust.github.io/mfair/).
 
-## Citing this work
+## Citing our work
 
 If you find the `mfair` package or any of the source code in this
 repository useful for your work, please cite:
