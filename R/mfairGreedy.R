@@ -1,5 +1,7 @@
 #' Fit the MFAI model using greedy algorithm.
 #'
+#' @importFrom rpart rpart.control
+#'
 #' @param object MFAIR object.
 #' @param K_max Integer. The maximum rank allowed in the MFAI model.
 #' @param learning_rate Numeric. Parameter for the gradient boosting part.
@@ -9,7 +11,7 @@
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
-#' @param ... See fitSF() and rpart::rpart.control()
+#' @param ... See fitSF().
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.
 #' @export
@@ -49,7 +51,7 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart::rpart.control(
+  object@tree_parameters <- rpart.control(
     minsplit = minsplit,
     minbucket = minbucket,
     maxdepth = maxdepth

@@ -8,6 +8,10 @@ initSF(Y, Y_missing, n_obs)
 }
 \arguments{
 \item{Y}{Main data matrix.}
+
+\item{Y_missing}{Logical. Whether the main data matrix is partially observed.}
+
+\item{n_obs}{Integer. Total number of observed entries.}
 }
 \value{
 MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.

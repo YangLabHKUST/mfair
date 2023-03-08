@@ -36,7 +36,7 @@ fitGreedy(
 
 \item{save_init}{Logical. Whether to save the initialization of the model.}
 
-\item{...}{See fitSF() and rpart::rpart.control()}
+\item{...}{See fitSF().}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.

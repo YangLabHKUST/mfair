@@ -1,5 +1,7 @@
 #' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
+#' @importFrom methods new
+#'
 #' @slot Y A matrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
 #' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.

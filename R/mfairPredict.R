@@ -26,7 +26,7 @@ setMethod(
 
 #' Prediction function for MFAIRSingleFactor object.
 #'
-#' @param MFAIRSingleFactor A model object for which prediction is desired.
+#' @param object A model object for which prediction is desired.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export

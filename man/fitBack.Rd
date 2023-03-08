@@ -36,7 +36,7 @@ fitBack(
 
 \item{verbose_bf_outer}{Logical. Whether to display the detailed information during the outer loop.}
 
-\item{...}{}
+\item{...}{See fitSF().}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.

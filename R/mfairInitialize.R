@@ -1,6 +1,12 @@
 #' Initialize the parameters for the single factor MAFI model.
 #'
+#' @importFrom stats rnorm var
+#' @importFrom methods new
+#'
+#' @param Y_missing Logical. Whether the main data matrix is partially observed.
+#' @param n_obs Integer. Total number of observed entries.
 #' @param Y Main data matrix.
+#'
 #' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
 #' @slot n_obs Integer. Total number of observed entries in Y.
 #'

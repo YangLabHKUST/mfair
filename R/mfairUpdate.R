@@ -1,6 +1,6 @@
 #' Append the fitted factor to the MFAIR object in the greedy algorithm.
 #'
-#' @param object An MFAIR object containing the first few factors.
+#' @param object An MFAIR object containing the information about the first few factors.
 #' @param object_sf An MFAIRSingleFactor needed to be appended.
 #'
 #' @return MFAIR object containing the information about the new fitted single factor.

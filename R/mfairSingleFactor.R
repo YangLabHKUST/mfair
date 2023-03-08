@@ -1,5 +1,7 @@
 #' Fit the single factor MFAI model with partially observed main data matrix.
 #'
+#' @importFrom rpart rpart
+#'
 #' @param Y Main data matrix.
 #' @param X A data.frame containing the auxiliary information.
 #' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
@@ -104,7 +106,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart::rpart(r ~ ., data = gb_data, control = tree_parameters)
+    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list
@@ -220,7 +222,7 @@ fitSFFully <- function(Y, X, init,
 
     # Gradient boosting
     gb_data$r <- init@mu - init@FX
-    fitted_tree <- rpart::rpart(r ~ ., data = gb_data, control = tree_parameters)
+    fitted_tree <- rpart(r ~ ., data = gb_data, control = tree_parameters)
     init@FX <- init@FX + learning_rate * predict(fitted_tree, gb_data)
 
     # save tree list

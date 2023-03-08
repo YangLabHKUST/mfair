@@ -1,5 +1,8 @@
 #' Fit the MFAI model using backfitting algorithm.
 #'
+#' @importFrom methods new
+#' @importFrom rpart rpart.control
+#'
 #' @param object MFAIR object.
 #' @param learning_rate Numeric. Parameter for the gradient boosting part.
 #' @param minsplit Numeric. Parameter for the gradient boosting part.
@@ -9,7 +12,7 @@
 #' @param tol_bf Numeric. The convergence criterion.
 #' @param verbose_bf_inner Logical. Whether to display the detailed information during the inner loop.
 #' @param verbose_bf_outer Logical. Whether to display the detailed information during the outer loop.
-#' @param ...
+#' @param ... See fitSF().
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
 #' @export
@@ -32,7 +35,7 @@ fitBack <- function(object,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart::rpart.control(
+  object@tree_parameters <- rpart.control(
     minsplit = minsplit,
     minbucket = minbucket,
     maxdepth = maxdepth

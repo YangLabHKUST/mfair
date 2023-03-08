@@ -7,7 +7,7 @@
 \S4method{predict}{MFAIRSingleFactor}(object)
 }
 \arguments{
-\item{MFAIRSingleFactor}{A model object for which prediction is desired.}
+\item{object}{A model object for which prediction is desired.}
 }
 \value{
 Predicted matrix with the same dimension as that of Y.
