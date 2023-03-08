@@ -1,2 +1,4 @@
+^renv$
+^renv\.lock$
 ^mfair\.Rproj$
 ^\.Rproj\.user$
