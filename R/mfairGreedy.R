@@ -85,10 +85,8 @@ fitGreedy <- function(object, K_max = NULL,
       mfair_sf <- do.call(
         what = "fitSFMissing",
         args = c(
-          Y = R,
-          obs_indices = obs_indices,
-          X = object@X,
-          init = mfair_sf,
+          Y = R, obs_indices = obs_indices,
+          X = object@X, init = init,
           learning_rate = object@learning_rate,
           tree_parameters = object@tree_parameters,
           sf_para
@@ -103,9 +101,7 @@ fitGreedy <- function(object, K_max = NULL,
       mfair_sf <- do.call(
         what = "fitSFFully",
         args = c(
-          Y = R,
-          X = object@X,
-          init = mfair_sf,
+          Y = R, X = object@X, init = init,
           learning_rate = object@learning_rate,
           tree_parameters = object@tree_parameters,
           sf_para

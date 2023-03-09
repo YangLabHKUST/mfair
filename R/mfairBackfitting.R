@@ -89,9 +89,7 @@ fitBack <- function(object,
         mfair_sf <- do.call(
           what = "fitSFMissing",
           args = c(
-            Y = R,
-            obs_indices = obs_indices,
-            X = object@X,
+            Y = R, obs_indices = obs_indices, X = object@X,
             init = mfair_sf,
             learning_rate = object@learning_rate,
             tree_parameters = object@tree_parameters,
@@ -107,8 +105,7 @@ fitBack <- function(object,
         mfair_sf <- do.call(
           what = "fitSFFully",
           args = c(
-            Y = R,
-            X = object@X,
+            Y = R, X = object@X,
             init = mfair_sf,
             learning_rate = object@learning_rate,
             tree_parameters = object@tree_parameters,
