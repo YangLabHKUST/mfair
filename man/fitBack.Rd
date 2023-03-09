@@ -39,7 +39,7 @@ fitBack(
 
 \item{verbose_bf_outer}{Logical. Whether to display the detailed information during the outer loop.}
 
-\item{mfair_sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSF() for details.}
+\item{sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.

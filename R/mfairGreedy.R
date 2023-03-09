@@ -8,18 +8,20 @@
 #' @param minsplit Integer. Parameter for the gradient boosting part.
 #' @param minbucket Integer. Parameter for the gradient boosting part.
 #' @param maxdepth Integer. Parameter for the gradient boosting part.
+#' @param other_tree_para A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
-#' @param ... See fitSF().
+#' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.
 #' @export
 fitGreedy <- function(object, K_max = NULL,
                       learning_rate = 0.1,
-                      minsplit = 10, minbucket = round(minsplit / 3), maxdepth = 2,
-                      tol_snr = 2e-3, verbose_greedy = TRUE,
-                      save_init = FALSE, ...) {
+                      minsplit = 10, minbucket = round(minsplit / 3),
+                      maxdepth = 2, other_tree_para = list(),
+                      tol_snr = 2e-3, verbose_greedy = TRUE, save_init = FALSE,
+                      sf_para = list()) {
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
     obs_indices <- !is.na(object@Y)
@@ -51,10 +53,19 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart.control(
-    minsplit = minsplit,
-    minbucket = minbucket,
-    maxdepth = maxdepth
+  # object@tree_parameters <- rpart.control(
+  #   minsplit = minsplit,
+  #   minbucket = minbucket,
+  #   maxdepth = maxdepth
+  # )
+  object@tree_parameters <- do.call(
+    what = "rpart.control",
+    args = c(
+      minsplit = minsplit,
+      minbucket = minbucket,
+      maxdepth = maxdepth,
+      other_tree_para
+    )
   )
 
   # Residual in the first step is Y itself
@@ -71,17 +82,40 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Fit the single factor MFAI model
     if (object@Y_missing) {
-      mfair_sf <- fitSFMissing(R, obs_indices, object@X, init,
-        object@learning_rate,
-        tree_parameters = object@tree_parameters,
-        ...
+      mfair_sf <- do.call(
+        what = "fitSFMissing",
+        args = c(
+          Y = R,
+          obs_indices = obs_indices,
+          X = object@X,
+          init = mfair_sf,
+          learning_rate = object@learning_rate,
+          tree_parameters = object@tree_parameters,
+          sf_para
+        )
       )
+      # mfair_sf <- fitSFMissing(R, obs_indices, object@X, init,
+      #   object@learning_rate,
+      #   tree_parameters = object@tree_parameters,
+      #   ...
+      # )
     } else {
-      mfair_sf <- fitSFFully(R, object@X, init,
-        object@learning_rate,
-        tree_parameters = object@tree_parameters,
-        ...
+      mfair_sf <- do.call(
+        what = "fitSFFully",
+        args = c(
+          Y = R,
+          X = object@X,
+          init = mfair_sf,
+          learning_rate = object@learning_rate,
+          tree_parameters = object@tree_parameters,
+          sf_para
+        )
       )
+      # mfair_sf <- fitSFFully(R, object@X, init,
+      #   object@learning_rate,
+      #   tree_parameters = object@tree_parameters,
+      #   ...
+      # )
     }
 
     # Predict Y based on one pair of loading/factor

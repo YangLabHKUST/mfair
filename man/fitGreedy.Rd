@@ -11,10 +11,11 @@ fitGreedy(
   minsplit = 10,
   minbucket = round(minsplit/3),
   maxdepth = 2,
+  other_tree_para = list(),
   tol_snr = 0.002,
   verbose_greedy = TRUE,
   save_init = FALSE,
-  ...
+  sf_para = list()
 )
 }
 \arguments{
@@ -30,13 +31,15 @@ fitGreedy(
 
 \item{maxdepth}{Integer. Parameter for the gradient boosting part.}
 
+\item{other_tree_para}{A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.}
+
 \item{tol_snr}{Numeric. The convergence criterion which determine the inferred rank of data.}
 
 \item{verbose_greedy}{Logical. Whether to display the detailed information when fitting the model.}
 
 \item{save_init}{Logical. Whether to save the initialization of the model.}
 
-\item{...}{See fitSF().}
+\item{sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.

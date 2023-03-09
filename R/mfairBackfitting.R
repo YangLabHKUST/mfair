@@ -13,7 +13,7 @@
 #' @param tol_bf Numeric. The convergence criterion.
 #' @param verbose_bf_inner Logical. Whether to display the detailed information during the inner loop.
 #' @param verbose_bf_outer Logical. Whether to display the detailed information during the outer loop.
-#' @param mfair_sf_para A list containing parameters for fitting the single factor MFAI model. See fitSF() for details.
+#' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
 #' @export
@@ -81,6 +81,11 @@ fitBack <- function(object,
       )
 
       if (object@Y_missing) {
+        # mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
+        #   object@learning_rate,
+        #   tree_parameters = object@tree_parameters,
+        #   ...
+        # )
         mfair_sf <- do.call(
           what = "fitSFMissing",
           args = c(
@@ -93,12 +98,12 @@ fitBack <- function(object,
             sf_para
           )
         )
-        # mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
+      } else {
+        # mfair_sf <- fitSFFully(R, object@X, mfair_sf,
         #   object@learning_rate,
         #   tree_parameters = object@tree_parameters,
         #   ...
         # )
-      } else {
         mfair_sf <- do.call(
           what = "fitSFFully",
           args = c(
@@ -110,11 +115,6 @@ fitBack <- function(object,
             sf_para
           )
         )
-        # mfair_sf <- fitSFFully(R, object@X, mfair_sf,
-        #   object@learning_rate,
-        #   tree_parameters = object@tree_parameters,
-        #   ...
-        # )
       }
       object <- updateMFAIR(object, mfair_sf, k)
 
