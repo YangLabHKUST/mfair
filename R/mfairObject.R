@@ -1,6 +1,5 @@
 #' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
-#' @importFrom methods new
 #'
 #' @slot Y A matrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
@@ -63,6 +62,8 @@ setClass(
 )
 
 #' Create the MFAIR object with main data matrix and auxiliary information.
+#'
+#' @importFrom methods new
 #'
 #' @param Y A matrix. The main data matrix of N samples and M features.
 #' @param X A data.frame. The auxiliary information data frame of N samples and C covariates.

@@ -141,6 +141,9 @@ fitSFMissing <- function(Y, obs_indices, X, init,
 }
 
 #' Fit the single factor MFAI model with fully observed main data matrix.
+#'
+#' @importFrom rpart rpart
+#'
 #' @param Y Main data matrix.
 #' @param X A data.frame containing the auxiliary information.
 #' @param init A MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.

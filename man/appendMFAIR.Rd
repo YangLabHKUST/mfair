@@ -7,7 +7,7 @@
 appendMFAIR(object, object_sf)
 }
 \arguments{
-\item{object}{An MFAIR object containing the first few factors.}
+\item{object}{An MFAIR object containing the information about the first few factors.}
 
 \item{object_sf}{An MFAIRSingleFactor needed to be appended.}
 }
