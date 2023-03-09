@@ -60,10 +60,12 @@ fitGreedy <- function(object, K_max = NULL,
   # )
   object@tree_parameters <- do.call(
     what = "rpart.control",
-    args = c(
-      minsplit = minsplit,
-      minbucket = minbucket,
-      maxdepth = maxdepth,
+    args = append(
+      list(
+        minsplit = minsplit,
+        minbucket = minbucket,
+        maxdepth = maxdepth
+      ),
       other_tree_para
     )
   )
@@ -84,11 +86,13 @@ fitGreedy <- function(object, K_max = NULL,
     if (object@Y_missing) {
       mfair_sf <- do.call(
         what = "fitSFMissing",
-        args = c(
-          Y = R, obs_indices = obs_indices,
-          X = object@X, init = init,
-          learning_rate = object@learning_rate,
-          tree_parameters = object@tree_parameters,
+        args = append(
+          list(
+            Y = R, obs_indices = obs_indices,
+            X = object@X, init = init,
+            learning_rate = object@learning_rate,
+            tree_parameters = object@tree_parameters
+          ),
           sf_para
         )
       )
@@ -100,10 +104,12 @@ fitGreedy <- function(object, K_max = NULL,
     } else {
       mfair_sf <- do.call(
         what = "fitSFFully",
-        args = c(
-          Y = R, X = object@X, init = init,
-          learning_rate = object@learning_rate,
-          tree_parameters = object@tree_parameters,
+        args = append(
+          list(
+            Y = R, X = object@X, init = init,
+            learning_rate = object@learning_rate,
+            tree_parameters = object@tree_parameters
+          ),
           sf_para
         )
       )

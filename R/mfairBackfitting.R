@@ -40,10 +40,12 @@ fitBack <- function(object,
   object@learning_rate <- learning_rate
   object@tree_parameters <- do.call(
     what = "rpart.control",
-    args = c(
-      minsplit = minsplit,
-      minbucket = minbucket,
-      maxdepth = maxdepth,
+    args = append(
+      list(
+        minsplit = minsplit,
+        minbucket = minbucket,
+        maxdepth = maxdepth
+      ),
       other_tree_para
     )
   )
@@ -88,11 +90,13 @@ fitBack <- function(object,
         # )
         mfair_sf <- do.call(
           what = "fitSFMissing",
-          args = c(
-            Y = R, obs_indices = obs_indices, X = object@X,
-            init = mfair_sf,
-            learning_rate = object@learning_rate,
-            tree_parameters = object@tree_parameters,
+          args = append(
+            list(
+              Y = R, obs_indices = obs_indices, X = object@X,
+              init = mfair_sf,
+              learning_rate = object@learning_rate,
+              tree_parameters = object@tree_parameters
+            ),
             sf_para
           )
         )
@@ -104,11 +108,13 @@ fitBack <- function(object,
         # )
         mfair_sf <- do.call(
           what = "fitSFFully",
-          args = c(
-            Y = R, X = object@X,
-            init = mfair_sf,
-            learning_rate = object@learning_rate,
-            tree_parameters = object@tree_parameters,
+          args = append(
+            list(
+              Y = R, X = object@X,
+              init = mfair_sf,
+              learning_rate = object@learning_rate,
+              tree_parameters = object@tree_parameters
+            ),
             sf_para
           )
         )
