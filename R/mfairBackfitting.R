@@ -8,20 +8,23 @@
 #' @param minsplit Numeric. Parameter for the gradient boosting part.
 #' @param minbucket Numeric. Parameter for the gradient boosting part.
 #' @param maxdepth Numeric. Parameter for the gradient boosting part.
+#' @param other_tree_para A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.
 #' @param iter_max_bf Integer. Maximum iterations allowed.
 #' @param tol_bf Numeric. The convergence criterion.
 #' @param verbose_bf_inner Logical. Whether to display the detailed information during the inner loop.
 #' @param verbose_bf_outer Logical. Whether to display the detailed information during the outer loop.
-#' @param ... See fitSF().
+#' @param mfair_sf_para A list containing parameters for fitting the single factor MFAI model. See fitSF() for details.
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
 #' @export
 #'
 fitBack <- function(object,
                     learning_rate = 0.1,
-                    minsplit = 10, minbucket = round(minsplit / 3), maxdepth = 2,
+                    minsplit = 10, minbucket = round(minsplit / 3),
+                    maxdepth = 2, other_tree_para = list(),
                     iter_max_bf = 5000, tol_bf = 0.01,
-                    verbose_bf_inner = TRUE, verbose_bf_outer = TRUE, ...) {
+                    verbose_bf_inner = TRUE, verbose_bf_outer = TRUE,
+                    sf_para = list()) {
   # Check K
   if (object@K == 1) {
     stop("The backfitting algorithm is equivalent to the greedy algorithm when rank K = 1!")
@@ -35,11 +38,20 @@ fitBack <- function(object,
 
   # Set up parameters for the gradient boosting part
   object@learning_rate <- learning_rate
-  object@tree_parameters <- rpart.control(
-    minsplit = minsplit,
-    minbucket = minbucket,
-    maxdepth = maxdepth
+  object@tree_parameters <- do.call(
+    what = "rpart.control",
+    args = c(
+      minsplit = minsplit,
+      minbucket = minbucket,
+      maxdepth = maxdepth,
+      other_tree_para
+    )
   )
+  # object@tree_parameters <- rpart.control(
+  #   minsplit = minsplit,
+  #   minbucket = minbucket,
+  #   maxdepth = maxdepth
+  # )
 
   # Will be used for the partially observed matrix fitting
   if (object@Y_missing) {
@@ -69,17 +81,40 @@ fitBack <- function(object,
       )
 
       if (object@Y_missing) {
-        mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
-          object@learning_rate,
-          tree_parameters = object@tree_parameters,
-          ...
+        mfair_sf <- do.call(
+          what = "fitSFMissing",
+          args = c(
+            Y = R,
+            obs_indices = obs_indices,
+            X = object@X,
+            init = mfair_sf,
+            learning_rate = object@learning_rate,
+            tree_parameters = object@tree_parameters,
+            sf_para
+          )
         )
+        # mfair_sf <- fitSFMissing(R, obs_indices, object@X, mfair_sf,
+        #   object@learning_rate,
+        #   tree_parameters = object@tree_parameters,
+        #   ...
+        # )
       } else {
-        mfair_sf <- fitSFFully(R, object@X, mfair_sf,
-          object@learning_rate,
-          tree_parameters = object@tree_parameters,
-          ...
+        mfair_sf <- do.call(
+          what = "fitSFFully",
+          args = c(
+            Y = R,
+            X = object@X,
+            init = mfair_sf,
+            learning_rate = object@learning_rate,
+            tree_parameters = object@tree_parameters,
+            sf_para
+          )
         )
+        # mfair_sf <- fitSFFully(R, object@X, mfair_sf,
+        #   object@learning_rate,
+        #   tree_parameters = object@tree_parameters,
+        #   ...
+        # )
       }
       object <- updateMFAIR(object, mfair_sf, k)
 

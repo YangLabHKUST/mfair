@@ -10,11 +10,12 @@ fitBack(
   minsplit = 10,
   minbucket = round(minsplit/3),
   maxdepth = 2,
+  other_tree_para = list(),
   iter_max_bf = 5000,
   tol_bf = 0.01,
   verbose_bf_inner = TRUE,
   verbose_bf_outer = TRUE,
-  ...
+  sf_para = list()
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ fitBack(
 
 \item{maxdepth}{Numeric. Parameter for the gradient boosting part.}
 
+\item{other_tree_para}{A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.}
+
 \item{iter_max_bf}{Integer. Maximum iterations allowed.}
 
 \item{tol_bf}{Numeric. The convergence criterion.}
@@ -36,7 +39,7 @@ fitBack(
 
 \item{verbose_bf_outer}{Logical. Whether to display the detailed information during the outer loop.}
 
-\item{...}{See fitSF().}
+\item{mfair_sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSF() for details.}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using backfitting algorithm.
