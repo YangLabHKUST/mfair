@@ -73,7 +73,7 @@ Y_mean <- mean(Y_obs)
 mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 
 # Fit the MFAI model
-mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
+mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
 #> After 43 iterations Stage 2 ends!
 #> Factor 1 retained!
@@ -107,7 +107,7 @@ train_mean <- mean(Y_train, na.rm = TRUE)
 mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
 
 # Fit the MFAI model
-mfairObject <- fitGreedy(mfairObject, verbose_loop = FALSE)
+mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
 #> After 57 iterations Stage 2 ends!
 #> Factor 1 retained!
