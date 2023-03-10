@@ -71,7 +71,7 @@ W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 # Generate the main data matrix Y_obs (= Y + noise)
 Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
-epsilon_sq <- sqrt(Y_var * (1 / PVE_Y - 1))
+epsilon_sq <- Y_var * (1 / PVE_Y - 1)
 Y_obs <- Y + matrix(
   rnorm(N * M,
     mean = 0,

@@ -63,7 +63,7 @@ W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 # Generate the main data matrix Y_obs (= Y + noise)
 Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
-epsilon_sq <- sqrt(Y_var * (1 / PVE_Y - 1))
+epsilon_sq <- Y_var * (1 / PVE_Y - 1)
 Y_obs <- Y + matrix(
   rnorm(N * M,
     mean = 0,
@@ -79,10 +79,10 @@ mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
-#> After 79 iterations Stage 2 ends!
+#> After 43 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations Stage 1 ends!
-#> After 101 iterations Stage 2 ends!
+#> After 40 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -92,7 +92,7 @@ Y_hat <- predict(mfairObject) + Y_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_obs - Y_hat)^2))
 rmse
-#> [1] 3.45197
+#> [1] 12.22526
 ```
 
 `mfair` can also handle the matrix with missing entries:
@@ -113,10 +113,10 @@ mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
-#> After 84 iterations Stage 2 ends!
+#> After 57 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations Stage 1 ends!
-#> After 93 iterations Stage 2 ends!
+#> After 59 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -125,7 +125,7 @@ Y_hat <- predict(mfairObject) + train_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
 rmse
-#> [1] 3.798688
+#> [1] 12.8915
 ```
 
 For more documentation and examples, please visit our package
