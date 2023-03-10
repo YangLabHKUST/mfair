@@ -18,7 +18,6 @@ citEntry(
   entry    = "Manual",
   title    = "mfair: Matrix Factorization with Auxiliary Information in R",
   author   = personList(as.person("Zhiwei Wang")),
-  journal  = "arXiv preprint arXiv:2303.02566",
   year     = "2023",
   note     = "R package version 0.0.0.9000",
   url      = "https://yanglabhkust.github.io/mfair/",
