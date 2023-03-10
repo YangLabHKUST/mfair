@@ -50,21 +50,25 @@ FX1 <- X1 / 2 - X2
 FX2 <- (X1^2 - X2^2 + 2 * X1 * X2) / 10
 FX <- cbind(FX1, FX2)
 
-# Generate loadings
-sig1 <- var(FX1) * (1 / PVE_Z - 1)
-Z1 <- FX1 + rnorm(n = N, mean = 0, sd = sqrt(sig1))
-sig2 <- var(FX2) * (1 / PVE_Z - 1)
-Z2 <- FX2 + rnorm(n = N, mean = 0, sd = sqrt(sig2))
+# Generate loadings Z (= F(X) + noise)
+sig1_sq <- var(FX1) * (1 / PVE_Z - 1)
+Z1 <- FX1 + rnorm(n = N, mean = 0, sd = sqrt(sig1_sq))
+sig2_sq <- var(FX2) * (1 / PVE_Z - 1)
+Z2 <- FX2 + rnorm(n = N, mean = 0, sd = sqrt(sig2_sq))
 Z <- cbind(Z1, Z2)
 
-# Generate factors
+# Generate factors W
 W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 
-# Generate the main data matrix Y
+# Generate the main data matrix Y_obs (= Y + noise)
 Y <- Z %*% t(W)
 Y_var <- var(as.vector(Y))
-epsilon <- sqrt(Y_var * (1 / PVE_Y - 1))
-Y_obs <- Y + matrix(rnorm(N * M, mean = 0, sd = epsilon),
+epsilon_sq <- sqrt(Y_var * (1 / PVE_Y - 1))
+Y_obs <- Y + matrix(
+  rnorm(N * M,
+    mean = 0,
+    sd = sqrt(epsilon_sq)
+  ),
   nrow = N, ncol = M
 )
 Y_mean <- mean(Y_obs)
@@ -75,10 +79,10 @@ mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
-#> After 43 iterations Stage 2 ends!
+#> After 79 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations Stage 1 ends!
-#> After 40 iterations Stage 2 ends!
+#> After 101 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -88,7 +92,7 @@ Y_hat <- predict(mfairObject) + Y_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_obs - Y_hat)^2))
 rmse
-#> [1] 12.22526
+#> [1] 3.45197
 ```
 
 `mfair` can also handle the matrix with missing entries:
@@ -109,10 +113,10 @@ mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> After 1 iterations Stage 1 ends!
-#> After 57 iterations Stage 2 ends!
+#> After 84 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations Stage 1 ends!
-#> After 59 iterations Stage 2 ends!
+#> After 93 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -121,7 +125,7 @@ Y_hat <- predict(mfairObject) + train_mean
 # Root-mean-square-error
 rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
 rmse
-#> [1] 12.8915
+#> [1] 3.798688
 ```
 
 For more documentation and examples, please visit our package
