@@ -13,3 +13,4 @@ Imports:
     methods
 Depends: 
     rpart
+LazyData: true
