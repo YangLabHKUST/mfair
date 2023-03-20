@@ -1,9 +1,12 @@
 ### code to prepare `ml100k` dataset goes here
 
 ## Movie rating data
-u_data <- read.table(system.file("extdata/ml-100k", "u.data", package = "mfair"),
+u_data <- read.table("https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
   sep = "\t", header = FALSE
 )
+# u_data <- read.table(system.file("extdata/ml-100k", "u.data", package = "mfair"),
+#   sep = "\t", header = FALSE
+# )
 # head(u_data)
 # dim(u_data)
 
@@ -19,9 +22,12 @@ for (i in 1:dim(u_data)[1]) {
 # head(u_data_matrix)
 
 ## User information
-u_user <- read.table(system.file("extdata/ml-100k", "u.user", package = "mfair"),
+u_user <- read.table("https://files.grouplens.org/datasets/movielens/ml-100k/u.user",
   sep = "|", header = FALSE
 )
+# u_user <- read.table(system.file("extdata/ml-100k", "u.user", package = "mfair"),
+#   sep = "|", header = FALSE
+# )
 # user id | age | gender | occupation | zip code
 # head(u_user)
 # dim(u_user)
@@ -33,9 +39,12 @@ colnames(u_user) <- c("Age", "Gender", "Occupation")
 # head(u_user)
 
 # Movie genre information
-u_item <- read.csv(system.file("extdata/ml-100k", "u.item", package = "mfair"),
+u_item <- read.csv("https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
   sep = "|", header = FALSE
 )
+# u_item <- read.csv(system.file("extdata/ml-100k", "u.item", package = "mfair"),
+#   sep = "|", header = FALSE
+# )
 # head(u_item)
 # dim(u_item)
 
