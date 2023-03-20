@@ -1,7 +1,7 @@
 ### code to prepare `ml100k` dataset goes here
 
 ## Movie rating data
-u_data <- read.table(system.file("extdata/MovieLens/ml-100k", "u.data", package = "mfair"),
+u_data <- read.table(system.file("extdata/ml-100k", "u.data", package = "mfair"),
   sep = "\t", header = FALSE
 )
 # head(u_data)
@@ -19,7 +19,7 @@ for (i in 1:dim(u_data)[1]) {
 # head(u_data_matrix)
 
 ## User information
-u_user <- read.table(system.file("extdata/MovieLens/ml-100k", "u.user", package = "mfair"),
+u_user <- read.table(system.file("extdata/ml-100k", "u.user", package = "mfair"),
   sep = "|", header = FALSE
 )
 # user id | age | gender | occupation | zip code
@@ -33,7 +33,7 @@ colnames(u_user) <- c("Age", "Gender", "Occupation")
 # head(u_user)
 
 # Movie genre information
-u_item <- read.csv(system.file("extdata/MovieLens/ml-100k", "u.item", package = "mfair"),
+u_item <- read.csv(system.file("extdata/ml-100k", "u.item", package = "mfair"),
   sep = "|", header = FALSE
 )
 # head(u_item)
