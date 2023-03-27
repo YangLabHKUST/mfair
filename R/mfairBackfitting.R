@@ -67,7 +67,7 @@ fitBack <- function(object,
   for (iter in 1:iter_max_bf) {
     for (k in 1:object@K) {
       # The residual (low-rank approximation using all factors but k-th)
-      R <- object@Y - predict(object, which_factor = -k)
+      R <- object@Y - predict(object, which_factors = -k)
       mfair_sf <- new(
         Class = "MFAIRSingleFactor",
         Y_missing = object@Y_missing,

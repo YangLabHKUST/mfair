@@ -1,7 +1,7 @@
 #' Prediction function for MFAIR object.
 #'
 #' @param object A model object for which prediction is desired.
-#' @param which_factor Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.
+#' @param which_factors Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
@@ -9,7 +9,7 @@
 setMethod(
   f = "predict",
   signature = "MFAIR",
-  definition = function(object, which_factor = c(1:object@K)) {
+  definition = function(object, which_factors = c(1:object@K)) {
     # Check Y
     if (object@Y_missing == FALSE) {
       message("The main data matrix Y has no missing entries!")
@@ -20,7 +20,7 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = object@Z[, which_factor] %*% t(object@W[, which_factor]))
+    return(Y_hat = object@Z[, which_factors] %*% t(object@W[, which_factors]))
   }
 )
 
