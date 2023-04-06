@@ -10,7 +10,7 @@
 #' @slot N An integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
 #' @slot M An integer. Number of columns (features) of Y.
 #' @slot C An integer. Number of columns (auxiliary covariates) of X.
-#' @slot K_max An integer. The maximum rank allowed in the model.
+#' @slot K_max An integer. Note that increasing K_max does not ensure that the actual K also increases, since K_max is just an upper bound and the model will automatically infer K below K_max. If you want inference with larger rank K, please make sure that K_max is large enough and the tol_snr parameter in the fitting function `fitGreedy()` is small enough, simultaneously.
 #' @slot K An integer. The inferred rank of Y.
 #' @slot Z An N * K matrix. Estimated loading matrix, corresponding to the inferred posterior mean of Z in the MFAI model.
 #' @slot a_sq A matrix containing posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of one specific loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of one specific loading have different posterior variances, then a_sq is an N * K matrix.
