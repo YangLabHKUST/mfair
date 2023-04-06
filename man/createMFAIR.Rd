@@ -4,12 +4,14 @@
 \alias{createMFAIR}
 \title{Create the MFAIR object with main data matrix and auxiliary information.}
 \usage{
-createMFAIR(Y, X, K_max = 1L, project = "MFAIR")
+createMFAIR(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR")
 }
 \arguments{
 \item{Y}{A matrix. The main data matrix of N samples and M features.}
 
 \item{X}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
+
+\item{Y_center}{Logical. Determines whether centering is performed.}
 
 \item{K_max}{An integer. The maximum rank allowed in the model.}
 

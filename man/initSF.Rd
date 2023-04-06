@@ -4,12 +4,12 @@
 \alias{initSF}
 \title{Initialize the parameters for the single factor MAFI model.}
 \usage{
-initSF(Y, Y_missing, n_obs)
+initSF(Y, Y_missing = NULL, n_obs)
 }
 \arguments{
 \item{Y}{Main data matrix.}
 
-\item{Y_missing}{Logical. Whether the main data matrix is partially observed.}
+\item{Y_missing}{Logical. Whether the main data matrix is partially observed. It will be automatically judged if not specified (default value NULL).}
 
 \item{n_obs}{Integer. Total number of observed entries.}
 }

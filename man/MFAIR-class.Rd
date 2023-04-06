@@ -17,6 +17,10 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{X}}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
 
+\item{\code{Y_center}}{Logical. Whether the main data matrix Y is centered.}
+
+\item{\code{Y_mean}}{Numeric. Mean of the main data matrix Y if centered. Zero if not.}
+
 \item{\code{Y_missing}}{Logical. Whether the main data matrix Y is partially observed.}
 
 \item{\code{n_obs}}{integer. Total number of observed entries in Y.}

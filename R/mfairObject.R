@@ -88,10 +88,10 @@ createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
   } # End
 
   # Center the matrix Y
-  if(Y_center){
+  if (Y_center) {
     Y_mean <- mean(Y, na.rm = TRUE)
     Y <- Y - Y_mean
-  }else{
+  } else {
     Y_mean <- 0
   }
 
