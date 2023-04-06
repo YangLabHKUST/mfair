@@ -89,7 +89,7 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
       stop("The main data matrix Y has no observed values!")
     } # End
     Y_missing <- TRUE
-  }else{
+  } else {
     Y_missing <- FALSE
   }
 
