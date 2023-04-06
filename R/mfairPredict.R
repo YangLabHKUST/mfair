@@ -20,7 +20,9 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = object@Z[, which_factors] %*% t(object@W[, which_factors]))
+    Y_hat <- object@Z[, which_factors] %*% t(object@W[, which_factors]) + object@Y_mean
+
+    return(Y_hat)
   }
 )
 
