@@ -3,7 +3,7 @@
 #' @importFrom stats rnorm var
 #' @importFrom methods new
 #'
-#' @param Y_missing Logical. Whether the main data matrix is partially observed.
+#' @param Y_missing Logical. Whether the main data matrix is partially observed. It will be automatically judged if not specified (default value NULL).
 #' @param n_obs Integer. Total number of observed entries.
 #' @param Y Main data matrix.
 #'
@@ -13,12 +13,22 @@
 #' @return MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
 #' @export
 #'
-initSF <- function(Y, Y_missing, n_obs) {
+initSF <- function(Y, Y_missing = NULL, n_obs) {
   N <- nrow(Y)
   M <- ncol(Y)
 
   mu <- rnorm(N)
   nu <- rep(0.0, M)
+
+  # Whether the main data matrix is partially observed.
+  if (is.null(Y_missing)) {
+    n_missing <- sum(is.na(Y))
+    if (n_missing >= 1) {
+      Y_missing <- TRUE
+    } else {
+      Y_missing <- FALSE
+    }
+  }
 
   if (Y_missing) {
     a_sq <- rep(1, N)
