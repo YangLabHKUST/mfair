@@ -3,6 +3,8 @@
 #'
 #' @slot Y A matrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @slot Y_center Logical. Whether the main data matrix Y is centered.
+#' @slot Y_mean Numeric. Mean of the main data matrix Y if centered. Zero if not.
 #' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
 #' @slot n_obs integer. Total number of observed entries in Y.
 #' @slot N An integer. Number of rows (samples) of Y, also the number of rows (samples) of X.
@@ -33,6 +35,8 @@ setClass(
   slots = c(
     Y = "matrix",
     X = "data.frame",
+    Y_center = "logical",
+    Y_mean = "numeric",
     Y_missing = "logical",
     n_obs = "integer",
     N = "integer",
@@ -67,12 +71,13 @@ setClass(
 #'
 #' @param Y A matrix. The main data matrix of N samples and M features.
 #' @param X A data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @param Y_center Logical. Determines whether centering is performed.
 #' @param K_max An integer. The maximum rank allowed in the model.
 #' @param project Character. Name of the project (for record keeping).
 #'
 #' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
-createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
+createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
   # Data dimension
   N <- nrow(Y)
   M <- ncol(Y)
@@ -82,7 +87,15 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
-  # Check Y
+  # Center the matrix Y
+  if(Y_center){
+    Y_mean <- mean(Y, na.rm = TRUE)
+    Y <- Y - Y_mean
+  }else{
+    Y_mean <- 0
+  }
+
+  # Check Y's sparsity
   n_missing <- sum(is.na(Y))
   if (n_missing >= 1) {
     if (n_missing == length(Y)) {
@@ -106,6 +119,8 @@ createMFAIR <- function(Y, X, K_max = 1L, project = "MFAIR") {
     Class = "MFAIR",
     Y = Y,
     X = as.data.frame(X),
+    Y_center = Y_center,
+    Y_mean = Y_mean,
     Y_missing = Y_missing,
     n_obs = as.integer(N * M - n_missing),
     N = N,
