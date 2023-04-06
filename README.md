@@ -7,8 +7,10 @@
 <!-- badges: end -->
 
 Methods for matrix factorization to leverage auxiliary information based
-on the paper [MFAI](https://doi.org/10.48550/arXiv.2303.02566). The name
-of the package `mfair` comes from **Matrix Factorization with Auxiliary
+on the paper [MFAI: A scalable Bayesian matrix factorization approach to
+leveraging auxiliary
+information](https://doi.org/10.48550/arXiv.2303.02566). The name of the
+package `mfair` comes from **Matrix Factorization with Auxiliary
 Information in R**.
 
 ## Installation
@@ -71,10 +73,9 @@ Y_obs <- Y + matrix(
   ),
   nrow = N, ncol = M
 )
-Y_mean <- mean(Y_obs)
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_obs - Y_mean, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
@@ -86,13 +87,20 @@ mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
-Y_hat <- predict(mfairObject) + Y_mean
+Y_hat <- predict(mfairObject)
 #> The main data matrix Y has no missing entries!
 
 # Root-mean-square-error
-rmse <- sqrt(mean((Y_obs - Y_hat)^2))
-rmse
+sqrt(mean((Y_obs - Y_hat)^2))
 #> [1] 12.22526
+
+# Predicted/true matrix variance ratio
+var(as.vector(Y_hat)) / var(as.vector(Y_obs))
+#> [1] 0.4714833
+
+# Prediction/noise variance ratio
+var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
+#> [1] 0.9884601
 ```
 
 `mfair` can also handle the matrix with missing entries:
@@ -105,10 +113,9 @@ train_set <- sample(1:n_all, n_all * training_ratio, replace = FALSE)
 Y_train <- Y_test <- Y_obs
 Y_train[-train_set] <- NA
 Y_test[train_set] <- NA
-train_mean <- mean(Y_train, na.rm = TRUE)
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_train - train_mean, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_train, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
@@ -120,12 +127,19 @@ mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
-Y_hat <- predict(mfairObject) + train_mean
+Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
-rmse <- sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-rmse
+sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
 #> [1] 12.8915
+
+# Predicted/true matrix variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
+#> [1] 0.431157
+
+# Prediction/noise variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
+#> [1] 0.85525
 ```
 
 For more documentation and examples, please visit our package
