@@ -9,7 +9,7 @@ getImportance(object, which_factors = c(1:object@K))
 \arguments{
 \item{object}{MFAIR object.}
 
-\item{which_factors}{Which factors, i.e., which fitted functions will be evaluated. All K factors are evaluated by default.}
+\item{which_factors}{Which factors, i.e., which fitted functions are evaluated. All K factors are evaluated by default.}
 }
 \value{
 Importance score matrix. Each row is an auxiliary covariate and each column is a factor.
@@ -18,5 +18,5 @@ Importance score matrix. Each row is an auxiliary covariate and each column is a
 Get importance measures of auxiliary covariates.
 }
 \details{
-The \code{rpart::rpart()} function will automatically change special characters in variable names to a dot which may cause some inconsistency errors.
+The \code{rpart::rpart()} function will automatically change special characters in variable names to a dot which may cause some inconsistency errors. Please ensure that the auxiliary covariates' names do not contain any special characters if you want to use this function.
 }

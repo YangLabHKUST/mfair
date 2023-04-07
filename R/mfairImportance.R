@@ -1,11 +1,11 @@
 #' Get importance measures of auxiliary covariates.
 #'
 #' @param object MFAIR object.
-#' @param which_factors Which factors, i.e., which fitted functions will be evaluated. All K factors are evaluated by default.
+#' @param which_factors Which factors, i.e., which fitted functions are evaluated. All K factors are evaluated by default.
 #'
 #' @return Importance score matrix. Each row is an auxiliary covariate and each column is a factor.
 #'
-#' @details The `rpart::rpart()` function will automatically change special characters in variable names to a dot which may cause some inconsistency errors.
+#' @details The `rpart::rpart()` function will automatically change special characters in variable names to a dot which may cause some inconsistency errors. Please ensure that the auxiliary covariates' names do not contain any special characters if you want to use this function.
 #'
 #' @export
 #'
@@ -15,14 +15,15 @@ getImportance <- function(object, which_factors = c(1:object@K)) {
     stop("There is no fitted function!")
   } # End
   if (length(object@tree_lists) < max(which_factors)) {
-    stop("There are not so many factors in the model")
+    stop("There are not so many factors in the model!")
   } # End
 
   # Importance measures of variables in factors interested
-  importance <- sapply(object@tree_lists,
+  importance <- sapply(object@tree_lists[which_factors],
     FUN = getImportanceSF,
     variables_names = colnames(object@X)
   )
+  colnames(importance) <- paste0("Factor_", which_factors)
 
   return(importance)
 }
