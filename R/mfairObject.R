@@ -19,7 +19,7 @@
 #' @slot tau Numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
 #' @slot beta Numeric. A vector of length K, containing the precision parameter for each loading Z_k.
 #' @slot FX An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
-#' @slot tree_lists A list of length K, containing K fitted tree lists and each list corresponding to function F_k(.) in the MFAI model.
+#' @slot tree_lists A list of length K, containing K fitted functions and each function is represented as a list of trees, i.e., the k-th list corresponds to function F_k(.) in the MFAI model.
 #' @slot initialization A list. Initialization of the fitted model.
 #' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
 #' @slot tree_parameters A list of options that control details of the rpart algorithm.
