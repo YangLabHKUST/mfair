@@ -45,3 +45,47 @@ setMethod(
     return(Y_hat = as.matrix(object@mu) %*% t(object@nu))
   }
 )
+
+#' Prediction function for fitted functions.
+#'
+#' @param object MFAIR object.
+#' @param newdata Data frame containing the values at which predictions are required.
+#' @param which_factors Which factors, i.e., which fitted functions are used. All K factors are used by default.
+#'
+#' @return A matrix containing predicted F(X). Each row is a new sample and each column is a factor.
+#' @export
+#'
+predictFX <- function(object, newdata, which_factors = c(1:object@K)) {
+  newdata <- as.data.frame(newdata)
+
+  # Check fitted functions
+  if (length(object@tree_lists) == 0) {
+    stop("There is no fitted function!")
+  } # End
+  if (length(object@tree_lists) < max(which_factors)) {
+    stop("There are not so many factors in the model!")
+  } # End
+
+  # Predicted F(X) in factors interested
+  FX <- sapply(object@tree_lists[which_factors],
+    FUN = predictFXSF,
+    newdata = newdata,
+    learning_rate = object@learning_rate
+  )
+  colnames(FX) <- paste0("Factor_", which_factors)
+
+  return(FX)
+}
+
+#' Prediction function for fitted function F() in single factor.
+#'
+#' @param tree_list A fitted function represented by a list of trees.
+#' @param newdata Data frame containing the values at which predictions are required.
+#' @param learning_rate Numeric. The learning rate in the gradient boosting part.
+#'
+#' @return A vector containing predicted F(X). Each entry corresponds to a new sample.
+#' @export
+#'
+predictFXSF <- function(tree_list, newdata, learning_rate) {
+  learning_rate * rowSums(sapply(tree_list, predict, newdata = newdata))
+}
