@@ -23,7 +23,7 @@ getImportance <- function(object, which_factors = c(1:object@K)) {
     FUN = getImportanceSF,
     variables_names = colnames(object@X)
   )
-  colnames(importance) <- paste0("Factor_", which_factors)
+  colnames(importance) <- paste("Factor", which_factors)
 
   return(importance)
 }
