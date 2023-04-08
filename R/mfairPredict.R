@@ -72,7 +72,7 @@ predictFX <- function(object, newdata, which_factors = c(1:object@K)) {
     newdata = newdata,
     learning_rate = object@learning_rate
   )
-  colnames(FX) <- paste0("Factor_", which_factors)
+  colnames(FX) <- paste("Factor", which_factors)
 
   return(FX)
 }
