@@ -31,11 +31,20 @@ fitGreedy <- function(object, K_max = NULL,
   if (!is.null(K_max)) {
     object@K_max <- as.integer(K_max)
   }
+  message("Set K_max = ", K_max, "!")
+
   # Check K_max
   if (object@K_max > object@N || object@K_max > object@M) {
     warning("The maximum rank allowed can not be larger than the rank of the main data matrix!\n")
     object@K_max <- min(object@N, object@M)
     warning("Reset K_max = ", object@K_max, "!\n")
+  }
+
+  # Check tree_0 and tree_lists
+  if (length(object@tree_0) > 0 || length(object@tree_lists) > 0) {
+    object@tree_0 <- matrix(nrow = 1, ncol = 0)
+    object@tree_lists <- list()
+    warning("Fitted function(s) found and has/have been cleared out!")
   }
 
   # Whether need initialization
