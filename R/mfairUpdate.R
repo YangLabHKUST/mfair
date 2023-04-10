@@ -19,6 +19,7 @@ appendMFAIR <- function(object, object_sf) {
   object@FX <- cbind(object@FX, object_sf@FX)
 
   # Save the tree list
+  object@tree_0 <- cbind(object@tree_0, object_sf@tree_0)
   object@tree_lists <- append(object@tree_lists, list(object_sf@tree_list))
 
   # Update the inferred rank of the data

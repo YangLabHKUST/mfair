@@ -57,6 +57,7 @@ setMethod(
 #'
 predictFX <- function(object, newdata, which_factors = c(1:object@K)) {
   newdata <- as.data.frame(newdata)
+  N <- nrow(newdata)
 
   # Check fitted functions
   if (length(object@tree_lists) == 0) {
@@ -71,6 +72,8 @@ predictFX <- function(object, newdata, which_factors = c(1:object@K)) {
     FUN = predictFXSF,
     newdata = newdata,
     learning_rate = object@learning_rate
+  ) + matrix(rep((object@tree_0)[1, which_factors], each = N),
+    nrow = N, ncol = length(which_factors)
   )
   colnames(FX) <- paste("Factor", which_factors)
 

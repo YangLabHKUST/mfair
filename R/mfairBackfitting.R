@@ -79,6 +79,7 @@ fitBack <- function(object,
         tau = object@tau[k],
         beta = object@beta[k],
         FX = object@FX[, k],
+        tree_0 = object@tree_0[1, k],
         tree_list = object@tree_lists[[k]]
       )
 
@@ -94,6 +95,7 @@ fitBack <- function(object,
             list(
               Y = R, obs_indices = obs_indices, X = object@X,
               init = mfair_sf,
+              stage1 = FALSE,
               learning_rate = object@learning_rate,
               tree_parameters = object@tree_parameters
             ),
@@ -112,6 +114,7 @@ fitBack <- function(object,
             list(
               Y = R, X = object@X,
               init = mfair_sf,
+              stage1 = FALSE,
               learning_rate = object@learning_rate,
               tree_parameters = object@tree_parameters
             ),

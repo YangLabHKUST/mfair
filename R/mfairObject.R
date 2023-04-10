@@ -19,6 +19,7 @@
 #' @slot tau Numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
 #' @slot beta Numeric. A vector of length K, containing the precision parameter for each loading Z_k.
 #' @slot FX An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
+#' @slot tree_0 An 1 * K matrix containing tree_0 with k-th column corresponding to the k-th factor. Tree_0 is defined as the mean of mu vector in each factor.
 #' @slot tree_lists A list of length K, containing K fitted functions and each function is represented as a list of trees, i.e., the k-th list corresponds to function F_k(.) in the MFAI model.
 #' @slot initialization A list. Initialization of the fitted model.
 #' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
@@ -51,6 +52,7 @@ setClass(
     tau = "numeric",
     beta = "numeric",
     FX = "matrix",
+    tree_0 = "matrix",
     tree_lists = "list",
     initialization = "list",
     learning_rate = "numeric",
@@ -76,6 +78,7 @@ setClass(
 #' @slot tau Numeric. Precision parameter this pair of loading/factor.
 #' @slot beta Numeric. Precision parameter for this loading z.
 #' @slot FX An vector of length N representing the prior mean of z, corresponding to F(X) in the single factor MFAI model.
+#' @slot tree_0 Numeric. Tree_0 is defined as the mean of mu vector.
 #' @slot tree_list A list containing multiple decision trees, corresponding to function F(.) in the single factor MFAI model.
 #' @slot project Character. Name of the project (for record keeping).
 #'
@@ -96,13 +99,13 @@ setClass(
     tau = "numeric",
     beta = "numeric",
     FX = "numeric",
+    tree_0 = "numeric",
     tree_list = "list",
     project = "character"
   ),
 
   # Assign the default prototypes
   prototype = list(
-    tree_list = list(),
     project = "MFAIRSingleFactor"
   )
 )

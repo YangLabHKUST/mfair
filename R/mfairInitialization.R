@@ -66,6 +66,8 @@ createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
     W = matrix(nrow = M, ncol = 0),
     b_sq = b_sq,
     FX = matrix(nrow = N, ncol = 0),
+    tree_0 = matrix(nrow = 1, ncol = 0),
+    tree_lists = list(),
     project = project
   )
 
@@ -126,7 +128,9 @@ initSF <- function(Y, Y_missing = NULL, n_obs) {
     b_sq = b_sq,
     tau = tau,
     beta = beta,
-    FX = FX
+    FX = FX,
+    tree_0 = 0,
+    tree_list = list()
   )
 
   return(object)
