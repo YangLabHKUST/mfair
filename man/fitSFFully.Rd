@@ -10,6 +10,7 @@ fitSFFully(
   init,
   learning_rate,
   tree_parameters,
+  stage1 = TRUE,
   iter_max = 5000,
   tol_stage1 = 0.1,
   tol_stage2 = 1e-05,
@@ -28,6 +29,8 @@ fitSFFully(
 \item{learning_rate}{Numeric. Parameter for the gradient boosting part.}
 
 \item{tree_parameters}{A list containing the parameters for the gradient boosting part.}
+
+\item{stage1}{Logical. Whether to perform fitting algorithm stage1. The greedy algorithm needs while the backfitting algorithm does not need.}
 
 \item{iter_max}{Integer. Maximum iterations allowed.}
 

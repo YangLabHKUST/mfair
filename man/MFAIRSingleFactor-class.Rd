@@ -31,6 +31,8 @@ MFAIRSingleFactor object contains the key information about the fitted single fa
 
 \item{\code{FX}}{An vector of length N representing the prior mean of z, corresponding to F(X) in the single factor MFAI model.}
 
+\item{\code{tree_0}}{Numeric. Tree_0 is defined as the mean of mu vector.}
+
 \item{\code{tree_list}}{A list containing multiple decision trees, corresponding to function F(.) in the single factor MFAI model.}
 
 \item{\code{project}}{Character. Name of the project (for record keeping).}

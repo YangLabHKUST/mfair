@@ -49,6 +49,8 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{FX}}{An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.}
 
+\item{\code{tree_0}}{An 1 * K matrix containing tree_0 with k-th column corresponding to the k-th factor. Tree_0 is defined as the mean of mu vector in each factor.}
+
 \item{\code{tree_lists}}{A list of length K, containing K fitted functions and each function is represented as a list of trees, i.e., the k-th list corresponds to function F_k(.) in the MFAI model.}
 
 \item{\code{initialization}}{A list. Initialization of the fitted model.}
