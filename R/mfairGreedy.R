@@ -31,7 +31,7 @@ fitGreedy <- function(object, K_max = NULL,
   if (!is.null(K_max)) {
     object@K_max <- as.integer(K_max)
   }
-  message("Set K_max = ", K_max, "!")
+  message("Set K_max = ", object@K_max, "!")
 
   # Check K_max
   if (object@K_max > object@N || object@K_max > object@M) {
