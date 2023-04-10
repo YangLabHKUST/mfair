@@ -86,7 +86,7 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     }
 
     # Tree_0 is the mean of mu vector
-    object@tree_0 <- mean(init@mu)
+    init@tree_0 <- mean(init@mu)
     init@FX <- init@FX + object@tree_0
   }
 
@@ -219,7 +219,7 @@ fitSFFully <- function(Y, X, init,
     }
 
     # Tree_0 is the mean of mu vector
-    object@tree_0 <- mean(init@mu)
+    init@tree_0 <- mean(init@mu)
     init@FX <- init@FX + object@tree_0
   }
 
