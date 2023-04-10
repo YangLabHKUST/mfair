@@ -79,6 +79,7 @@ mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
+#> Set K_max = 2!
 #> After 1 iterations Stage 1 ends!
 #> After 43 iterations Stage 2 ends!
 #> Factor 1 retained!
@@ -96,11 +97,11 @@ sqrt(mean((Y_obs - Y_hat)^2))
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs))
-#> [1] 0.4714833
+#> [1] 0.471485
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
-#> [1] 0.9884601
+#> [1] 0.9884637
 ```
 
 `mfair` can also handle the matrix with missing entries:
@@ -119,11 +120,12 @@ mfairObject <- createMFAIR(Y_train, X, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
+#> Set K_max = 2!
 #> After 1 iterations Stage 1 ends!
-#> After 57 iterations Stage 2 ends!
+#> After 68 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> After 1 iterations Stage 1 ends!
-#> After 59 iterations Stage 2 ends!
+#> After 66 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -131,15 +133,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 12.8915
+#> [1] 12.88825
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.431157
+#> [1] 0.4311948
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.85525
+#> [1] 0.8554015
 ```
 
 For more documentation and examples, please visit our package
@@ -163,4 +165,4 @@ The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
 
 Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>),
 Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang
-(<macyang@ust.hk>) with any inquiries.
+(<macyang@ust.hk>) if any inquiries.
