@@ -8,7 +8,7 @@ citEntry(
   year     = "2023",
   url      = "https://doi.org/10.48550/arXiv.2303.02566",
   textVersion = paste(
-    "Wang, Z., Zhang F., Zheng C., Hu X., Cai M. and Yang C. (2023).",
+    "Wang, Z., Zhang F., Zheng C., Hu X., Cai M., and Yang C. (2023).",
     "MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information.",
     "arXiv preprint arXiv:2303.02566."
   ),
