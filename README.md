@@ -152,8 +152,8 @@ For more documentation and examples, please visit our package
 If you find the `mfair` package or any of the source code in this
 repository useful for your work, please cite:
 
-> Wang, Z., Zhang F., Zheng C., Hu X., Cai M., and Yang C. (2023). MFAI:
-> A scalable Bayesian matrix factorization approach to leveraging
+> Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., and Yang, C. (2023).
+> MFAI: A scalable Bayesian matrix factorization approach to leveraging
 > auxiliary information. arXiv preprint arXiv:2303.02566. URL:
 > <https://doi.org/10.48550/arXiv.2303.02566>.
 

@@ -8,7 +8,7 @@ citEntry(
   year     = "2023",
   url      = "https://doi.org/10.48550/arXiv.2303.02566",
   textVersion = paste(
-    "Wang, Z., Zhang F., Zheng C., Hu X., Cai M., and Yang C. (2023).",
+    "Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., and Yang, C. (2023).",
     "MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information.",
     "arXiv preprint arXiv:2303.02566."
   ),
@@ -22,7 +22,7 @@ citEntry(
   note     = "R package version 0.0.0.9000",
   url      = "https://yanglabhkust.github.io/mfair/",
   textVersion = paste(
-    "Wang Z. (2023).",
+    "Wang, Z. (2023).",
     "mfair: Matrix Factorization with Auxiliary Information in R. R package version 0.0.0.9000.",
     "https://yanglabhkust.github.io/mfair/."
   ),
