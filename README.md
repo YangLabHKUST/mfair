@@ -9,9 +9,7 @@
 Methods for matrix factorization to leverage auxiliary information based
 on the paper [MFAI: A scalable Bayesian matrix factorization approach to
 leveraging auxiliary
-information](https://doi.org/10.48550/arXiv.2303.02566). The name of the
-package `mfair` comes from **Matrix Factorization with Auxiliary
-Information in R**.
+information](https://doi.org/10.48550/arXiv.2303.02566).
 
 ## Installation
 
