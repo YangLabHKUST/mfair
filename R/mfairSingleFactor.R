@@ -88,6 +88,8 @@ fitSFMissing <- function(Y, obs_indices, X, init,
     # Tree_0 is the mean of mu vector
     init@tree_0 <- mean(init@mu)
     init@FX <- init@FX + init@tree_0
+  } else {
+    message("Stage 1 skipped!")
   }
 
   # Stage 2
@@ -221,6 +223,8 @@ fitSFFully <- function(Y, X, init,
     # Tree_0 is the mean of mu vector
     init@tree_0 <- mean(init@mu)
     init@FX <- init@FX + init@tree_0
+  } else {
+    message("Stage 1 skipped!")
   }
 
   # Stage 2
