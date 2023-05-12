@@ -4,12 +4,13 @@
 u_data <- read.table("https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
   sep = "\t", header = FALSE
 )
+# user id | item id | rating | timestamp
 # head(u_data)
 # dim(u_data)
 
-# range(u_data[, 1])
+# User, range(u_data[, 1])
 N <- (range(u_data[, 1]))[2]
-# range(u_data[, 2])
+# Movie, range(u_data[, 2])
 M <- (range(u_data[, 2]))[2]
 
 u_data_matrix <- matrix(NA, N, M)
