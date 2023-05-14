@@ -21,7 +21,7 @@ library(scales)
 set.seed(20230514)
 ```
 
-# Fit the MFAI model
+# Fitting the MFAI model
 
 We first set the `rating` matrix as the main data matrix $Y$, and the `genre` matrix as the auxiliary matrix $X$.
 We then proceed to fit the MFAI model.
@@ -39,7 +39,7 @@ mfairObject <- fitGreedy(mfairObject,
 )
 ```
 
-# Importance score of the movie genres
+# Importance score
 
 After fitting the MFAI model, we can use the `getImportance()` function to obtain the importance score of each genre within each factor.
 
@@ -75,10 +75,14 @@ p1 <- ggplot(
     text = element_text(size = 12),
     axis.title = element_text(size = 12),
     axis.text.x = element_text(size = 12),
-    axis.text.y = element_text(size = 10)
-  )
+    axis.text.y = element_text(size = 10),
+    aspect.ratio = 2
+  ) +
+  facet_grid(. ~ Factor, scales = "free")
 p1
 ```
+
+The higher the importance score is, the more a specific movie genre contributes to improving the model.
 
 # Negative control
 
@@ -140,14 +144,16 @@ p2 <- ggplot(
     text = element_text(size = 12),
     axis.title = element_text(size = 12),
     axis.text.x = element_text(size = 12),
-    axis.text.y = element_text(size = 10)
-  )
+    axis.text.y = element_text(size = 10),
+    aspect.ratio = 2
+  ) +
+  facet_grid(. ~ Factor, scales = "free")
 p2
 ```
 
-It's clear that MFAI can avoid incorporating the fake movie genre information!
+MFAI correctly assigns low importance scores to all permuted genres, suggesting that MFAI avoids incorporating irrelevant auxiliary information. 
 
-At last, we use $X^{\text{both}} = [X, X^{\text{pmt}]$ as the input auxiliary matrix and fit the MFAI model.
+At last, we use $X^{\text{both}} = [X, X^{\text{pmt}}]$ as the input auxiliary matrix and fit the MFAI model.
 
 ```{r}
 X_both <- cbind(X, X_pmt)
@@ -192,7 +198,12 @@ p3 <- ggplot(
     text = element_text(size = 12),
     axis.title = element_text(size = 12),
     axis.text.x = element_text(size = 12),
-    axis.text.y = element_text(size = 10)
-  )
+    axis.text.y = element_text(size = 8),
+    aspect.ratio = 2
+  ) +
+  facet_grid(. ~ Factor, scales = "free")
 p3
 ```
+
+MFAI successfully distinguished the useful movie genres from irrelevant ones.
+Moreover, the importance scores obtained using $X^{\text{both}}$ are highly consistent with those obtained using $X$ and $X^{\text{pmt}}$ as separate inputs, indicating the stability and robustness of MFAI.
