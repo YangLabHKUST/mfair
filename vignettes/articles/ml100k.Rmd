@@ -34,8 +34,9 @@ mfairObject <- createMFAIR(Y, X, K_max = 3)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject,
-                         save_init = TRUE,
-                         sf_para = list(verbose_loop = FALSE))
+  save_init = TRUE,
+  sf_para = list(verbose_loop = FALSE)
+)
 ```
 
 # Importance score of the movie genres
@@ -105,7 +106,8 @@ mfairObject_pmt@initialization <- mfairObject@initialization
 
 # Fit the MFAI model
 mfairObject_pmt <- fitGreedy(mfairObject_pmt,
-                             sf_para = list(verbose_loop = FALSE))
+  sf_para = list(verbose_loop = FALSE)
+)
 ```
 
 ```{r}
@@ -156,7 +158,8 @@ mfairObject_both@initialization <- mfairObject@initialization
 
 # Fit the MFAI model
 mfairObject_both <- fitGreedy(mfairObject_both,
-                              sf_para = list(verbose_loop = FALSE))
+  sf_para = list(verbose_loop = FALSE)
+)
 ```
 
 ```{r}
