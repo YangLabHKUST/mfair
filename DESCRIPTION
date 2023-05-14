@@ -18,5 +18,7 @@ Depends:
 LazyData: true
 Suggests: 
     covr,
+    knitr,
     rmarkdown
 URL: https://yanglabhkust.github.io/mfair/
+VignetteBuilder: knitr
