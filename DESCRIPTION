@@ -19,3 +19,4 @@ LazyData: true
 Suggests: 
     covr,
     rmarkdown
+URL: https://yanglabhkust.github.io/mfair/
