@@ -6,11 +6,10 @@
 ^LICENSE\.md$
 ^data-raw$
 ^_pkgdown\.yml$
-^docs$
 ^pkgdown$
 ^codecov\.yml$
 ^\.github$
 ^inst/doc$
 ^vignettes/*.html$
 ^vignettes/*.R$
-^vignettes/articles$
+^docs$
