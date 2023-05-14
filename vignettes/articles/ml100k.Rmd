@@ -1,0 +1,195 @@
+---
+title: "Enrichment from movie genre information"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# library(RhpcBLASctl)
+# blas_set_num_threads(32)
+# install.packages("devtools")
+# devtools::install_github("YangLabHKUST/mfair")
+library(mfair)
+library(reshape2)
+library(ggplot2)
+library(scales)
+set.seed(20230514)
+```
+
+# Fit the MFAI model
+
+We first set the `rating` matrix as the main data matrix $Y$, and the `genre` matrix as the auxiliary matrix $X$.
+We then proceed to fit the MFAI model.
+
+```{r}
+# Create MFAIR object
+Y <- t(ml100k$rating)
+X <- ml100k$genre
+mfairObject <- createMFAIR(Y, X, K_max = 3)
+
+# Fit the MFAI model
+mfairObject <- fitGreedy(mfairObject,
+                         save_init = TRUE,
+                         sf_para = list(verbose_loop = FALSE))
+```
+
+# Importance score of the movie genres
+
+After fitting the MFAI model, we can use the `getImportance()` function to obtain the importance score of each genre within each factor.
+
+```{r}
+# Show top three factors
+n_factors <- 3
+importance <- as.data.frame(getImportance(mfairObject, which_factors = seq_len(n_factors)))
+importance$Genre <- rownames(importance)
+importance_long <- melt(
+  data = importance,
+  id.vars = "Genre",
+  variable.name = "Factor",
+  value.name = "Importance"
+)
+importance_long$Genre <- factor(importance_long$Genre, levels = rev(colnames(X)))
+# head(importance_long)
+```
+
+```{r}
+# Visualize the importance score
+p1 <- ggplot(
+  data = importance_long,
+  aes(x = Genre, y = Importance, fill = Genre)
+) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = label_comma(accuracy = 1)) +
+  xlab(NULL) +
+  ylab("Importance score") +
+  guides(fill = "none") +
+  theme_bw() +
+  theme(
+    text = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10)
+  )
+p1
+```
+
+# Negative control
+
+Next, let's create a permuted movie genre matrix $X^{\text{pmt}}$, where each column of $X^{\text{pmt}}$ was obtained by permuting the entries of the corresponding column in the real genre matrix $X$.
+Then we fit the MFAI model with $Y$ and $X^{\text{pmt}}$ as input.
+
+```{r}
+n_pmt <- dim(X)[2]
+
+X_pmt <- apply(X,
+  MARGIN = 2,
+  FUN = function(x) {
+    N <- length(x)
+    x[sample(x = c(1:N), size = N, replace = FALSE)]
+  }
+)
+
+colnames(X_pmt) <- paste0(colnames(X), "_permuted")
+```
+
+```{r}
+# Create MFAIR object and use the same initialization
+mfairObject_pmt <- createMFAIR(Y, X_pmt, K_max = 3)
+mfairObject_pmt@initialization <- mfairObject@initialization
+
+# Fit the MFAI model
+mfairObject_pmt <- fitGreedy(mfairObject_pmt,
+                             sf_para = list(verbose_loop = FALSE))
+```
+
+```{r}
+# Show top three factors
+n_factors <- 3
+importance_pmt <- as.data.frame(getImportance(mfairObject_pmt, which_factors = seq_len(n_factors)))
+importance_pmt$Genre <- rownames(importance_pmt)
+importance_pmt_long <- melt(
+  data = importance_pmt,
+  id.vars = "Genre",
+  variable.name = "Factor",
+  value.name = "Importance"
+)
+importance_pmt_long$Genre <- factor(importance_pmt_long$Genre, levels = rev(colnames(X_pmt)))
+# head(importance_pmt_long)
+
+# Visualize the importance score
+p2 <- ggplot(
+  data = importance_pmt_long,
+  aes(x = Genre, y = Importance, fill = Genre)
+) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = label_comma(accuracy = 1)) +
+  xlab(NULL) +
+  ylab("Importance score") +
+  guides(fill = "none") +
+  theme_bw() +
+  theme(
+    text = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10)
+  )
+p2
+```
+
+It's clear that MFAI can avoid incorporating the fake movie genre information!
+
+At last, we use $X^{\text{both}} = [X, X^{\text{pmt}]$ as the input auxiliary matrix and fit the MFAI model.
+
+```{r}
+X_both <- cbind(X, X_pmt)
+
+# Create MFAIR object and use the same initialization
+mfairObject_both <- createMFAIR(Y, X_both, K_max = 3)
+mfairObject_both@initialization <- mfairObject@initialization
+
+# Fit the MFAI model
+mfairObject_both <- fitGreedy(mfairObject_both,
+                              sf_para = list(verbose_loop = FALSE))
+```
+
+```{r}
+# Show top three factors
+n_factors <- 3
+importance_both <- as.data.frame(getImportance(mfairObject_both, which_factors = seq_len(n_factors)))
+importance_both$Genre <- rownames(importance_both)
+importance_both_long <- melt(
+  data = importance_both,
+  id.vars = "Genre",
+  variable.name = "Factor",
+  value.name = "Importance"
+)
+importance_both_long$Genre <- factor(importance_both_long$Genre, levels = rev(colnames(X_both)))
+# head(importance_both_long)
+
+# Visualize the importance score
+p3 <- ggplot(
+  data = importance_both_long,
+  aes(x = Genre, y = Importance, fill = Genre)
+) +
+  geom_col() +
+  coord_flip() +
+  scale_y_continuous(labels = label_comma(accuracy = 1)) +
+  xlab(NULL) +
+  ylab("Importance score") +
+  guides(fill = "none") +
+  theme_bw() +
+  theme(
+    text = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10)
+  )
+p3
+```
