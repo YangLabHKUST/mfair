@@ -23,8 +23,8 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
     FUN = getImportanceSF,
     variables_names = colnames(object@X)
   )
+  # importance <- data.frame(Covariate = colnames(object@X), importance)
   colnames(importance) <- paste("Factor", which_factors)
-  importance <- data.frame(Covariate = colnames(object@X), importance)
 
   return(importance)
 }
