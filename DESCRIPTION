@@ -16,5 +16,4 @@ Depends:
     rpart
 LazyData: true
 Suggests: 
-    covr,
-    rmarkdown
+    covr
