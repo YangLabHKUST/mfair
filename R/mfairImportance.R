@@ -1,7 +1,5 @@
 #' Get importance measures of auxiliary covariates.
 #'
-#' @importFrom dplyr left_join
-#'
 #' @param object MFAIR object.
 #' @param which_factors Which factors, i.e., which fitted functions are evaluated. All K factors are evaluated by default.
 #'
@@ -31,6 +29,8 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
 }
 
 #' Get importance measures of auxiliary covariates in a single factor.
+#'
+#' @importFrom dplyr left_join
 #'
 #' @param tree_list A fitted function represented by a list of trees.
 #' @param variables_names The names of the auxiliary covariates.
@@ -62,7 +62,7 @@ getImportanceSF <- function(tree_list, variables_names) {
       colnames(importance_t)[2] <- paste0("tree_", t)
 
       # Add the importance measures in the t-th tree to the importance_data_frame
-      importance_data_frame <- left_join(importance_data_frame, importance_t, by = "variable")
+      importance_data_frame <- dplyr::left_join(importance_data_frame, importance_t, by = "variable")
       # importance_data_frame <- merge(importance_data_frame, importance_t,
       #   by = "variable", all = TRUE, sort = FALSE
       # )
