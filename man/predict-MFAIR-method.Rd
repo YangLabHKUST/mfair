@@ -4,7 +4,7 @@
 \alias{predict,MFAIR-method}
 \title{Prediction function for MFAIR object.}
 \usage{
-\S4method{predict}{MFAIR}(object, which_factors = c(1:object@K))
+\S4method{predict}{MFAIR}(object, which_factors = seq_len(object@K))
 }
 \arguments{
 \item{object}{A model object for which prediction is desired.}

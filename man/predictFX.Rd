@@ -4,7 +4,7 @@
 \alias{predictFX}
 \title{Prediction function for fitted functions.}
 \usage{
-predictFX(object, newdata, which_factors = c(1:object@K))
+predictFX(object, newdata, which_factors = seq_len(object@K))
 }
 \arguments{
 \item{object}{MFAIR object.}

@@ -4,7 +4,7 @@
 \alias{getImportance}
 \title{Get importance measures of auxiliary covariates.}
 \usage{
-getImportance(object, which_factors = c(1:object@K))
+getImportance(object, which_factors = seq_len(object@K))
 }
 \arguments{
 \item{object}{MFAIR object.}
