@@ -18,7 +18,10 @@ Depends:
 LazyData: true
 Suggests: 
     covr,
+    ggplot2,
     knitr,
-    rmarkdown
+    reshape2,
+    rmarkdown,
+    scales
 URL: https://yanglabhkust.github.io/mfair/
 VignetteBuilder: knitr
