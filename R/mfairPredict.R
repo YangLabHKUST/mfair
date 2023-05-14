@@ -9,7 +9,7 @@
 setMethod(
   f = "predict",
   signature = "MFAIR",
-  definition = function(object, which_factors = c(1:object@K)) {
+  definition = function(object, which_factors = seq_len(object@K)) {
     # Check Y
     if (object@Y_missing == FALSE) {
       message("The main data matrix Y has no missing entries!")
@@ -55,7 +55,7 @@ setMethod(
 #' @return A matrix containing predicted F(X). Each row is a new sample and each column is a factor.
 #' @export
 #'
-predictFX <- function(object, newdata, which_factors = c(1:object@K)) {
+predictFX <- function(object, newdata, which_factors = seq_len(object@K)) {
   newdata <- as.data.frame(newdata)
   N <- nrow(newdata)
 

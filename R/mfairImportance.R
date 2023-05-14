@@ -9,7 +9,7 @@
 #'
 #' @export
 #'
-getImportance <- function(object, which_factors = c(1:object@K)) {
+getImportance <- function(object, which_factors = seq_len(object@K)) {
   # Check fitted functions
   if (length(object@tree_lists) == 0) {
     stop("There is no fitted function!")
@@ -51,7 +51,7 @@ getImportanceSF <- function(tree_list, variables_names) {
   importance_data_frame <- data.frame(variable = variables_names)
 
   # For-loop for each tree
-  for (t in 1:length(importance_list)) {
+  for (t in seq_len(length(importance_list))) {
     if (!is.null(importance_list[[t]])) {
       # Importance measures of variables contained in the t-th tree
       importance_t <- data.frame(
