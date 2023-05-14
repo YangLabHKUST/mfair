@@ -1,7 +1,8 @@
 ### code to prepare `ml100k` dataset goes here
 
 ## Movie rating data
-u_data <- read.table("https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
+u_data <- read.table(
+  "https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
   sep = "\t", header = FALSE
 )
 # user id | item id | rating | timestamp
@@ -14,13 +15,14 @@ N <- (range(u_data[, 1]))[2]
 M <- (range(u_data[, 2]))[2]
 
 u_data_matrix <- matrix(NA, N, M)
-for (i in 1:dim(u_data)[1]) {
+for (i in seq_len(dim(u_data)[1])) {
   u_data_matrix[u_data[i, 1], u_data[i, 2]] <- u_data[i, 3]
 }
 # head(u_data_matrix)
 
 ## User information
-u_user <- read.table("https://files.grouplens.org/datasets/movielens/ml-100k/u.user",
+u_user <- read.table(
+  "https://files.grouplens.org/datasets/movielens/ml-100k/u.user",
   sep = "|", header = FALSE
 )
 # user id | age | gender | occupation | zip code
@@ -35,13 +37,15 @@ colnames(u_user) <- c("Age", "Gender", "Occupation")
 # dim(u_user)
 
 # Movie genre information
-u_item <- read.csv("https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
+u_item <- read.csv(
+  "https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
   sep = "|", header = FALSE
 )
 # head(u_item)
 # dim(u_item)
 
-# all_genres <- read.csv("https://files.grouplens.org/datasets/movielens/ml-100k/u.genre",
+# all_genres <- read.csv(
+#   "https://files.grouplens.org/datasets/movielens/ml-100k/u.genre",
 #   sep = "|", header = FALSE
 # )
 # all_genres
@@ -51,7 +55,11 @@ colnames(u_item) <- c("Unknown", "Action", "Adventure", "Animation", "Childrenâ€
 # head(u_item)
 # dim(u_item)
 
-ml100k <- list(rating = u_data_matrix, user = u_user, genre = u_item)
+ml100k <- list(
+  rating = u_data_matrix,
+  user = u_user,
+  genre = u_item
+)
 
 # Save the data
 usethis::use_data(ml100k, overwrite = TRUE)
