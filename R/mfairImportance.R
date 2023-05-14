@@ -1,5 +1,7 @@
 #' Get importance measures of auxiliary covariates.
 #'
+#' @importFrom dplyr left_join
+#'
 #' @param object MFAIR object.
 #' @param which_factors Which factors, i.e., which fitted functions are evaluated. All K factors are evaluated by default.
 #'
@@ -37,8 +39,6 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
 #' @export
 #'
 getImportanceSF <- function(tree_list, variables_names) {
-  n_variables <- length(variables_names)
-
   importance_list <- lapply(tree_list,
     FUN = function(x) {
       x$variable.importance
@@ -48,7 +48,8 @@ getImportanceSF <- function(tree_list, variables_names) {
   # Data frame to store the importance measures in all trees.
   # Each row is a variable and each column is a tree.
   # The first column stores variable names.
-  importance_data_frame <- data.frame(variable = variables_names)
+  # We here use gsub() since the rpart() will automatically replace all special characters in strings with dots.
+  importance_data_frame <- data.frame(variable = gsub("[[:punct:]]", ".", variables_names))
 
   # For-loop for each tree
   for (t in seq_len(length(importance_list))) {
@@ -61,9 +62,10 @@ getImportanceSF <- function(tree_list, variables_names) {
       colnames(importance_t)[2] <- paste0("tree_", t)
 
       # Add the importance measures in the t-th tree to the importance_data_frame
-      importance_data_frame <- merge(importance_data_frame, importance_t,
-        by = "variable", all = TRUE, sort = FALSE
-      )
+      importance_data_frame <- left_join(importance_data_frame, importance_t, by = "variable")
+      # importance_data_frame <- merge(importance_data_frame, importance_t,
+      #   by = "variable", all = TRUE, sort = FALSE
+      # )
     }
   }
 
