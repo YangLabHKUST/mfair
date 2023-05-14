@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # mfair: Matrix Factorization with Auxiliary Information in R
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main)
+[![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Matrix factorization methods based on the paper [MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information](https://doi.org/10.48550/arXiv.2303.02566).

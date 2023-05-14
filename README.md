@@ -4,6 +4,10 @@
 # mfair: Matrix Factorization with Auxiliary Information in R
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main)
+[![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Matrix factorization methods based on the paper [MFAI: A scalable
