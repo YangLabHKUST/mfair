@@ -86,8 +86,14 @@ fitGreedy <- function(object, K_max = NULL,
   for (k in 1:object@K_max) {
     # Initialize
     if (need_init[k]) {
+      if (verbose_greedy) {
+        message("Initialize the parameters of factor ", k, "......")
+      }
       init <- initSF(R, object@Y_missing, object@n_obs)
     } else {
+      if (verbose_greedy) {
+        message("Use the user-specific initialization for factor ", k, "......")
+      }
       init <- object@initialization[[k]]
     }
 
@@ -152,6 +158,9 @@ fitGreedy <- function(object, K_max = NULL,
 
     # Save the initialization
     if (save_init) {
+      if (verbose_greedy) {
+        message("Save the initializaiton information......")
+      }
       object@initialization <- c(object@initialization, list(init))
     }
     # Free the memory
