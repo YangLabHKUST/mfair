@@ -24,7 +24,6 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
     variables_names = colnames(object@X)
   )
   colnames(importance) <- paste("Factor", which_factors)
-  importance <- data.frame(Covariate = colnames(object@X), importance)
 
   return(importance)
 }
@@ -38,6 +37,8 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
 #' @export
 #'
 getImportanceSF <- function(tree_list, variables_names) {
+  n_variables <- length(variables_names)
+
   importance_list <- lapply(tree_list,
     FUN = function(x) {
       x$variable.importance
@@ -68,6 +69,7 @@ getImportanceSF <- function(tree_list, variables_names) {
 
   # Add together the importance measures in all trees
   importance <- rowSums(importance_data_frame[, -1], na.rm = TRUE)
+  names(importance) <- variables_names
 
   return(importance)
 }
