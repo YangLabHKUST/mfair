@@ -1,5 +1,5 @@
 ### code to prepare `neocortex` dataset goes here
-# Bulk gene expression data (microarray platform) used in MFAI paper
+# Bulk gene expression data (microarray platform) used in the MFAI paper
 
 # Set the path for raw data
 RAW_DATA_PATH <- "~/Research/rPackages/mfair/data-raw"
@@ -13,13 +13,13 @@ drive_deauth()
 drive_user()
 public_file <- drive_get(as_id("1iFN98KTFXFkJKhf4Zc3721fxTdzk2fQO"))
 drive_download(public_file,
-               overwrite = TRUE,
-               path = paste0(RAW_DATA_PATH, "/all_exp.RData")
+  overwrite = TRUE,
+  path = paste0(RAW_DATA_PATH, "/all_exp.RData")
 )
 public_file <- drive_get(as_id("1XhHLSdt-A7xFFjdhX5GrT84aT6qrD0Mn"))
 drive_download(public_file,
-               overwrite = TRUE,
-               path = paste0(RAW_DATA_PATH, "/gene_symbol.rda")
+  overwrite = TRUE,
+  path = paste0(RAW_DATA_PATH, "/gene_symbol.rda")
 )
 
 # Load gene expression data matrix
@@ -47,9 +47,9 @@ stage_ex_period12 <- all_exp[1, idx]
 sample_info_ex_period12 <- colnames(exp_ex_period12)
 sample_info_ex_period12 <- strsplit(sample_info_ex_period12, split = "_")
 sample_info_ex_period12 <- t(sapply(sample_info_ex_period12,
-                                    FUN = function(x) {
-                                      x
-                                    }
+  FUN = function(x) {
+    x
+  }
 ))
 sample_info_ex_period12 <- as.data.frame(sample_info_ex_period12)
 colnames(sample_info_ex_period12) <- c("ID", "Region", "Hemisphere")
@@ -65,12 +65,17 @@ unique(sample_info_ex_period12[, "Stage"])
 
 ## Select 11 neocortex areas
 
-neocortex <- c("OFC", "DFC", "VFC", "MFC", "M1C", "S1C", "IPC", "A1C", "STC", "ITC", "V1C")
-idx <- sample_info_ex_period12[, "Region"] %in% neocortex
+neocortex_areas <- c("OFC", "DFC", "VFC", "MFC", "M1C", "S1C", "IPC", "A1C", "STC", "ITC", "V1C")
+idx <- sample_info_ex_period12[, "Region"] %in% neocortex_areas
 exp_preprocess <- t(exp_ex_period12[, idx])
-dim(exp_preprocess)
 # head(exp_preprocess)
 sample_info_preprocess <- sample_info_ex_period12[idx, ]
+sample_info_preprocess[, "Region"] <- factor(sample_info_preprocess[, "Region"],
+  levels = neocortex
+)
+sample_info_preprocess[, "Hemisphere"] <- factor(sample_info_preprocess[, "Hemisphere"],
+  levels = c("L", "R")
+)
 # head(sample_info_preprocess)
 
 ## Select genes with reproducible spatial patterns (differential stability)
