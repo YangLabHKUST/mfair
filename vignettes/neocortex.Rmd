@@ -113,8 +113,8 @@ p <- ggplot(
     axis.text.x = element_text(size = 10),
     legend.title = element_text(size = 10),
     legend.text = element_text(size = 10),
-    legend.key.size = unit(0.5, "cm"),
-    legend.key.width = unit(0.5, "cm"),
+    legend.key.size = unit(0.8, "cm"),
+    legend.key.width = unit(0.8, "cm"),
     legend.position = "right",
     panel.spacing.y = unit(0.2, "cm"), # Space between panels
     aspect.ratio = 0.4
@@ -142,7 +142,7 @@ pheatmap::pheatmap(t(gene_factors),
   treeheight_row = 0, treeheight_col = 0,
   border = FALSE,
   show_rownames = TRUE, show_colnames = FALSE,
-  cellwidth = 0.1, cellheight = 50,
+  cellwidth = 0.2, cellheight = 40,
   fontsize = 12
 )
 ```
