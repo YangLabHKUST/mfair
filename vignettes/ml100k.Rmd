@@ -1,10 +1,10 @@
 ---
-title: "Enrichment from movie genre information"
+title: "Enrichment of movie genre information"
 author: "WANG Zhiwei, HKUST"
 date: "May 14, 2023"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Enrichment from movie genre information}
+  %\VignetteIndexEntry{Enrichment of movie genre information}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,8 +30,8 @@ set.seed(20230514)
 
 # Fitting the MFAI model
 
-We first set the `rating` matrix as the main data matrix $Y$, and the `genre` matrix as the auxiliary matrix $X$.
-We then proceed to fit the MFAI model.
+We first use the `rating` matrix as the main data matrix $Y$, and the `genre` matrix as the auxiliary matrix $X$.
+We then proceed to fit the MFAI model with top three factors.
 
 ```{r}
 # Create MFAIR object
@@ -51,9 +51,8 @@ mfairObject <- fitGreedy(mfairObject,
 After fitting the MFAI model, we can use the `getImportance()` function to obtain the importance score of each genre within each factor.
 
 ```{r}
-# Show top three factors
-n_factors <- 3
-importance <- as.data.frame(getImportance(mfairObject, which_factors = seq_len(n_factors)))
+# Get importance score
+importance <- as.data.frame(getImportance(mfairObject, which_factors = 1:3))
 importance$Genre <- rownames(importance)
 importance_long <- melt(
   data = importance,
@@ -122,9 +121,8 @@ mfairObject_pmt <- fitGreedy(mfairObject_pmt,
 ```
 
 ```{r}
-# Show top three factors
-n_factors <- 3
-importance_pmt <- as.data.frame(getImportance(mfairObject_pmt, which_factors = seq_len(n_factors)))
+# Get importance score
+importance_pmt <- as.data.frame(getImportance(mfairObject_pmt, which_factors = 1:3))
 importance_pmt$Genre <- rownames(importance_pmt)
 importance_pmt_long <- melt(
   data = importance_pmt,
@@ -176,9 +174,8 @@ mfairObject_both <- fitGreedy(mfairObject_both,
 ```
 
 ```{r}
-# Show top three factors
-n_factors <- 3
-importance_both <- as.data.frame(getImportance(mfairObject_both, which_factors = seq_len(n_factors)))
+# Get importance score
+importance_both <- as.data.frame(getImportance(mfairObject_both, which_factors = 1:3))
 importance_both$Genre <- rownames(importance_both)
 importance_both_long <- melt(
   data = importance_both,
