@@ -28,10 +28,14 @@ library(scales)
 set.seed(20230514)
 ```
 
+# `ml100k` data
+
+Each row represents a user and each column represents a movie in the `rating` matrix, and each row represents a movie and each column represents a genre in the `genre` matrix (use `help(ml100k)` for more details about the data).
+
 # Fitting the MFAI model
 
-We first use the `rating` matrix as the main data matrix $Y$, and the `genre` matrix as the auxiliary matrix $X$.
-We then proceed to fit the MFAI model with top three factors.
+We use the `rating` matrix as the main data matrix $Y$, and the `genre` data frame as the auxiliary matrix $X$.
+Then we proceed to fit the MFAI model with top three factors.
 
 ```{r}
 # Create MFAIR object
@@ -92,7 +96,7 @@ The higher the importance score is, the more a specific movie genre contributes 
 
 # Negative control
 
-Next, let's create a permuted movie genre matrix $X^{\text{pmt}}$, where each column of $X^{\text{pmt}}$ was obtained by permuting the entries of the corresponding column in the real genre matrix $X$.
+Next, let's create a permuted movie genre matrix $X^{\text{pmt}}$, where each column of $X^{\text{pmt}}$ was obtained by permuting the entries of the corresponding column in the real genre data $X$.
 Then we fit the MFAI model with $Y$ and $X^{\text{pmt}}$ as input.
 
 ```{r}
@@ -158,7 +162,7 @@ p2
 
 MFAI correctly assigns low importance scores to all permuted genres, suggesting that MFAI avoids incorporating irrelevant auxiliary information. 
 
-At last, we use $X^{\text{both}} = [X, X^{\text{pmt}}]$ as the input auxiliary matrix and fit the MFAI model.
+At last, we use $X^{\text{both}} = [X, X^{\text{pmt}}]$ as the input auxiliary information and fit the MFAI model.
 
 ```{r}
 X_both <- cbind(X, X_pmt)
