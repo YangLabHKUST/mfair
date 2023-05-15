@@ -1,0 +1,186 @@
+---
+title: "Spatial and temporal dynamics of gene regulation Among brain tissues"
+author: "WANG Zhiwei, HKUST"
+date: "May 15, 2023"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Spatial and temporal dynamics of gene regulation Among brain tissues}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# library(RhpcBLASctl)
+# blas_set_num_threads(32)
+# install.packages("devtools")
+# devtools::install_github("YangLabHKUST/mfair")
+library(mfair)
+library(reshape2)
+library(ggplot2)
+library(scales)
+library(ggh4x)
+library(pheatmap)
+set.seed(20230515)
+```
+
+# `neocortex` data
+
+The spatial and temporal patterns of gene regulation during brain development have attracted a great deal of attention in the neuroscience community.
+The availability of gene expression profiles collected from multiple brain regions and time periods provides an unprecedented chance to characterize human brain development.
+Here we select genes with consistent spatial patterns across individuals using the concept of differential stability (DS), which is defined as the tendency for a gene to exhibit reproducible differential expression relationships across brain structures.
+We include 2,000 genes with the highest DS and get the `expression` matrix, where each row represents a sample tissue and each column represents a gene.
+The `sample_info` data frame contains the sample information, where each row represents a sample tissue and the four columns respectively represent sample ID, neocortex area, hemisphere, and time periods.
+
+# Fitting the MFAI model
+
+We use the `expression` matrix as the main data matrix $Y$, and the spatial and temporal information contained in the `sample_info` data frame as the auxiliary matrix $X$.
+Then we proceed to fit the MFAI model with top three factors.
+
+```{r}
+# Create MFAIR object
+Y <- neocortex$expression
+X <- neocortex$sample_info[, c("Region", "Stage")]
+mfairObject <- createMFAIR(Y, X, K_max = 3)
+
+# Fit the MFAI model
+mfairObject <- fitGreedy(mfairObject,
+  save_init = TRUE,
+  sf_para = list(tol_stage2 = 1e-6, verbose_loop = FALSE)
+)
+```
+
+# Spatial and temporal dynamics
+
+To gain insights, we visualize the dynamic patterns of the top three factors across different neocortex areas and time periods, represented by $\{ F_1 (\cdot) , F_2 (\cdot) , F_3 (\cdot) \}$.
+
+```{r}
+region <- c("OFC", "DFC", "VFC", "MFC", "M1C", "S1C", "IPC", "A1C", "STC", "ITC", "V1C")
+stage <- c(3:15)
+X_new <- data.frame(
+  Region = factor(rep(region, length(stage)), levels = region),
+  Stage = rep(stage, each = length(region))
+)
+FX <- predictFX(mfairObject,
+  newdata = X_new,
+  which_factors = c(1:3)
+)
+```
+
+```{r}
+# Function used to normalize each factor to have the l2-norm equal one
+normFactor <- function(x) {
+  return(x / sqrt(sum(x^2)))
+}
+
+FX <- apply(FX, MARGIN = 2, FUN = normFactor)
+FX <- data.frame(X_new, FX)
+colnames(FX) <- c("Neocortex area", "Time period", paste("Factor", c(1:3)))
+FX[, "Time period"] <- factor(FX[, "Time period"], levels = stage)
+head(FX)
+```
+
+```{r}
+# Convert the wide table to the long table
+FX_long <- melt(
+  data = FX,
+  id.vars = c("Neocortex area", "Time period"),
+  variable.name = "Factor", value.name = "F"
+)
+head(FX_long)
+```
+
+```{r}
+# Visualization of F(.)
+p <- ggplot(
+  data = FX_long,
+  aes(x = `Time period`, y = F, linetype = `Neocortex area`, colour = `Neocortex area`, group = `Neocortex area`)
+) +
+  geom_line(linewidth = 0.5) +
+  ylab(NULL) +
+  theme_bw() +
+  scale_y_continuous(n.breaks = 4) +
+  theme(
+    text = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.title.x = element_text(size = 8, margin = margin(t = 3)),
+    axis.text.x = element_text(size = 7),
+    legend.title = element_text(size = 7),
+    legend.text = element_text(size = 5),
+    legend.key.size = unit(0.5, "cm"),
+    legend.key.width = unit(0.5, "cm"),
+    legend.position = "right",
+    panel.spacing.y = unit(0.2, "cm"), # Space between panels
+    aspect.ratio = 0.6
+  ) +
+  ggh4x::facet_grid2(Factor ~ ., scales = "free_y")
+p
+```
+
+# Gene set enrichment analysis
+
+```{r}
+# Inferred gene factors (corresponding to the W matrix in the MFAI paper)
+gene_factors <- mfairObject@W
+rownames(gene_factors) <- colnames(mfairObject@Y) # Assign gene symbols
+colnames(gene_factors) <- paste("Factor", c(1:3))
+head(gene_factors)
+```
+
+```{r}
+# Heatmap of the inferred gene factors
+pheatmap::pheatmap(t(gene_factors),
+  scale = "column",
+  clustering_method = "complete",
+  cluster_row = FALSE, cluster_col = TRUE,
+  treeheight_row = 0, treeheight_col = 0,
+  border = FALSE,
+  show_rownames = TRUE, show_colnames = FALSE,
+  cellwidth = 0.5, cellheight = 25,
+  fontsize = 12
+)
+```
+
+We first calculated the relative weight of the $k$-th factor for the $m$-th gene by $\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3} \left| W_{mk^{\prime}} \right|$, where $W_{m \cdot} \in \mathbb{R}^{3 \times 1}$ is the $m$-th row of gene factors, and then selected the top 300 weighted genes in each factor to form the gene sets.
+
+```{r}
+# Normalize to have l2 norm equal 1 for each factor
+gene_factors <- apply(gene_factors,
+  MARGIN = 2,
+  FUN = function(x) {
+    x / sqrt(sum(x^2))
+  }
+)
+
+# Relative weight
+gene_factors <- abs(gene_factors)
+gene_factors <- gene_factors / rowSums(gene_factors)
+
+M <- nrow(gene_factors)[1] # Total number of genes M = 2,000
+ntop <- M * 0.15 # We use the top 300 weighted genes in each factor to form the gene sets
+
+# Index of top genes
+top_gene_idx <- apply(gene_factors,
+  MARGIN = 2,
+  FUN = function(x) {
+    which(rank(-x) <= ntop)
+  }
+)
+
+top_genes <- apply(top_gene_idx,
+  MARGIN = 2,
+  FUN = function(x) {
+    rownames(gene_factors)[x]
+  }
+)
+colnames(top_genes) <- paste("Factor", c(1:3))
+head(top_genes)
+```
+
+Then we can conduct the gene set enrichment analysis based on [Gene Ontology](http://geneontology.org/) for each factor.
