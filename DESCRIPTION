@@ -18,7 +18,6 @@ Depends:
 LazyData: true
 Suggests: 
     covr,
-    ggh4x,
     ggplot2,
     knitr,
     pheatmap,
