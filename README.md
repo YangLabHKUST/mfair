@@ -161,8 +161,10 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 
 ``` r
 # Refine the MFAI model with the backfitting algorithm
-mfairObject <- fitBack(mfairObject, verbose_bf_inner = FALSE,
-                       sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE))
+mfairObject <- fitBack(mfairObject,
+  verbose_bf_inner = FALSE,
+  sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
+)
 #> Iteration: 1, relative difference of model parameters: 0.2212487.
 #> Iteration: 2, relative difference of model parameters: 0.05861598.
 #> Iteration: 3, relative difference of model parameters: 0.01781071.
@@ -191,7 +193,7 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 
 ``` r
 vignette("ml100k")
-#> Warning: vignette 'ml100k' not found
+#> starting httpd help server ... done
 ```
 
 - Explore the [vignette illustrating the spatial and temporal dynamics
@@ -200,7 +202,6 @@ vignette("ml100k")
 
 ``` r
 vignette("neocortex")
-#> Warning: vignette 'neocortex' not found
 ```
 
 - For more documentation and examples, please visit our package
