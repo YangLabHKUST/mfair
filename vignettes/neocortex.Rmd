@@ -1,10 +1,10 @@
 ---
-title: "Spatial and temporal dynamics of gene regulation Among brain tissues"
+title: "Spatial and temporal dynamics of gene regulation among brain tissues"
 author: "WANG Zhiwei, HKUST"
 date: "May 15, 2023"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Spatial and temporal dynamics of gene regulation Among brain tissues}
+  %\VignetteIndexEntry{Spatial and temporal dynamics of gene regulation among brain tissues}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -107,17 +107,17 @@ p <- ggplot(
   theme_bw() +
   scale_y_continuous(n.breaks = 4) +
   theme(
-    text = element_text(size = 10),
+    text = element_text(size = 12),
     axis.text.y = element_text(size = 10),
     axis.title.x = element_text(size = 10, margin = margin(t = 3)),
     axis.text.x = element_text(size = 10),
     legend.title = element_text(size = 10),
-    legend.text = element_text(size = 8),
+    legend.text = element_text(size = 10),
     legend.key.size = unit(0.5, "cm"),
     legend.key.width = unit(0.5, "cm"),
     legend.position = "right",
     panel.spacing.y = unit(0.2, "cm"), # Space between panels
-    aspect.ratio = 0.5
+    aspect.ratio = 0.4
   ) +
   ggh4x::facet_grid2(Factor ~ ., scales = "free_y")
 p
@@ -142,7 +142,7 @@ pheatmap::pheatmap(t(gene_factors),
   treeheight_row = 0, treeheight_col = 0,
   border = FALSE,
   show_rownames = TRUE, show_colnames = FALSE,
-  cellwidth = 0.3, cellheight = 30,
+  cellwidth = 0.1, cellheight = 50,
   fontsize = 12
 )
 ```
