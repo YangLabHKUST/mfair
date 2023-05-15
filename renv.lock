@@ -592,24 +592,6 @@
       ],
       "Hash": "9122b3958e749badb5c939f498038b57"
     },
-    "ggh4x": {
-      "Package": "ggh4x",
-      "Version": "0.2.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "cli",
-        "ggplot2",
-        "grid",
-        "gtable",
-        "lifecycle",
-        "rlang",
-        "scales",
-        "stats",
-        "vctrs"
-      ],
-      "Hash": "31191cd4554699b1a22f3114e6344c9e"
-    },
     "ggplot2": {
       "Package": "ggplot2",
       "Version": "3.4.2",
