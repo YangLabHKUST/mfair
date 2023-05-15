@@ -25,7 +25,6 @@ library(mfair)
 library(reshape2)
 library(ggplot2)
 library(scales)
-library(ggh4x)
 library(pheatmap)
 set.seed(20230515)
 ```
@@ -111,7 +110,7 @@ p <- ggplot(
     axis.text.y = element_text(size = 10),
     axis.title.x = element_text(size = 10, margin = margin(t = 3)),
     axis.text.x = element_text(size = 10),
-    legend.title = element_text(size = 10),
+    legend.title = element_text(size = 12),
     legend.text = element_text(size = 10),
     legend.key.size = unit(0.8, "cm"),
     legend.key.width = unit(0.8, "cm"),
@@ -119,7 +118,7 @@ p <- ggplot(
     panel.spacing.y = unit(0.2, "cm"), # Space between panels
     aspect.ratio = 0.4
   ) +
-  facet_grid2(Factor ~ ., scales = "free_y")
+  facet_grid(Factor ~ ., scales = "free_y")
 p
 ```
 
