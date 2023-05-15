@@ -31,9 +31,9 @@ devtools::install_github("YangLabHKUST/mfair", build_vignettes = TRUE)
 
 Please note that it can take several minutes to build the vignette.
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+- This is a basic example which shows you how to solve a common problem:
 
 ``` r
 set.seed(20230306)
@@ -114,7 +114,7 @@ var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
 #> [1] 0.9884637
 ```
 
-`mfair` can also handle the matrix with missing entries:
+- `mfair` can also handle the matrix with missing entries:
 
 ``` r
 # Split the data into the training set and test set
@@ -156,8 +156,16 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 #> [1] 0.8554015
 ```
 
-For more documentation and examples, please visit our package
-[website](https://yanglabhkust.github.io/mfair/).
+- Explore the [vignette illustrating the enrichment of the movie genre
+  information](https://yanglabhkust.github.io/mfair/articles/ml100k.html):
+
+``` r
+vignette("ml100k")
+#> starting httpd help server ... done
+```
+
+- For more documentation and examples, please visit our package
+  [website](https://yanglabhkust.github.io/mfair/).
 
 ## Citing our work
 
