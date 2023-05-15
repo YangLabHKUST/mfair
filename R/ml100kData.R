@@ -1,6 +1,6 @@
-#' MovieLens 100K dataset.
+#' MovieLens 100K data.
 #'
-#' A list containing the movie rating, user information, and movie genres of the MovieLens 100K dataset.
+#' A list containing the movie rating, user information, and movie genres of the MovieLens 100K data.
 #'
 #' @format A list containing a movie rating matrix, a user information data frame, and a movie genres data frame.
 #' \describe{
