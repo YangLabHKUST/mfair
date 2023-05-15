@@ -6,9 +6,7 @@
 ^LICENSE\.md$
 ^data-raw$
 ^_pkgdown\.yml$
+^docs$
 ^pkgdown$
 ^codecov\.yml$
 ^\.github$
-^vignettes/*.html$
-^vignettes/*.R$
-^docs$
