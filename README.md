@@ -26,8 +26,10 @@ You can install the development version of `mfair` from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("YangLabHKUST/mfair")
+devtools::install_github("YangLabHKUST/mfair", build_vignettes = TRUE)
 ```
+
+Please note that it can take several minutes to build the vignette.
 
 ## Example
 
@@ -86,9 +88,11 @@ mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
+#> Initialize the parameters of factor 1......
 #> After 1 iterations Stage 1 ends!
 #> After 43 iterations Stage 2 ends!
 #> Factor 1 retained!
+#> Initialize the parameters of factor 2......
 #> After 1 iterations Stage 1 ends!
 #> After 40 iterations Stage 2 ends!
 #> Factor 2 retained!
@@ -127,9 +131,11 @@ mfairObject <- createMFAIR(Y_train, X, K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
+#> Initialize the parameters of factor 1......
 #> After 1 iterations Stage 1 ends!
 #> After 68 iterations Stage 2 ends!
 #> Factor 1 retained!
+#> Initialize the parameters of factor 2......
 #> After 1 iterations Stage 1 ends!
 #> After 66 iterations Stage 2 ends!
 #> Factor 2 retained!
