@@ -134,10 +134,36 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
 ```
 
+* Empirically, the backfitting algorithm can further improve the performance:
+
+```{r}
+# Refine the MFAI model with the backfitting algorithm
+mfairObject <- fitBack(mfairObject, verbose_bf_inner = FALSE,
+                       sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE))
+
+# Prediction based on the low-rank approximation
+Y_hat <- predict(mfairObject)
+
+# Root-mean-square-error
+sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
+
+# Predicted/true matrix variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
+
+# Prediction/noise variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
+```
+
 * Explore the [vignette illustrating the enrichment of the movie genre information](https://yanglabhkust.github.io/mfair/articles/ml100k.html):
 
 ```{r}
 vignette("ml100k")
+```
+
+* Explore the [vignette illustrating the spatial and temporal dynamics of gene regulation among brain tissues](https://yanglabhkust.github.io/mfair/articles/neocortex.html):
+
+```{r}
+vignette("neocortex")
 ```
 
 * For more documentation and examples, please visit our package [website](https://yanglabhkust.github.io/mfair/).

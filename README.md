@@ -156,12 +156,51 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 #> [1] 0.8554015
 ```
 
+- Empirically, the backfitting algorithm can further improve the
+  performance:
+
+``` r
+# Refine the MFAI model with the backfitting algorithm
+mfairObject <- fitBack(mfairObject, verbose_bf_inner = FALSE,
+                       sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE))
+#> Iteration: 1, relative difference of model parameters: 0.2212487.
+#> Iteration: 2, relative difference of model parameters: 0.05861598.
+#> Iteration: 3, relative difference of model parameters: 0.01781071.
+#> Iteration: 4, relative difference of model parameters: 0.02649139.
+#> Iteration: 5, relative difference of model parameters: 0.01830385.
+#> Iteration: 6, relative difference of model parameters: 0.007152868.
+
+# Prediction based on the low-rank approximation
+Y_hat <- predict(mfairObject)
+
+# Root-mean-square-error
+sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
+#> [1] 12.84545
+
+# Predicted/true matrix variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
+#> [1] 0.4434191
+
+# Prediction/noise variance ratio
+var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
+#> [1] 0.8846744
+```
+
 - Explore the [vignette illustrating the enrichment of the movie genre
   information](https://yanglabhkust.github.io/mfair/articles/ml100k.html):
 
 ``` r
 vignette("ml100k")
-#> starting httpd help server ... done
+#> Warning: vignette 'ml100k' not found
+```
+
+- Explore the [vignette illustrating the spatial and temporal dynamics
+  of gene regulation among brain
+  tissues](https://yanglabhkust.github.io/mfair/articles/neocortex.html):
+
+``` r
+vignette("neocortex")
+#> Warning: vignette 'neocortex' not found
 ```
 
 - For more documentation and examples, please visit our package
