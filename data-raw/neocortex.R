@@ -35,6 +35,7 @@ head(rownames(all_exp[-1, ]))
 load(paste0(RAW_DATA_PATH, "/gene_symbol.rda"))
 # Gene symbols match with the rows in the gene expression data matrix
 head(gene_symbol)
+rownames(all_exp)[-1] <- gene_symbol
 
 ## Exclude period 1&2 since most of the 16 brain regions sampled in future periods have not differentiated.
 
@@ -71,7 +72,7 @@ exp_preprocess <- t(exp_ex_period12[, idx])
 # head(exp_preprocess)
 sample_info_preprocess <- sample_info_ex_period12[idx, ]
 sample_info_preprocess[, "Region"] <- factor(sample_info_preprocess[, "Region"],
-  levels = neocortex
+  levels = neocortex_areas
 )
 sample_info_preprocess[, "Hemisphere"] <- factor(sample_info_preprocess[, "Hemisphere"],
   levels = c("L", "R")
