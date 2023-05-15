@@ -9,7 +9,6 @@
 ^pkgdown$
 ^codecov\.yml$
 ^\.github$
-^inst/doc$
 ^vignettes/*.html$
 ^vignettes/*.R$
 ^docs$
