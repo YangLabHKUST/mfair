@@ -10,5 +10,3 @@
 ^pkgdown$
 ^codecov\.yml$
 ^\.github$
-^\data-raw\*.RData$
-^\data-raw\*.rda$
