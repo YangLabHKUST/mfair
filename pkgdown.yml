@@ -1,0 +1,11 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  ml100k: ml100k.html
+  neocortex: neocortex.html
+last_built: 2023-05-16T09:34Z
+urls:
+  reference: https://yanglabhkust.github.io/mfair/reference
+  article: https://yanglabhkust.github.io/mfair/articles
+
