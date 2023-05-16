@@ -34,7 +34,7 @@ set.seed(20230515)
 The spatial and temporal patterns of gene regulation during brain development have attracted a great deal of attention in the neuroscience community.
 The availability of gene expression profiles collected from multiple brain regions and time periods provides an unprecedented chance to characterize human brain development.
 Here we select genes with consistent spatial patterns across individuals using the concept of differential stability (DS), which is defined as the tendency for a gene to exhibit reproducible differential expression relationships across brain structures.
-We include 2,000 genes with the highest DS and get the `expression` matrix, where each row represents a sample tissue and each column represents a gene.
+We include 2,000 genes with the highest DS and get the `expression` matrix, where each row represents a sample tissue in the nercortex region and each column represents a gene.
 The `sample_info` data frame contains the sample information, where each row represents a sample tissue and the four columns respectively represent sample ID, neocortex area, hemisphere, and time periods.
 
 # Fitting the MFAI model
@@ -73,12 +73,13 @@ FX <- predictFX(mfairObject,
 ```
 
 ```{r}
-# Function used to normalize each factor to have the l2-norm equal one
-normFactor <- function(x) {
-  return(x / sqrt(sum(x^2)))
-}
-
-FX <- apply(FX, MARGIN = 2, FUN = normFactor)
+# Normalize each factor to have l2-norm equal one
+FX <- apply(FX,
+  MARGIN = 2,
+  FUN = function(x) {
+    x / sqrt(sum(x^2))
+  }
+)
 FX <- data.frame(X_new, FX)
 colnames(FX) <- c("Neocortex area", "Time period", paste("Factor", c(1:3)))
 FX[, "Time period"] <- factor(FX[, "Time period"], levels = stage)
@@ -149,7 +150,7 @@ pheatmap::pheatmap(t(gene_factors),
 We first calculated the relative weight of the $k$-th factor for the $m$-th gene by $\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3} \left| W_{mk^{\prime}} \right|$, where $W_{m \cdot} \in \mathbb{R}^{3 \times 1}$ is the $m$-th row of gene factors, and then selected the top 300 weighted genes in each factor to form the gene sets.
 
 ```{r}
-# Normalize to have l2 norm equal 1 for each factor
+# Normalize each factor to have l2-norm equal one
 gene_factors <- apply(gene_factors,
   MARGIN = 2,
   FUN = function(x) {
