@@ -61,7 +61,7 @@ ml100k <- list(
   genre = u_item
 )
 
-# Save the data
-usethis::use_data(ml100k, overwrite = TRUE)
-# Compress the data
-tools::resaveRdaFiles(paths = "data/ml100k.rda")
+# Save the compressed data
+usethis::use_data(ml100k, overwrite = TRUE, compress = "xz")
+# # Compress the data
+# tools::resaveRdaFiles(paths = "data/ml100k.rda")

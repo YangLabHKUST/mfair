@@ -123,7 +123,7 @@ neocortex <- list(
   sample_info = sample_info_preprocess
 )
 
-# Save the data
-usethis::use_data(neocortex, overwrite = TRUE)
-# Compress the data
-tools::resaveRdaFiles(paths = "data/neocortex.rda")
+# Save the compressed data
+usethis::use_data(neocortex, overwrite = TRUE, compress = "xz")
+# # Compress the data
+# tools::resaveRdaFiles(paths = "data/neocortex.rda")
