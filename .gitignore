@@ -1,7 +1,5 @@
 .Rproj.user
 docs
 inst/doc
-vignettes/*.html
-vignettes/*.R
-data-raw/*.RData
-data-raw/*.rda
+data-raw/all_exp.RData
+data-raw/gene_symbol.rda
