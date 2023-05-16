@@ -193,7 +193,6 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 
 ``` r
 vignette("ml100k")
-#> starting httpd help server ... done
 ```
 
 - Explore the [vignette illustrating the spatial and temporal dynamics

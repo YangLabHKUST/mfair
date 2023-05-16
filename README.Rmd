@@ -158,13 +158,13 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 
 * Explore the [vignette illustrating the enrichment of the movie genre information](https://yanglabhkust.github.io/mfair/articles/ml100k.html):
 
-```{r}
+``` r
 vignette("ml100k")
 ```
 
 * Explore the [vignette illustrating the spatial and temporal dynamics of gene regulation among brain tissues](https://yanglabhkust.github.io/mfair/articles/neocortex.html):
 
-```{r}
+``` r
 vignette("neocortex")
 ```
 
