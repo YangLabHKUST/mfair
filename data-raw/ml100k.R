@@ -63,3 +63,5 @@ ml100k <- list(
 
 # Save the data
 usethis::use_data(ml100k, overwrite = TRUE)
+# Compress the data
+tools::resaveRdaFiles(paths = "data/ml100k.rda")

@@ -2,7 +2,7 @@
 # Bulk gene expression data (microarray platform) used in the MFAI paper
 
 # Set the path for raw data
-RAW_DATA_PATH <- "~/Research/rPackages/mfair/data-raw"
+RAW_DATA_PATH <- "data-raw"
 
 library(googledrive)
 library(tidyverse)
@@ -125,3 +125,5 @@ neocortex <- list(
 
 # Save the data
 usethis::use_data(neocortex, overwrite = TRUE)
+# Compress the data
+tools::resaveRdaFiles(paths = "data/neocortex.rda")
