@@ -50,7 +50,6 @@ mfairObject <- createMFAIR(Y, X, K_max = 3)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject,
-  save_init = TRUE,
   sf_para = list(tol_stage2 = 1e-6, verbose_loop = FALSE)
 )
 ```
