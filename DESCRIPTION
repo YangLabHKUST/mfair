@@ -9,14 +9,15 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+LazyData: true
+LazyDataCompression: xz
+VignetteBuilder: knitr
 Imports: 
     dplyr,
     methods
 Depends: 
     R (>= 2.10),
     rpart
-LazyData: true
-LazyDataCompression: xz
 Suggests: 
     covr,
     ggplot2,
@@ -25,6 +26,5 @@ Suggests:
     reshape2,
     rmarkdown,
     scales
-VignetteBuilder: knitr
 URL: https://yanglabhkust.github.io/mfair/
 BugReports: https://github.com/YangLabHKUST/mfair/issues
