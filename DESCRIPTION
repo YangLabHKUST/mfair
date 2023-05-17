@@ -16,7 +16,7 @@ Imports:
     dplyr,
     methods
 Depends: 
-    R (>= 4.10),
+    R (>= 2.10),
     rpart
 Suggests: 
     covr,
