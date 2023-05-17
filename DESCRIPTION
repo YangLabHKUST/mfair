@@ -15,6 +15,8 @@ Imports:
 Depends: 
     R (>= 2.10),
     rpart
+LazyData: true
+LazyDataCompression: xz
 Suggests: 
     covr,
     ggplot2,
@@ -23,8 +25,6 @@ Suggests:
     reshape2,
     rmarkdown,
     scales
-LazyData: true
-LazyDataCompression: xz
 VignetteBuilder: knitr
 URL: https://yanglabhkust.github.io/mfair/
 BugReports: https://github.com/YangLabHKUST/mfair/issues
