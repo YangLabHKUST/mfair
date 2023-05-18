@@ -29,7 +29,7 @@ You can install the development version of `mfair` from
 devtools::install_github("YangLabHKUST/mfair", build_vignettes = TRUE)
 ```
 
-Please note that it can take several minutes to build the vignette.
+Please note that it can take several minutes to build the vignettes.
 
 ## Examples
 
