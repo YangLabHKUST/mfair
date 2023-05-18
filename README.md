@@ -10,8 +10,8 @@ coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)]
 [![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Matrix factorization methods based on the paper [MFAI: A scalable
-Bayesian matrix factorization approach to leveraging auxiliary
+The R package `mfair` implements the methods based on the paper [MFAI: A
+scalable Bayesian matrix factorization approach to leveraging auxiliary
 information](https://doi.org/10.48550/arXiv.2303.02566). MFAI integrates
 gradient boosted trees in the probabilistic matrix factorization
 framework to effectively leverage auxiliary information. The parameters
