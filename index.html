@@ -73,11 +73,15 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>mfair</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>For a quick start, you can install the development version of <code>mfair</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"YangLabHKUST/mfair"</span><span class="op">)</span></span></code></pre></div>
+<p>For more illustration and examples, you can alternatively use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"YangLabHKUST/mfair"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Please note that it can take several minutes to build the vignettes.</p>
+<p>to build vignettes simultaneously. Please note that it can take a few more minutes.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -85,7 +89,7 @@
 <ul>
 <li>This is a basic example which shows you how to solve a common problem:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20230306</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yanglabhkust.github.io/mfair/">mfair</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: rpart</span></span>
@@ -166,7 +170,7 @@
 <li>
 <code>mfair</code> can also handle the matrix with missing entries:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Split the data into the training set and test set</span></span>
 <span><span class="va">n_all</span> <span class="op">&lt;-</span> <span class="va">N</span> <span class="op">*</span> <span class="va">M</span></span>
 <span><span class="va">training_ratio</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
@@ -207,7 +211,7 @@
 <ul>
 <li>Empirically, the backfitting algorithm can further improve the performance:</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Refine the MFAI model with the backfitting algorithm</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fitBack.html">fitBack</a></span><span class="op">(</span><span class="va">mfairObject</span>,</span>
 <span>  verbose_bf_inner <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -237,12 +241,12 @@
 <ul>
 <li>Explore the <a href="https://yanglabhkust.github.io/mfair/articles/ml100k.html">vignette illustrating the enrichment of the movie genre information</a>:</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"ml100k"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Explore the <a href="https://yanglabhkust.github.io/mfair/articles/neocortex.html">vignette illustrating the spatial and temporal dynamics of gene regulation among brain tissues</a>:</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"neocortex"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>For more documentation and examples, please visit our package <a href="https://yanglabhkust.github.io/mfair/">website</a>.</li>
@@ -303,6 +307,7 @@
 <ul class="list-unstyled">
 <li><a href="https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main" class="external-link"><img src="https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://hits.seeyoufarm.com" class="external-link"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FYangLabHKUST%2Fmfair&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" alt="Hits"></a></li>
 </ul>
 </div>
 
