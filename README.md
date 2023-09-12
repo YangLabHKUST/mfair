@@ -8,6 +8,7 @@
 [![Codecov test
 coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main)
 [![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FYangLabHKUST%2Fmfair&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 <!-- badges: end -->
 
 The R package `mfair` implements the methods based on the paper [MFAI: A
@@ -21,15 +22,23 @@ information and immune to overfitting.
 
 ## Installation
 
-You can install the development version of `mfair` from
-[GitHub](https://github.com/) with:
+For a quick start, you can install the development version of `mfair`
+from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("YangLabHKUST/mfair")
+```
+
+For more illustration and examples, you can alternatively use:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("YangLabHKUST/mfair", build_vignettes = TRUE)
 ```
 
-Please note that it can take several minutes to build the vignettes.
+to build vignettes simultaneously. Please note that it can take a few
+more minutes.
 
 ## Examples
 
