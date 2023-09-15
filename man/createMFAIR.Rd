@@ -7,7 +7,7 @@
 createMFAIR(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR")
 }
 \arguments{
-\item{Y}{A matrix. The main data matrix of N samples and M features.}
+\item{Y}{A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.}
 
 \item{X}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
 

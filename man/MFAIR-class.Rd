@@ -13,9 +13,11 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 \section{Slots}{
 
 \describe{
-\item{\code{Y}}{A matrix. The main data matrix of N samples and M features.}
+\item{\code{Y}}{A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.}
 
 \item{\code{X}}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
+
+\item{\code{Y_sparse}}{Logical. Whether the main data matrix Y is stored in the sparse mode.}
 
 \item{\code{Y_center}}{Logical. Whether the main data matrix Y is centered.}
 

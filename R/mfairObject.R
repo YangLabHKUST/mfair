@@ -1,5 +1,13 @@
-#' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
+#' Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix
 #'
+#' @import Matrix
+#'
+setClassUnion(
+  name = "matrixORdgCMatrix",
+  members = c("matrix", "dgCMatrix")
+)
+
+#' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
 #' @slot Y A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
