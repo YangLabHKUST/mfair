@@ -11,7 +11,7 @@
 #' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
 createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
-  if(is.data.frame(X)){
+  if(!is.data.frame(X)){
     stop("X should be a data.frame!")
   } # End
 
