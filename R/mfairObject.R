@@ -1,8 +1,9 @@
 #' Each MFAIR object has a number of slots which store information. Key slots to access are listed below.
 #'
 #'
-#' @slot Y A matrix. The main data matrix of N samples and M features.
+#' @slot Y A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.
 #' @slot X A data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @slot Y_sparse Logical. Whether the main data matrix Y is stored in the sparse mode.
 #' @slot Y_center Logical. Whether the main data matrix Y is centered.
 #' @slot Y_mean Numeric. Mean of the main data matrix Y if centered. Zero if not.
 #' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
@@ -34,8 +35,9 @@ setClass(
 
   # Define the slots
   slots = c(
-    Y = "matrix",
+    Y = "matrixORdgCMatrix",
     X = "data.frame",
+    Y_sparse = "logical",
     Y_center = "logical",
     Y_mean = "numeric",
     Y_missing = "logical",

@@ -20,16 +20,33 @@ createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
+  if(is.matrix(Y)){
+    Y_sparse <- FALSE
+  }else{
+    Y_sparse <- TRUE
+  }
+
   # Center the matrix Y
   if (Y_center) {
-    Y_mean <- mean(Y, na.rm = TRUE)
-    Y <- Y - Y_mean
+    if(!Y_sparse){
+      Y_mean <- mean(Y, na.rm = TRUE)
+      Y <- Y - Y_mean
+    }
+else{
+  Y_mean <- mean(summary(Y)$x)
+  Y@x <- Y@x - Y_mean
+}
   } else {
     Y_mean <- 0
   }
 
   # Check Y's sparsity
-  n_missing <- sum(is.na(Y))
+  if(!Y_sparse){
+    n_missing <- sum(is.na(Y))
+  }
+  else{
+    n_missing <- length(Y) - length(Y@x)
+  }
   if (n_missing >= 1) {
     if (n_missing == length(Y)) {
       stop("The main data matrix Y has no observed values!")
@@ -52,6 +69,7 @@ createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
     Class = "MFAIR",
     Y = Y,
     X = as.data.frame(X),
+    Y_sparse = Y_sparse,
     Y_center = Y_center,
     Y_mean = Y_mean,
     Y_missing = Y_missing,
