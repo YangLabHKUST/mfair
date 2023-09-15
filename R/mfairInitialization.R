@@ -2,7 +2,7 @@
 #'
 #' @importFrom methods new
 #'
-#' @param Y A matrix. The main data matrix of N samples and M features.
+#' @param Y A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.
 #' @param X A data.frame. The auxiliary information data frame of N samples and C covariates.
 #' @param Y_center Logical. Determines whether centering is performed.
 #' @param K_max An integer. The maximum rank allowed in the model.
@@ -11,6 +11,10 @@
 #' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
 createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
+  if(is.data.frame(X)){
+    stop("X should be a data.frame!")
+  } # End
+
   # Data dimension
   N <- nrow(Y)
   M <- ncol(Y)
