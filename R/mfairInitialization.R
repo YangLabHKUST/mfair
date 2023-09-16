@@ -27,18 +27,20 @@ createMFAIR <- function(Y, X, Y_sparse = FALSE, Y_center = TRUE, K_max = 1L, pro
   } # End
 
   # Check whether to transfer Y to the sparse matrix mode
-  if(class(Y) == "dgCMatrix"){ # Y is already in sparse mode
+  if (class(Y) == "dgCMatrix") { # Y is already in sparse mode
     Y_sparse <- TRUE
-  }else if(Y_sparse == TRUE){ # Y is not in sparse mode, but we want it to be
+  } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
     obs_tf <- !is.na(Y) # Indicates whether observed or missing
-    obs_idx <- which(obs_tf, arr.ind=TRUE) # Indices of observed entries
-    Y <- Matrix::sparseMatrix(i = obs_idx[, "row"],
-                              j = obs_idx[, "col"],
-                              x = Y[obs_tf],
-                              dims = c(N, M),
-                              symmetric = FALSE, triangular = FALSE,
-                              index1 = TRUE,
-                              repr = "C")
+    obs_idx <- which(obs_tf, arr.ind = TRUE) # Indices of observed entries
+    Y <- Matrix::sparseMatrix(
+      i = obs_idx[, "row"],
+      j = obs_idx[, "col"],
+      x = Y[obs_tf],
+      dims = c(N, M),
+      symmetric = FALSE, triangular = FALSE,
+      index1 = TRUE,
+      repr = "C"
+    )
   } # Otherwise, Y is not in sparse mode and we don't want it to be
 
   # Center the matrix Y
