@@ -109,9 +109,8 @@ X_pmt <- apply(X,
     x[sample(x = c(1:N), size = N, replace = FALSE)]
   }
 )
-
-colnames(X_pmt) <- paste0(colnames(X), "_permuted")
 X_pmt <- as.data.frame(X_pmt)
+colnames(X_pmt) <- paste0(colnames(X), "_permuted")
 ```
 
 ```{r}
