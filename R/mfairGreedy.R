@@ -24,7 +24,11 @@ fitGreedy <- function(object, K_max = NULL,
                       sf_para = list()) {
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
-    obs_indices <- !is.na(object@Y)
+    if(object@Y_sparse){
+      obs_indices <- NULL # Sparse mode does not need indices
+    }else{
+      obs_indices <- !is.na(object@Y)
+    }
   }
 
   # Set K_max
@@ -89,7 +93,7 @@ fitGreedy <- function(object, K_max = NULL,
       if (verbose_greedy) {
         message("Initialize the parameters of factor ", k, "......")
       }
-      init <- initSF(R, object@Y_missing, object@n_obs)
+      init <- initSF(R, object@Y_missing, object@Y_sparse, object@n_obs)
     } else {
       if (verbose_greedy) {
         message("Use the user-specific initialization for factor ", k, "......")

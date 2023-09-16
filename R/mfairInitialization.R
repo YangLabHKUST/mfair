@@ -46,11 +46,23 @@ createMFAIR <- function(Y, X,
     )
   } # Otherwise, Y is not in sparse mode and we don't want it to be
 
-  # Do not store the complete matrix in the sparse mode
-  if(Y_sparse){
-    if(length(Y@x) == N * M){
+  # Check Y's sparsity
+  if (!Y_sparse) {
+    n_missing <- sum(is.na(Y))
+  } else {
+    n_missing <- length(Y) - length(Y@x)
+    # Do not store the complete matrix in the sparse mode
+    if(n_missing == 0){
       stop("Please do not store the complete matrix in the sparse mode!")
     } # End
+  }
+  if (n_missing >= 1) {
+    if (n_missing == length(Y)) {
+      stop("The main data matrix Y has no observed values!")
+    } # End
+    Y_missing <- TRUE
+  } else {
+    Y_missing <- FALSE
   }
 
   # Center the matrix Y
@@ -66,21 +78,6 @@ createMFAIR <- function(Y, X,
     Y_mean <- 0
   }
 
-  # Check Y's sparsity
-  if (!Y_sparse) {
-    n_missing <- sum(is.na(Y))
-  } else {
-    n_missing <- length(Y) - length(Y@x)
-  }
-  if (n_missing >= 1) {
-    if (n_missing == length(Y)) {
-      stop("The main data matrix Y has no observed values!")
-    } # End
-    Y_missing <- TRUE
-  } else {
-    Y_missing <- FALSE
-  }
-
   if (Y_missing) {
     a_sq <- matrix(nrow = N, ncol = 0)
     b_sq <- matrix(nrow = M, ncol = 0)
@@ -94,10 +91,10 @@ createMFAIR <- function(Y, X,
     Class = "MFAIR",
     Y = Y,
     X = X,
+    Y_missing = Y_missing,
     Y_sparse = Y_sparse,
     Y_center = Y_center,
     Y_mean = Y_mean,
-    Y_missing = Y_missing,
     n_obs = as.integer(N * M - n_missing),
     N = N,
     M = M,
@@ -122,32 +119,31 @@ createMFAIR <- function(Y, X,
 #' @importFrom stats rnorm var
 #' @importFrom methods new
 #'
-#' @param Y_missing Logical. Whether the main data matrix is partially observed. It will be automatically judged if not specified (default value NULL).
+#' @param Y_missing Logical. Whether the main data matrix is partially observed.
+#' @param Y_sparse Logical. Whether the main data matrix is in sparse mode.
 #' @param n_obs Integer. Total number of observed entries.
 #' @param Y Main data matrix.
 #'
-#' @slot Y_missing Logical. Whether the main data matrix Y is partially observed.
-#' @slot n_obs Integer. Total number of observed entries in Y.
 #'
 #' @return MFAIRSingleFactor object containing the initial parameters for the single factor MAFI model.
 #' @export
 #'
-initSF <- function(Y, Y_missing = NULL, n_obs) {
+initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
   N <- nrow(Y)
   M <- ncol(Y)
 
   mu <- rnorm(N)
   nu <- rep(0.0, M)
 
-  # Whether the main data matrix is partially observed.
-  if (is.null(Y_missing)) {
-    n_missing <- sum(is.na(Y))
-    if (n_missing >= 1) {
-      Y_missing <- TRUE
-    } else {
-      Y_missing <- FALSE
-    }
-  }
+  # # Whether the main data matrix is partially observed.
+  # if (is.null(Y_missing)) {
+  #   n_missing <- sum(is.na(Y))
+  #   if (n_missing >= 1) {
+  #     Y_missing <- TRUE
+  #   } else {
+  #     Y_missing <- FALSE
+  #   }
+  # }
 
   if (Y_missing) {
     a_sq <- rep(1, N)
@@ -157,7 +153,11 @@ initSF <- function(Y, Y_missing = NULL, n_obs) {
     b_sq <- 1
   }
 
-  tau <- 2 / var(as.vector(Y), na.rm = TRUE)
+  if(Y_sparse){
+    tau <- 2 / var(as.vector(Y@x), na.rm = TRUE)
+  }else{
+    tau <- 2 / var(as.vector(Y), na.rm = TRUE)
+  }
   beta <- 2 / var(mu)
   FX <- rep(0.0, N)
 
