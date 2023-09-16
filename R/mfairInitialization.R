@@ -83,7 +83,7 @@ createMFAIR <- function(Y, X, Y_sparse = FALSE, Y_center = TRUE, K_max = 1L, pro
   object <- new(
     Class = "MFAIR",
     Y = Y,
-    X = as.data.frame(X),
+    X = X,
     Y_sparse = Y_sparse,
     Y_center = Y_center,
     Y_mean = Y_mean,
