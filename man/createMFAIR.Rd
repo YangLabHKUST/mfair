@@ -4,12 +4,21 @@
 \alias{createMFAIR}
 \title{Create the MFAIR object with main data matrix and auxiliary information.}
 \usage{
-createMFAIR(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR")
+createMFAIR(
+  Y,
+  X,
+  Y_sparse = FALSE,
+  Y_center = TRUE,
+  K_max = 1L,
+  project = "MFAIR"
+)
 }
 \arguments{
 \item{Y}{A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.}
 
 \item{X}{A data.frame. The auxiliary information data frame of N samples and C covariates.}
+
+\item{Y_sparse}{Logical. Determines whether to use spase mode for Y.}
 
 \item{Y_center}{Logical. Determines whether centering is performed.}
 
