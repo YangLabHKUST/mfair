@@ -46,13 +46,20 @@ createMFAIR <- function(Y, X,
     )
   } # Otherwise, Y is not in sparse mode and we don't want it to be
 
+  # Do not store the complete matrix in the sparse mode
+  if(Y_sparse){
+    if(length(Y@x) == N * M){
+      stop("Please do not store the complete matrix in the sparse mode!")
+    } # End
+  }
+
   # Center the matrix Y
   if (Y_center) {
     if (!Y_sparse) {
       Y_mean <- mean(Y, na.rm = TRUE)
       Y <- Y - Y_mean
     } else {
-      Y_mean <- mean(summary(Y)$x)
+      Y_mean <- mean(Y@x)
       Y@x <- Y@x - Y_mean
     }
   } else {
