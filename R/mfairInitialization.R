@@ -1,16 +1,18 @@
 #' Create the MFAIR object with main data matrix and auxiliary information.
 #'
+#' @import Matrix
 #' @importFrom methods new
 #'
 #' @param Y A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.
 #' @param X A data.frame. The auxiliary information data frame of N samples and C covariates.
+#' @param Y_sparse Logical. Determines whether to use spase mode for Y.
 #' @param Y_center Logical. Determines whether centering is performed.
 #' @param K_max An integer. The maximum rank allowed in the model.
 #' @param project Character. Name of the project (for record keeping).
 #'
 #' @return Returns MFAIR object, with main data matrix and auxiliary information.
 #' @export
-createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
+createMFAIR <- function(Y, X, Y_sparse = FALSE, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
   if (!is.data.frame(X)) {
     stop("X should be a data.frame!")
   } # End
@@ -24,11 +26,20 @@ createMFAIR <- function(Y, X, Y_center = TRUE, K_max = 1L, project = "MFAIR") {
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
-  if (is.matrix(Y)) {
-    Y_sparse <- FALSE
-  } else {
+  # Check whether to transfer Y to the sparse matrix mode
+  if(class(Y) == "dgCMatrix"){ # Y is already in sparse mode
     Y_sparse <- TRUE
-  }
+  }else if(Y_sparse == TRUE){ # Y is not in sparse mode, but we want it to be
+    obs_tf <- !is.na(Y) # Indicates whether observed or missing
+    obs_idx <- which(obs_tf, arr.ind=TRUE) # Indices of observed entries
+    Y <- Matrix::sparseMatrix(i = obs_idx[, "row"],
+                              j = obs_idx[, "col"],
+                              x = Y[obs_tf],
+                              dims = c(N, M),
+                              symmetric = FALSE, triangular = FALSE,
+                              index1 = TRUE,
+                              repr = "C")
+  } # Otherwise, Y is not in sparse mode and we don't want it to be
 
   # Center the matrix Y
   if (Y_center) {
