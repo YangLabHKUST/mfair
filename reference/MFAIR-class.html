@@ -65,11 +65,15 @@
     
 
 <dl><dt><code>Y</code></dt>
-<dd><p>A matrix. The main data matrix of N samples and M features.</p></dd>
+<dd><p>A matrix or Matrix::dgCMatrix. The main data matrix of N samples and M features.</p></dd>
 
 
 <dt><code>X</code></dt>
 <dd><p>A data.frame. The auxiliary information data frame of N samples and C covariates.</p></dd>
+
+
+<dt><code>Y_sparse</code></dt>
+<dd><p>Logical. Whether the main data matrix Y is stored in the sparse mode.</p></dd>
 
 
 <dt><code>Y_center</code></dt>
