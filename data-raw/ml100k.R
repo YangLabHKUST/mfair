@@ -14,10 +14,14 @@ N <- (range(u_data[, 1]))[2]
 # Movie, range(u_data[, 2])
 M <- (range(u_data[, 2]))[2]
 
-u_data_matrix <- matrix(NA, N, M)
-for (i in seq_len(dim(u_data)[1])) {
-  u_data_matrix[u_data[i, 1], u_data[i, 2]] <- u_data[i, 3]
-}
+u_data_matrix <- Matrix::sparseMatrix(
+  i = u_data[, 1], j = u_data[, 2],
+  x = u_data[, 3],
+  dims = c(N, M),
+  symmetric = FALSE, triangular = FALSE,
+  index1 = TRUE,
+  repr = "C"
+)
 # head(u_data_matrix)
 
 ## User information
@@ -51,7 +55,13 @@ u_item <- read.csv(
 # all_genres
 
 u_item <- u_item[, c(6:24)]
-colnames(u_item) <- c("Unknown", "Action", "Adventure", "Animation", "Children‘s", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western")
+colnames(u_item) <- c(
+  "Unknown", "Action", "Adventure", "Animation",
+  "Children‘s", "Comedy", "Crime", "Documentary",
+  "Drama", "Fantasy", "Film-Noir", "Horror",
+  "Musical", "Mystery", "Romance", "Sci-Fi",
+  "Thriller", "War", "Western"
+)
 # head(u_item)
 # dim(u_item)
 
