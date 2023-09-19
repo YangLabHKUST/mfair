@@ -93,7 +93,6 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20230306</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yanglabhkust.github.io/mfair/">mfair</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: rpart</span></span>
 <span></span>
 <span><span class="co"># Simulate data</span></span>
 <span><span class="co"># Set the data dimension and rank</span></span>
@@ -138,7 +137,9 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create MFAIR object</span></span>
-<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_obs</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
+<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_obs</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is completely observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 0.147726471347656!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
@@ -181,7 +182,9 @@
 <span><span class="va">Y_test</span><span class="op">[</span><span class="va">train_set</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span></span>
 <span><span class="co"># Create MFAIR object</span></span>
-<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_train</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
+<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_train</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 0.227350351267622!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
