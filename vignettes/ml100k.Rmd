@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 # install.packages("devtools")
 # devtools::install_github("YangLabHKUST/mfair")
 library(mfair)
+library(Matrix)
 library(reshape2)
 library(ggplot2)
 library(scales)
