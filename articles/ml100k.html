@@ -111,6 +111,8 @@ proceed to fit the MFAI model with top three factors.</p>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">ml100k</span><span class="op">$</span><span class="va">rating</span><span class="op">)</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">ml100k</span><span class="op">$</span><span class="va">genre</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>,</span>
@@ -201,6 +203,8 @@ permuting the entries of the corresponding column in the real genre data
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create MFAIR object and use the same initialization</span></span>
 <span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_pmt</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span><span class="va">mfairObject_pmt</span><span class="op">@</span><span class="va">initialization</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">initialization</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
@@ -266,6 +270,8 @@ MFAI model.</p>
 <span></span>
 <span><span class="co"># Create MFAIR object and use the same initialization</span></span>
 <span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_both</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span><span class="va">mfairObject_both</span><span class="op">@</span><span class="va">initialization</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">initialization</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>

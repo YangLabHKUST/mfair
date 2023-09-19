@@ -125,6 +125,8 @@ to fit the MFAI model with top three factors.</p>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">neocortex</span><span class="op">$</span><span class="va">expression</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">neocortex</span><span class="op">$</span><span class="va">sample_info</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Region"</span>, <span class="st">"Stage"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y is completely observed!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been centered with mean = 7.64309222668172!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>,</span>
