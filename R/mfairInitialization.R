@@ -30,7 +30,7 @@ createMFAIR <- function(Y, X,
   } # End
 
   # Check whether to transfer Y to the sparse matrix mode
-  if (class(Y) == "dgCMatrix") { # Y is already in sparse mode
+  if ("dgCMatrix" %in% class(Y)) { # Y is already in sparse mode
     Y_sparse <- TRUE
     message("The main data matrix Y has been stored in the sparse mode!")
   } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
