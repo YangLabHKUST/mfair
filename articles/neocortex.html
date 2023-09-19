@@ -270,7 +270,7 @@ gene sets.</p>
 <span></span>
 <span><span class="co"># Relative weight</span></span>
 <span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">gene_factors</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
+<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">gene_factors</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Total number of genes M = 2,000</span></span>
 <span><span class="va">ntop</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">*</span> <span class="fl">0.15</span> <span class="co"># We use the top 300 weighted genes in each factor to form the gene sets</span></span>
