@@ -49,6 +49,9 @@
     <loc>https://yanglabhkust.github.io/mfair/reference/fitSFMissing.html</loc>
   </url>
   <url>
+    <loc>https://yanglabhkust.github.io/mfair/reference/fitSFSparse.html</loc>
+  </url>
+  <url>
     <loc>https://yanglabhkust.github.io/mfair/reference/getELBO.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>https://yanglabhkust.github.io/mfair/reference/predictFXSF.html</loc>
+  </url>
+  <url>
+    <loc>https://yanglabhkust.github.io/mfair/reference/projSparse.html</loc>
   </url>
   <url>
     <loc>https://yanglabhkust.github.io/mfair/reference/updateMFAIR.html</loc>
