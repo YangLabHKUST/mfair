@@ -2,12 +2,12 @@
 #'
 #' @param Y Observed main data matrix.
 #' @param object MFAIRSingleFactor object containing the information about the fitted single factor MFAI model.
-#' @param obs_indices Indices of the observed entries in the main data matrix Y. The default value is NULL and used only when Y is stored in the sparse mode.
+#' @param obs_indices Indices of the observed entries in the main data matrix Y and needs to be specified only when Y is stored in the sparse mode. The default value is NULL.
 #'
 #' @return Numeric. The ELBO.
 #' @export
 #'
-getELBO <- function(Y, object, obs_indices) {
+getELBO <- function(Y, object, obs_indices = NULL) {
   N <- nrow(Y)
   M <- ncol(Y)
 
