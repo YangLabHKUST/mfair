@@ -4,12 +4,14 @@
 \alias{initSF}
 \title{Initialize the parameters for the single factor MAFI model.}
 \usage{
-initSF(Y, Y_missing = NULL, n_obs)
+initSF(Y, Y_missing, Y_sparse, n_obs)
 }
 \arguments{
 \item{Y}{Main data matrix.}
 
-\item{Y_missing}{Logical. Whether the main data matrix is partially observed. It will be automatically judged if not specified (default value NULL).}
+\item{Y_missing}{Logical. Whether the main data matrix is partially observed.}
+
+\item{Y_sparse}{Logical. Whether the main data matrix is in sparse mode.}
 
 \item{n_obs}{Integer. Total number of observed entries.}
 }
@@ -19,11 +21,3 @@ MFAIRSingleFactor object containing the initial parameters for the single factor
 \description{
 Initialize the parameters for the single factor MAFI model.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{Y_missing}}{Logical. Whether the main data matrix Y is partially observed.}
-
-\item{\code{n_obs}}{Integer. Total number of observed entries in Y.}
-}}
-
