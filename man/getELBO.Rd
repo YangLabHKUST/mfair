@@ -4,12 +4,14 @@
 \alias{getELBO}
 \title{Compute the evidence lower bound (ELBO) for fitted single factor MFAI model.}
 \usage{
-getELBO(Y, object)
+getELBO(Y, object, obs_indices)
 }
 \arguments{
 \item{Y}{Observed main data matrix.}
 
 \item{object}{MFAIRSingleFactor object containing the information about the fitted single factor MFAI model.}
+
+\item{obs_indices}{Indices of the observed entries in the main data matrix Y. The default value is NULL and used only when Y is stored in the sparse mode.}
 }
 \value{
 Numeric. The ELBO.

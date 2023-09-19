@@ -35,10 +35,9 @@ createMFAIR <- function(Y, X,
     message("The main data matrix Y has been stored in the sparse mode!")
   } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
     obs_tf <- !is.na(Y) # Indicates whether observed or missing
-    obs_idx <- which(obs_tf, arr.ind = TRUE) # Indices of observed entries
+    obs_indices <- which(obs_tf, arr.ind = TRUE) # Indices of observed entries
     Y <- Matrix::sparseMatrix(
-      i = obs_idx[, "row"],
-      j = obs_idx[, "col"],
+      i = obs_indices[, "row"], j = obs_indices[, "col"],
       x = Y[obs_tf],
       dims = c(N, M),
       symmetric = FALSE, triangular = FALSE,
@@ -121,6 +120,7 @@ createMFAIR <- function(Y, X,
 
 #' Initialize the parameters for the single factor MAFI model.
 #'
+#' @import Matrix
 #' @importFrom stats rnorm var
 #' @importFrom methods new
 #'

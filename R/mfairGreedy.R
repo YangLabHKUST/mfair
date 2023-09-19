@@ -25,7 +25,7 @@ fitGreedy <- function(object, K_max = NULL,
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
     if (object@Y_sparse) {
-      obs_indices <- NULL # Sparse mode does not need indices
+      obs_indices <- as.matrix(summary(Y)[, c(1, 2)])
     } else {
       obs_indices <- !is.na(object@Y)
     }
@@ -39,7 +39,8 @@ fitGreedy <- function(object, K_max = NULL,
 
   # Check K_max
   if (object@K_max > object@N || object@K_max > object@M) {
-    warning("The maximum rank allowed can not be larger than the rank of the main data matrix!\n")
+    warning("The maximum rank allowed can not
+            be larger than the rank of the main data matrix!\n")
     object@K_max <- min(object@N, object@M)
     warning("Reset K_max = ", object@K_max, "!\n")
   }
@@ -58,9 +59,11 @@ fitGreedy <- function(object, K_max = NULL,
   } else {
     need_init <- rep(FALSE, object@K_max)
     if (init_length < object@K_max) {
-      warning("Only the first ", init_length, " factors have been initialized, which is less than K_max!\n")
+      warning("Only the first ", init_length, " factors have been initialized,
+              which is less than K_max!\n")
       need_init[-(1:init_length)] <- TRUE
-      warning("The remaining factors will be initialized automatically if needed!\n")
+      warning("The remaining factors will be initialized automatically
+              if needed!\n")
     }
   }
 
@@ -102,13 +105,26 @@ fitGreedy <- function(object, K_max = NULL,
     }
 
     # Fit the single factor MFAI model
-    if (object@Y_missing) {
+    if (object@Y_sparse) { # The main data matrix is partially observed and stored in the sparse mode
+      mfair_sf <- do.call(
+        what = "fitSFSparse",
+        args = append(
+          list(
+            Y = R, X = object@X, init = init,
+            obs_indices = obs_indices,
+            learning_rate = object@learning_rate,
+            tree_parameters = object@tree_parameters
+          ),
+          sf_para
+        )
+      )
+    } else if (object@Y_missing) { # The main data matrix is partially observed but not stored in the sparse mode
       mfair_sf <- do.call(
         what = "fitSFMissing",
         args = append(
           list(
-            Y = R, obs_indices = obs_indices,
-            X = object@X, init = init,
+            Y = R, X = object@X, init = init,
+            obs_indices = obs_indices,
             learning_rate = object@learning_rate,
             tree_parameters = object@tree_parameters
           ),
@@ -120,7 +136,7 @@ fitGreedy <- function(object, K_max = NULL,
       #   tree_parameters = object@tree_parameters,
       #   ...
       # )
-    } else {
+    } else { # The main data matrix is fully observed
       mfair_sf <- do.call(
         what = "fitSFFully",
         args = append(
@@ -155,7 +171,11 @@ fitGreedy <- function(object, K_max = NULL,
     }
 
     # Prepare for the fitting for the next factor
-    R <- R - Y_k
+    if (object@Y_sparse) {
+      R <- R - projSparse(Y_k, obs_indices)
+    } else {
+      R <- R - Y_k
+    }
 
     # Save the information about the fitted single factor MFAI model
     object <- appendMFAIR(object, mfair_sf)

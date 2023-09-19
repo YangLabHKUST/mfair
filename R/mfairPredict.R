@@ -2,6 +2,7 @@
 #'
 #' @param object A model object for which prediction is desired.
 #' @param which_factors Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.
+#' @param add_mean Logical. Indicate whether to add the mean value. The default value is TRUE.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
 #' @export
@@ -9,7 +10,8 @@
 setMethod(
   f = "predict",
   signature = "MFAIR",
-  definition = function(object, which_factors = seq_len(object@K)) {
+  definition = function(object, which_factors = seq_len(object@K),
+                        add_mean = TRUE) {
     # Check Y
     if (object@Y_missing == FALSE) {
       message("The main data matrix Y has no missing entries!")
@@ -20,7 +22,10 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    Y_hat <- object@Z[, which_factors] %*% t(object@W[, which_factors]) + object@Y_mean
+    Y_hat <- object@Z[, which_factors] %*% t(object@W[, which_factors])
+    if (add_mean) {
+      Y_hat <- Y_hat + object@Y_mean
+    }
 
     return(Y_hat)
   }
@@ -31,7 +36,6 @@ setMethod(
 #' @param object A model object for which prediction is desired.
 #'
 #' @return Predicted matrix with the same dimension as that of Y.
-#' @export
 #'
 setMethod(
   f = "predict",
@@ -87,7 +91,6 @@ predictFX <- function(object, newdata, which_factors = seq_len(object@K)) {
 #' @param learning_rate Numeric. The learning rate in the gradient boosting part.
 #'
 #' @return A vector containing predicted F(X). Each entry corresponds to a new sample.
-#' @export
 #'
 predictFXSF <- function(tree_list, newdata, learning_rate) {
   learning_rate * rowSums(sapply(tree_list, predict, newdata = newdata))

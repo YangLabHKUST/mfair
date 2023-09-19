@@ -4,12 +4,14 @@
 \alias{predict,MFAIR-method}
 \title{Prediction function for MFAIR object.}
 \usage{
-\S4method{predict}{MFAIR}(object, which_factors = seq_len(object@K))
+\S4method{predict}{MFAIR}(object, which_factors = seq_len(object@K), add_mean = TRUE)
 }
 \arguments{
 \item{object}{A model object for which prediction is desired.}
 
 \item{which_factors}{Which factors, i.e., which columns of Z and W, are used to make prediction. All K factors are used by default.}
+
+\item{add_mean}{Logical. Indicate whether to add the mean value. The default value is TRUE.}
 }
 \value{
 Predicted matrix with the same dimension as that of Y.

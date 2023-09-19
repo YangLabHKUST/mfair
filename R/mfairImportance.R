@@ -37,7 +37,6 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
 #' @param variables_names The names of the auxiliary covariates.
 #'
 #' @return Importance score vector. Each entry is the importance score of one auxiliary covariate.
-#' @export
 #'
 getImportanceSF <- function(tree_list, variables_names) {
   importance_list <- lapply(tree_list,
