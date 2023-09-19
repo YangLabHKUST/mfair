@@ -53,7 +53,6 @@ more minutes.
 ``` r
 set.seed(20230306)
 library(mfair)
-#> Loading required package: rpart
 
 # Simulate data
 # Set the data dimension and rank
@@ -98,7 +97,9 @@ Y_obs <- Y + matrix(
 )
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_obs, as.data.frame(X), K_max = K_true)
+#> The main data matrix Y is completely observed!
+#> The main data matrix Y has been centered with mean = 0.147726471347656!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
@@ -141,7 +142,9 @@ Y_train[-train_set] <- NA
 Y_test[train_set] <- NA
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_train, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
+#> The main data matrix Y is partially observed!
+#> The main data matrix Y has been centered with mean = 0.227350351267622!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))

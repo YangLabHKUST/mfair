@@ -99,7 +99,7 @@ Y_obs <- Y + matrix(
 )
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_obs, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_obs, as.data.frame(X), K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
@@ -129,7 +129,7 @@ Y_train[-train_set] <- NA
 Y_test[train_set] <- NA
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_train, X, K_max = K_true)
+mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
