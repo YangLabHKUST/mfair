@@ -32,6 +32,7 @@ createMFAIR <- function(Y, X,
   # Check whether to transfer Y to the sparse matrix mode
   if (class(Y) == "dgCMatrix") { # Y is already in sparse mode
     Y_sparse <- TRUE
+    message("The main data matrix Y has been stored in the sparse mode!")
   } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
     obs_tf <- !is.na(Y) # Indicates whether observed or missing
     obs_idx <- which(obs_tf, arr.ind = TRUE) # Indices of observed entries
@@ -44,6 +45,7 @@ createMFAIR <- function(Y, X,
       index1 = TRUE,
       repr = "C"
     )
+    message("The main data matrix Y has been transferred to the sparse mode!")
   } # Otherwise, Y is not in sparse mode and we don't want it to be
 
   # Check Y's sparsity
@@ -61,19 +63,22 @@ createMFAIR <- function(Y, X,
       stop("The main data matrix Y has no observed values!")
     } # End
     Y_missing <- TRUE
+    message("The main data matrix Y is partially observed!")
   } else {
     Y_missing <- FALSE
+    message("The main data matrix Y is completely observed!")
   }
 
   # Center the matrix Y
   if (Y_center) {
-    if (!Y_sparse) {
-      Y_mean <- mean(Y, na.rm = TRUE)
-      Y <- Y - Y_mean
-    } else {
+    if (Y_sparse) {
       Y_mean <- mean(Y@x)
       Y@x <- Y@x - Y_mean
+    } else {
+      Y_mean <- mean(Y, na.rm = TRUE)
+      Y <- Y - Y_mean
     }
+    message("The main data matrix Y has been centered with mean = ", Y_mean, "!")
   } else {
     Y_mean <- 0
   }
