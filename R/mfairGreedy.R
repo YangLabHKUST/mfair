@@ -24,9 +24,9 @@ fitGreedy <- function(object, K_max = NULL,
                       sf_para = list()) {
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
-    if(object@Y_sparse){
+    if (object@Y_sparse) {
       obs_indices <- NULL # Sparse mode does not need indices
-    }else{
+    } else {
       obs_indices <- !is.na(object@Y)
     }
   }

@@ -54,7 +54,7 @@ createMFAIR <- function(Y, X,
   } else {
     n_missing <- length(Y) - length(Y@x)
     # Do not store the complete matrix in the sparse mode
-    if(n_missing == 0){
+    if (n_missing == 0) {
       stop("Please do not store the complete matrix in the sparse mode!")
     } # End
   }
@@ -158,9 +158,9 @@ initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
     b_sq <- 1
   }
 
-  if(Y_sparse){
+  if (Y_sparse) {
     tau <- 2 / var(as.vector(Y@x), na.rm = TRUE)
-  }else{
+  } else {
     tau <- 2 / var(as.vector(Y), na.rm = TRUE)
   }
   beta <- 2 / var(mu)
