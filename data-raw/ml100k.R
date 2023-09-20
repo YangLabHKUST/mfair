@@ -1,6 +1,7 @@
-### code to prepare `ml100k` dataset goes here
+### Code to prepare `ml100k` dataset goes here
 
 ## Movie rating data
+
 u_data <- read.table(
   "https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
   sep = "\t", header = FALSE
@@ -24,6 +25,7 @@ u_data_matrix <- Matrix::sparseMatrix(
 # head(u_data_matrix)
 
 ## User information
+
 u_user <- read.table(
   "https://files.grouplens.org/datasets/movielens/ml-100k/u.user",
   sep = "|", header = FALSE
@@ -40,6 +42,7 @@ colnames(u_user) <- c("Age", "Gender", "Occupation")
 # dim(u_user)
 
 # Movie genre information
+
 u_item <- read.csv(
   "https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
   sep = "|", header = FALSE
