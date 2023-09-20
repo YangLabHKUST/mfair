@@ -1,5 +1,4 @@
-### Code to prepare `neocortex` dataset goes here
-
+### code to prepare `neocortex` dataset goes here
 # Bulk gene expression data (microarray platform) used in the MFAI paper
 
 # Set the path for raw data
