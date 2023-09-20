@@ -35,8 +35,7 @@ fitSFSparse <- function(Y, X, init,
     x = init@tau,
     dims = c(N, M),
     symmetric = FALSE, triangular = FALSE,
-    index1 = TRUE,
-    repr = "C"
+    index1 = TRUE
   )
 
   ELBO_old <- getELBO(Y, init, obs_indices)

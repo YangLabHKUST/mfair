@@ -41,8 +41,7 @@ createMFAIR <- function(Y, X,
       x = Y[obs_tf],
       dims = c(N, M),
       symmetric = FALSE, triangular = FALSE,
-      index1 = TRUE,
-      repr = "C"
+      index1 = TRUE
     )
     message("The main data matrix Y has been transferred to the sparse mode!")
   } # Otherwise, Y is not in sparse mode and we don't want it to be

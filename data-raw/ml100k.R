@@ -19,8 +19,7 @@ u_data_matrix <- Matrix::sparseMatrix(
   x = u_data[, 3],
   dims = c(N, M),
   symmetric = FALSE, triangular = FALSE,
-  index1 = TRUE,
-  repr = "C"
+  index1 = TRUE
 )
 # head(u_data_matrix)
 

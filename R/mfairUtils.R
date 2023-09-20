@@ -16,7 +16,6 @@ projSparse <- function(Y, obs_indices) {
     x = Y[obs_indices],
     dims = c(N, M),
     symmetric = FALSE, triangular = FALSE,
-    index1 = TRUE,
-    repr = "C"
+    index1 = TRUE
   )
 }
