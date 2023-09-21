@@ -39,6 +39,12 @@ rating_matrix <- Matrix::sparseMatrix(
 )
 # head(rating_matrix)
 
+# # Check missing entries
+# sum(colSums(rating_matrix) == 0)
+# which(colSums(rating_matrix) == 0)
+# sum(rowSums(rating_matrix) == 0)
+# which(rowSums(rating_matrix) == 0)
+
 ## Movies file description
 
 # MovieID::Title::Genres
@@ -74,7 +80,7 @@ colnames(movie_genre_matrix) <- all_genres
 # sum(colSums(movie_genre_matrix) == 0)
 # which(colSums(movie_genre_matrix) == 0)
 # sum(rowSums(movie_genre_matrix) == 0)
-# which((rowSums(movie_genre_matrix) == 0))
+# which(rowSums(movie_genre_matrix) == 0)
 
 ml10m <- list(
   rating = rating_matrix,
