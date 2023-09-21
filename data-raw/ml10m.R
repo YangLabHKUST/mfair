@@ -70,6 +70,12 @@ movie_genre_matrix <- t(sapply(
 ))
 colnames(movie_genre_matrix) <- all_genres
 
+# # Check missing entries
+# sum(colSums(movie_genre_matrix) == 0)
+# which(colSums(movie_genre_matrix) == 0)
+# sum(rowSums(movie_genre_matrix) == 0)
+# which((rowSums(movie_genre_matrix) == 0))
+
 ml10m <- list(
   rating = rating_matrix,
   genre = movie_genre_matrix
