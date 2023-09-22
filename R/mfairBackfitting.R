@@ -75,7 +75,7 @@ fitBack <- function(object,
   # Will be used for the partially observed matrix fitting
   if (object@Y_missing) {
     if (object@Y_sparse) {
-      obs_indices <- as.matrix(summary(Y)[, c(1, 2)])
+      obs_indices <- as.matrix(summary(object@Y)[, c(1, 2)])
     } else {
       obs_indices <- !is.na(object@Y)
     }
