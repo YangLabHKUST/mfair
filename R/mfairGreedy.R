@@ -12,7 +12,7 @@
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
-#' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.
+#' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully(), fitSFMissing(), or fitSFSparse() for details.
 #'
 #' @return An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.
 #' @export
