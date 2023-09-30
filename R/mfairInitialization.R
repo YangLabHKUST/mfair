@@ -34,11 +34,10 @@ createMFAIR <- function(Y, X,
     Y_sparse <- TRUE
     message("The main data matrix Y has been stored in the sparse mode!")
   } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
-    obs_tf <- !is.na(Y) # Indicates whether observed or missing
-    obs_indices <- which(obs_tf, arr.ind = TRUE) # Indices of observed entries
+    obs_indices <- which(!is.na(Y), arr.ind = TRUE) # Indices of observed entries
     Y <- Matrix::sparseMatrix(
       i = obs_indices[, "row"], j = obs_indices[, "col"],
-      x = Y[obs_tf],
+      x = Y[obs_indices],
       dims = c(N, M),
       symmetric = FALSE, triangular = FALSE,
       index1 = TRUE

@@ -69,8 +69,7 @@ movie_genre_matrix <- t(sapply(
   movies[, 3],
   FUN = function(x) {
     as.integer(all_genres %in%
-                 unlist(strsplit(x, split = "|", fixed = TRUE))
-    )
+      unlist(strsplit(x, split = "|", fixed = TRUE)))
   },
   USE.NAMES = FALSE
 ))
