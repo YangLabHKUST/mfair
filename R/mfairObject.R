@@ -1,4 +1,4 @@
-#' Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix
+#' Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix.
 #'
 #' @import Matrix
 #'

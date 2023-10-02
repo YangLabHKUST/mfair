@@ -39,7 +39,7 @@ fitGreedy(
 
 \item{save_init}{Logical. Whether to save the initialization of the model.}
 
-\item{sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSFFully() or fitSFMissing() for details.}
+\item{sf_para}{A list containing parameters for fitting the single factor MFAI model. See fitSFFully(), fitSFMissing(), or fitSFSparse() for details.}
 }
 \value{
 An MFAIR object containing the information about the fitted MFAI model using greedy algorithm.

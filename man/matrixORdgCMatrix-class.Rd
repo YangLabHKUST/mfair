@@ -3,7 +3,7 @@
 \docType{class}
 \name{matrixORdgCMatrix-class}
 \alias{matrixORdgCMatrix-class}
-\title{Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix}
+\title{Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix.}
 \description{
-Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix
+Define the matrixORdgCMatrix class as the union of matrix and Matrix::dgCMatrix.
 }
