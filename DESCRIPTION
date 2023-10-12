@@ -13,7 +13,8 @@ Imports:
     dplyr,
     Matrix,
     methods,
-    rpart
+    rpart,
+    softImpute
 Depends: 
     R (>= 2.10),
 LazyData: true
@@ -25,8 +26,7 @@ Suggests:
     pheatmap,
     reshape2,
     rmarkdown,
-    scales,
-    softImpute
+    scales
 VignetteBuilder: knitr
 URL: https://yanglabhkust.github.io/mfair/
 BugReports: https://github.com/YangLabHKUST/mfair/issues
