@@ -25,7 +25,8 @@ Suggests:
     pheatmap,
     reshape2,
     rmarkdown,
-    scales
+    scales,
+    softImpute
 VignetteBuilder: knitr
 URL: https://yanglabhkust.github.io/mfair/
 BugReports: https://github.com/YangLabHKUST/mfair/issues
