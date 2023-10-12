@@ -1,4 +1,4 @@
-#' Cross-validation for softImpute
+#' Cross-validation for softImpute.
 #'
 #' @import softImpute
 #'
@@ -89,7 +89,7 @@ softImputeCrossVal <- function(Y, rank_max = NULL, lambda_range = NULL,
   return(si_cv_results)
 }
 
-#' Sparse version of cross-validation for softImpute
+#' Sparse version of cross-validation for softImpute.
 #'
 #' @import Matrix
 #' @import softImpute
