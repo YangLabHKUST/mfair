@@ -11,10 +11,10 @@
 #' @return A list containing the cross-validation results.
 #' @export
 #'
-softImputeCV <- function(Y, rank_max = NULL, lambda_range = NULL,
-                         nfold = 10, para_length = 100) {
-  N <- dim(Y)[1]
-  M <- dim(Y)[2]
+softImputeCrossVal <- function(Y, rank_max = NULL, lambda_range = NULL,
+                               nfold = 10, para_length = 100) {
+  N <- nrow(Y)
+  M <- ncol(Y)
   # Report settings
   message("Info: Matrix dimension: ", N, " * ", M)
   message("Info: Number of cv folds: ", nfold)
@@ -103,10 +103,10 @@ softImputeCV <- function(Y, rank_max = NULL, lambda_range = NULL,
 #' @return A list containing the cross-validation results.
 #' @export
 #'
-softImputeCV_sparse <- function(Y, rank_max = NULL, lambda_range = NULL,
-                                nfold = 10, para_length = 100) {
-  N <- dim(Y)[1]
-  M <- dim(Y)[2]
+softImputeCrossValSparse <- function(Y, rank_max = NULL, lambda_range = NULL,
+                                     nfold = 10, para_length = 100) {
+  N <- nrow(Y)
+  M <- ncol(Y)
   # Report settings
   message("Info: Matrix dimension: ", N, " * ", M)
   message("Info: Number of cv folds: ", nfold)
@@ -152,9 +152,6 @@ softImputeCV_sparse <- function(Y, rank_max = NULL, lambda_range = NULL,
       j = idx_all[train_idx, 2],
       x = Y@x[train_idx] - train_mean
     )
-    # Y_test <- Incomplete(i = idx_all[-train_idx, 1],
-    #                       j = idx_all[-train_idx, 2],
-    #                       x = Y@x[-train_idx])
 
     for (j in seq(from = para_length, to = 1, by = -1)) {
       if (j == para_length) {
@@ -170,10 +167,11 @@ softImputeCV_sparse <- function(Y, rank_max = NULL, lambda_range = NULL,
         )
       }
 
+      # The prediction corresponding to the test set
       Y_hat <- impute(
         si_fit,
         i = idx_all[-train_idx, 1], j = idx_all[-train_idx, 2]
-      ) + train_mean # The prediction cooresponding to the test set
+      ) + train_mean
       test_err[i, j] <- sqrt(mean((Y@x[-train_idx] - Y_hat)^2))
     }
   }
