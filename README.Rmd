@@ -76,14 +76,14 @@ FX1 <- X1 / 2 - X2
 FX2 <- (X1^2 - X2^2 + 2 * X1 * X2) / 10
 FX <- cbind(FX1, FX2)
 
-# Generate loadings Z (= F(X) + noise)
+# Generate the factor matrix Z (= F(X) + noise)
 sig1_sq <- var(FX1) * (1 / PVE_Z - 1)
 Z1 <- FX1 + rnorm(n = N, mean = 0, sd = sqrt(sig1_sq))
 sig2_sq <- var(FX2) * (1 / PVE_Z - 1)
 Z2 <- FX2 + rnorm(n = N, mean = 0, sd = sqrt(sig2_sq))
 Z <- cbind(Z1, Z2)
 
-# Generate factors W
+# Generate the loading matrix W
 W <- matrix(rnorm(M * K_true), nrow = M, ncol = K_true)
 
 # Generate the main data matrix Y_obs (= Y + noise)
