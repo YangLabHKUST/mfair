@@ -91,10 +91,10 @@
     <loc>https://yanglabhkust.github.io/mfair/reference/projSparse.html</loc>
   </url>
   <url>
-    <loc>https://yanglabhkust.github.io/mfair/reference/softImputeCV.html</loc>
+    <loc>https://yanglabhkust.github.io/mfair/reference/softImputeCrossVal.html</loc>
   </url>
   <url>
-    <loc>https://yanglabhkust.github.io/mfair/reference/softImputeCV_sparse.html</loc>
+    <loc>https://yanglabhkust.github.io/mfair/reference/softImputeCrossValSparse.html</loc>
   </url>
   <url>
     <loc>https://yanglabhkust.github.io/mfair/reference/updateMFAIR.html</loc>
