@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   ml100k: ml100k.html
   neocortex: neocortex.html
-last_built: 2023-10-12T14:58Z
+last_built: 2023-10-12T15:10Z
 urls:
   reference: https://yanglabhkust.github.io/mfair/reference
   article: https://yanglabhkust.github.io/mfair/articles
