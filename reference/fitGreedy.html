@@ -63,6 +63,7 @@
 <span>  minbucket <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">minsplit</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span>,</span>
 <span>  maxdepth <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  other_tree_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  null_check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  tol_snr <span class="op">=</span> <span class="fl">0.002</span>,</span>
 <span>  verbose_greedy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  save_init <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -98,6 +99,10 @@
 
 <dt>other_tree_para</dt>
 <dd><p>A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.</p></dd>
+
+
+<dt>null_check</dt>
+<dd><p>Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.</p></dd>
 
 
 <dt>tol_snr</dt>
