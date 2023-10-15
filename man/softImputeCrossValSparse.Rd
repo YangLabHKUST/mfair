@@ -2,7 +2,7 @@
 % Please edit documentation in R/softImputeCV.R
 \name{softImputeCrossValSparse}
 \alias{softImputeCrossValSparse}
-\title{Sparse version of cross-validation for softImpute}
+\title{Sparse version of cross-validation for softImpute.}
 \usage{
 softImputeCrossValSparse(
   Y,
@@ -27,5 +27,5 @@ softImputeCrossValSparse(
 A list containing the cross-validation results.
 }
 \description{
-Sparse version of cross-validation for softImpute
+Sparse version of cross-validation for softImpute.
 }

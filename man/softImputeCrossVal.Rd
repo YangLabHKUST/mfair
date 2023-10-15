@@ -2,7 +2,7 @@
 % Please edit documentation in R/softImputeCV.R
 \name{softImputeCrossVal}
 \alias{softImputeCrossVal}
-\title{Cross-validation for softImpute}
+\title{Cross-validation for softImpute.}
 \usage{
 softImputeCrossVal(
   Y,
@@ -27,5 +27,5 @@ softImputeCrossVal(
 A list containing the cross-validation results.
 }
 \description{
-Cross-validation for softImpute
+Cross-validation for softImpute.
 }
