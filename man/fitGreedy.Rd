@@ -12,6 +12,7 @@ fitGreedy(
   minbucket = round(minsplit/3),
   maxdepth = 2,
   other_tree_para = list(),
+  null_check = TRUE,
   tol_snr = 0.002,
   verbose_greedy = TRUE,
   save_init = FALSE,
@@ -32,6 +33,8 @@ fitGreedy(
 \item{maxdepth}{Integer. Parameter for the gradient boosting part.}
 
 \item{other_tree_para}{A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.}
+
+\item{null_check}{Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.}
 
 \item{tol_snr}{Numeric. The convergence criterion which determine the inferred rank of data.}
 

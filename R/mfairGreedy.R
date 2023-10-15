@@ -10,6 +10,7 @@
 #' @param maxdepth Integer. Parameter for the gradient boosting part.
 #' @param other_tree_para A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
+#' @param null_check Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
 #' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully(), fitSFMissing(), or fitSFSparse() for details.
@@ -20,7 +21,8 @@ fitGreedy <- function(object, K_max = NULL,
                       learning_rate = 0.1,
                       minsplit = 10, minbucket = round(minsplit / 3),
                       maxdepth = 2, other_tree_para = list(),
-                      tol_snr = 2e-3, verbose_greedy = TRUE, save_init = FALSE,
+                      null_check = TRUE, tol_snr = 2e-3,
+                      verbose_greedy = TRUE, save_init = FALSE,
                       sf_para = list()) {
   # Check whether partially observed main data matrix and record the indices
   if (object@Y_missing) {
@@ -159,18 +161,24 @@ fitGreedy <- function(object, K_max = NULL,
     Y_k <- predict(mfair_sf)
 
     # Whether to stop the greedy algorithm
-    if ((var(as.vector(Y_k)) * mfair_sf@tau) > tol_snr) {
-      if (verbose_greedy) {
-        message("Factor ", k, " retained!")
+    if (null_check) {
+      if ((var(as.vector(Y_k)) * mfair_sf@tau) > tol_snr) {
+        if (verbose_greedy) {
+          message("Factor ", k, " retained!")
+        }
+      } else {
+        if (verbose_greedy) {
+          message("Factor ", k, " zeroed out!")
+        }
+        break
       }
     } else {
       if (verbose_greedy) {
-        message("Factor ", k, " zeroed out!")
+        message("Factor ", k, " fitted!")
       }
-      break
     }
 
-    # Prepare for the fitting for the next factor
+    # Prepare for the fitting the next factor
     if (object@Y_sparse) {
       R <- R - projSparse(Y_k, obs_indices)
     } else {
