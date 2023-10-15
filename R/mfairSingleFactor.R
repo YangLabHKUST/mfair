@@ -23,7 +23,7 @@ fitSFSparse <- function(Y, X, init,
                         obs_indices,
                         learning_rate, tree_parameters,
                         stage1 = TRUE,
-                        iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
+                        iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-6,
                         verbose_sf = TRUE, verbose_loop = TRUE,
                         save_tree_list = TRUE) {
   N <- nrow(Y)
@@ -188,7 +188,7 @@ fitSFMissing <- function(Y, X, init,
                          obs_indices,
                          learning_rate, tree_parameters,
                          stage1 = TRUE,
-                         iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
+                         iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-6,
                          verbose_sf = TRUE, verbose_loop = TRUE,
                          save_tree_list = TRUE) {
   N <- nrow(Y)
@@ -357,7 +357,7 @@ fitSFMissing <- function(Y, X, init,
 fitSFFully <- function(Y, X, init,
                        learning_rate, tree_parameters,
                        stage1 = TRUE,
-                       iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-5,
+                       iter_max = 5e+3, tol_stage1 = 0.1, tol_stage2 = 1e-6,
                        verbose_sf = TRUE, verbose_loop = TRUE,
                        save_tree_list = TRUE) {
   N <- nrow(Y)
