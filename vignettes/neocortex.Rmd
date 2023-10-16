@@ -29,7 +29,7 @@ library(pheatmap)
 set.seed(20230515)
 ```
 
-# `neocortex` data
+# The `neocortex` dataset
 
 The spatial and temporal patterns of gene regulation during brain development have attracted a great deal of attention in the neuroscience community.
 The availability of gene expression profiles collected from multiple brain regions and time periods provides an unprecedented chance to characterize human brain development.
