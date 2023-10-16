@@ -29,7 +29,7 @@ library(scales)
 set.seed(20230514)
 ```
 
-# `ml100k` data
+# The `ml100k` dataset
 
 Each row represents a user and each column represents a movie in the `rating` matrix, and each row represents a movie and each column represents a genre in the `genre` matrix (use `help(ml100k)` for more details about the data).
 
