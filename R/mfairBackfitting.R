@@ -28,8 +28,9 @@ fitBack <- function(object,
                     sf_para = list()) {
   # Check K
   if (object@K == 1) {
-    stop("The backfitting algorithm is equivalent to the greedy algorithm
-         when rank K = 1!")
+    warning("The backfitting algorithm is equivalent to the greedy algorithm
+         when rank K = 1!\n")
+    return(object)
   } # End
 
   # Check fitted functions F(), i.e., tree_0 and tree_lists
@@ -38,7 +39,7 @@ fitBack <- function(object,
     warning("The previous tree_0 (i.e., fitted functions) may not be saved!\n")
     warning("The new tree_lists obtained after the backfitting algorithm
             may not accurately predict the new sample
-            with auxiliary covariates.!\n")
+            with auxiliary covariates!\n")
   }
   if (length(object@tree_lists) == 0) {
     object@tree_lists <- lapply(1:object@K,
