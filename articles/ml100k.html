@@ -190,8 +190,7 @@ permuting the entries of the corresponding column in the real genre data
 <span class="math inline">\(X\)</span>. Then we fit the MFAI model with
 <span class="math inline">\(Y\)</span> and <span class="math inline">\(X^{\text{pmt}}\)</span> as input.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">n_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">n_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
 <span><span class="va">X_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">X</span>,</span>
 <span>  MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
