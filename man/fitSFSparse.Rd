@@ -14,7 +14,7 @@ fitSFSparse(
   stage1 = TRUE,
   iter_max = 5000,
   tol_stage1 = 0.1,
-  tol_stage2 = 1e-06,
+  tol_stage2 = 1e-08,
   verbose_sf = TRUE,
   verbose_loop = TRUE,
   save_tree_list = TRUE
