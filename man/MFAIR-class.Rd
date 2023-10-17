@@ -33,7 +33,7 @@ Each MFAIR object has a number of slots which store information. Key slots to ac
 
 \item{\code{C}}{An integer. Number of columns (auxiliary covariates) of X.}
 
-\item{\code{K_max}}{An integer. Note that increasing K_max does not ensure that the actual K also increases, since K_max is just an upper bound and the model will automatically infer K below K_max. If you want inference with larger rank K, please make sure that K_max is large enough and the tol_snr parameter in the fitting function \code{fitGreedy()} is small enough, simultaneously.}
+\item{\code{K_max}}{An integer. Please note that increasing K_max does not ensure that the actual K also increases since K_max is just an upper bound, and the model will automatically infer K below K_max under the default setting. If you want to fit the model with larger rank K, please set the \code{null_check} argument as FALSE, or make sure that K_max is large enough and the \code{tol_snr} argument in the fitting function \code{fitGreedy()} is small enough simultaneously in the fitting function \code{fitGreedy()}.}
 
 \item{\code{K}}{An integer. The inferred rank of Y.}
 
