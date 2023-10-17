@@ -163,7 +163,8 @@ initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
   } else {
     tau <- 2 / var(as.vector(Y), na.rm = TRUE)
   }
-  beta <- 2 / var(mu)
+  # beta <- 2 / var(mu)
+  beta <- 1.0
   FX <- rep(0.0, N)
 
   object <- new(
