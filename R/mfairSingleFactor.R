@@ -44,16 +44,16 @@ fitSFSparse <- function(Y, X, init,
     # Stage 1
     for (iter in 1:iter_max) {
       # E-step
-      E_zsq <- (init@mu)^2 + init@a_sq
-      init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
-      init@nu <- init@b_sq *
-        as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
-
       E_wsq <- (init@nu)^2 + init@b_sq
       init@a_sq <- 1 / (init@beta + as.vector(tau_mat %*% as.matrix(E_wsq)))
       init@mu <- init@a_sq *
         (init@beta * init@FX +
           as.vector(init@tau * (Y %*% as.matrix(init@nu))))
+
+      E_zsq <- (init@mu)^2 + init@a_sq
+      init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+      init@nu <- init@b_sq *
+        as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
 
       # M-step
       mu_sq <- (init@mu)^2
@@ -104,16 +104,16 @@ fitSFSparse <- function(Y, X, init,
   gb_data <- data.frame(r = NA, X)
   for (iter in 1:iter_max) {
     # E-step
-    E_zsq <- (init@mu)^2 + init@a_sq
-    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
-    init@nu <- init@b_sq *
-      as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
-
     E_wsq <- (init@nu)^2 + init@b_sq
     init@a_sq <- 1 / (init@beta + as.vector(tau_mat %*% as.matrix(E_wsq)))
     init@mu <- init@a_sq *
       (init@beta * init@FX +
         as.vector(init@tau * (Y %*% as.matrix(init@nu))))
+
+    E_zsq <- (init@mu)^2 + init@a_sq
+    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+    init@nu <- init@b_sq *
+      as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
 
     # M-step
     mu_sq <- (init@mu)^2
@@ -121,8 +121,12 @@ fitSFSparse <- function(Y, X, init,
 
     init@tau <- init@n_obs /
       sum((Y - projSparse(as.matrix(init@mu) %*% t(init@nu), obs_indices))^2 +
-        projSparse(as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq), obs_indices) -
-        projSparse(as.matrix(mu_sq) %*% t(nu_sq), obs_indices))
+        projSparse(
+          as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq), obs_indices
+        ) -
+        projSparse(
+          as.matrix(mu_sq) %*% t(nu_sq), obs_indices
+        ))
     tau_mat@x <- rep(init@tau, length(tau_mat@x))
 
     init@beta <- N / (sum((init@mu - init@FX)^2) + sum(init@a_sq))
@@ -208,16 +212,16 @@ fitSFMissing <- function(Y, X, init,
     # Stage 1
     for (iter in 1:iter_max) {
       # E-step
-      E_zsq <- (init@mu)^2 + init@a_sq
-      init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
-      init@nu <- init@b_sq *
-        as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
-
       E_wsq <- (init@nu)^2 + init@b_sq
       init@a_sq <- 1 / (init@beta + as.vector(tau_mat %*% as.matrix(E_wsq)))
       init@mu <- init@a_sq *
         (init@beta * init@FX +
           as.vector(init@tau * (ProjY %*% as.matrix(init@nu))))
+
+      E_zsq <- (init@mu)^2 + init@a_sq
+      init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+      init@nu <- init@b_sq *
+        as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
 
       # M-step
       mu_sq <- (init@mu)^2
@@ -272,16 +276,16 @@ fitSFMissing <- function(Y, X, init,
   gb_data <- data.frame(r = NA, X)
   for (iter in 1:iter_max) {
     # E-step
-    E_zsq <- (init@mu)^2 + init@a_sq
-    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
-    init@nu <- init@b_sq *
-      as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
-
     E_wsq <- (init@nu)^2 + init@b_sq
     init@a_sq <- 1 / (init@beta + as.vector(tau_mat %*% as.matrix(E_wsq)))
     init@mu <- init@a_sq *
       (init@beta * init@FX +
         as.vector(init@tau * (ProjY %*% as.matrix(init@nu))))
+
+    E_zsq <- (init@mu)^2 + init@a_sq
+    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+    init@nu <- init@b_sq *
+      as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
 
     # M-step
     mu_sq <- (init@mu)^2
@@ -369,13 +373,13 @@ fitSFFully <- function(Y, X, init,
     # Stage 1
     for (iter in 1:iter_max) {
       # E-step
-      init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
-      init@nu <- init@b_sq *
-        init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
       init@a_sq <- 1 / (init@beta + init@tau * (sum((init@nu)^2) + M * init@b_sq))
       init@mu <- init@a_sq *
         (init@beta * init@FX +
           init@tau * as.vector(Y %*% as.matrix(init@nu)))
+      init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
+      init@nu <- init@b_sq *
+        init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
 
       # M-step
       mu_sq <- (init@mu)^2
@@ -423,13 +427,13 @@ fitSFFully <- function(Y, X, init,
   gb_data <- data.frame(r = NA, X)
   for (iter in 1:iter_max) {
     # E-step
-    init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
-    init@nu <- init@b_sq *
-      init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
     init@a_sq <- 1 / (init@beta + init@tau * (sum((init@nu)^2) + M * init@b_sq))
     init@mu <- init@a_sq *
       (init@beta * init@FX +
         init@tau * as.vector(Y %*% as.matrix(init@nu)))
+    init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
+    init@nu <- init@b_sq *
+      init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
 
     # M-step
     mu_sq <- (init@mu)^2

@@ -135,8 +135,10 @@ initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
   N <- nrow(Y)
   M <- ncol(Y)
 
-  mu <- rnorm(N)
-  nu <- rep(0.0, M)
+  # mu <- rnorm(N)
+  # nu <- rep(0.0, M)
+  mu <- rep(0.0, N)
+  nu <- rnorm(M)
 
   # # Whether the main data matrix is partially observed.
   # if (is.null(Y_missing)) {
