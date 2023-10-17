@@ -101,8 +101,7 @@ Next, let's create a permuted movie genre matrix $X^{\text{pmt}}$, where each co
 Then we fit the MFAI model with $Y$ and $X^{\text{pmt}}$ as input.
 
 ```{r}
-n_pmt <- dim(X)[2]
-
+n_pmt <- ncol(X)
 X_pmt <- apply(X,
   MARGIN = 2,
   FUN = function(x) {
