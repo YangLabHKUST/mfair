@@ -175,7 +175,7 @@ fitBack <- function(object,
 
       if (verbose_bf_inner) {
         cat(
-          "Backfitting for ", k, "-th factor finished!\n",
+          "Backfitting for Factor ", k, " finished!\n",
           sep = ""
         )
       }

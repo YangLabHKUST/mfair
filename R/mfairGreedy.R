@@ -96,12 +96,12 @@ fitGreedy <- function(object, K_max = NULL,
     # Initialize
     if (need_init[k]) {
       if (verbose_greedy) {
-        message("Initialize the parameters of factor ", k, "......")
+        message("Initialize the parameters of Factor ", k, "......")
       }
       init <- initSF(R, object@Y_missing, object@Y_sparse, object@n_obs)
     } else {
       if (verbose_greedy) {
-        message("Use the user-specific initialization for factor ", k, "......")
+        message("Use the user-specific initialization for Factor ", k, "......")
       }
       init <- object@initialization[[k]]
     }
