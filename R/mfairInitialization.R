@@ -135,11 +135,6 @@ initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
   N <- nrow(Y)
   M <- ncol(Y)
 
-  # mu <- rnorm(N)
-  # nu <- rep(0.0, M)
-  mu <- rep(0.0, N)
-  nu <- rnorm(M)
-
   # # Whether the main data matrix is partially observed.
   # if (is.null(Y_missing)) {
   #   n_missing <- sum(is.na(Y))
@@ -151,20 +146,25 @@ initSF <- function(Y, Y_missing, Y_sparse, n_obs) {
   # }
 
   if (Y_missing) {
-    a_sq <- rep(1, N)
-    b_sq <- rep(1, M)
+    a_sq <- rep(1.0, N)
+    b_sq <- rep(1.0, M)
   } else {
-    a_sq <- 1
-    b_sq <- 1
+    a_sq <- 1.0
+    b_sq <- 1.0
   }
 
+  nu <- rnorm(M)
   if (Y_sparse) {
+    mu <- (Y %*% as.matrix(nu))@x
     tau <- 2 / var(as.vector(Y@x), na.rm = TRUE)
   } else {
+    Y_temp <- Y
+    Y_temp[is.na(Y_temp)] <- 0
+    mu <- as.vector(Y_temp %*% as.matrix(nu))
     tau <- 2 / var(as.vector(Y), na.rm = TRUE)
   }
-  # beta <- 2 / var(mu)
-  beta <- 1.0
+
+  beta <- 2 / var(mu)
   FX <- rep(0.0, N)
 
   object <- new(
