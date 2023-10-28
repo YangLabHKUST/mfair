@@ -176,12 +176,12 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <span><span class="va">FX</span><span class="op">[</span>, <span class="st">"Time period"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">FX</span><span class="op">[</span>, <span class="st">"Time period"</span><span class="op">]</span>, levels <span class="op">=</span> <span class="va">stage</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">FX</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Neocortex area Time period   Factor 1   Factor 2   Factor 3</span></span>
-<span><span class="co">#&gt; 1            OFC           3 0.08541967 -0.1276331 -0.1413521</span></span>
-<span><span class="co">#&gt; 2            DFC           3 0.08541967 -0.1304649 -0.1651130</span></span>
-<span><span class="co">#&gt; 3            VFC           3 0.08557500 -0.1288645 -0.1367970</span></span>
-<span><span class="co">#&gt; 4            MFC           3 0.08495108 -0.1271726 -0.1594441</span></span>
-<span><span class="co">#&gt; 5            M1C           3 0.08557500 -0.1288645 -0.1607997</span></span>
-<span><span class="co">#&gt; 6            S1C           3 0.08516765 -0.1288645 -0.1608590</span></span></code></pre></div>
+<span><span class="co">#&gt; 1            OFC           3 0.08541949 -0.1276331 -0.1413521</span></span>
+<span><span class="co">#&gt; 2            DFC           3 0.08541949 -0.1304650 -0.1651130</span></span>
+<span><span class="co">#&gt; 3            VFC           3 0.08557482 -0.1288645 -0.1367970</span></span>
+<span><span class="co">#&gt; 4            MFC           3 0.08495090 -0.1271726 -0.1594441</span></span>
+<span><span class="co">#&gt; 5            M1C           3 0.08557482 -0.1288645 -0.1607997</span></span>
+<span><span class="co">#&gt; 6            S1C           3 0.08516747 -0.1288645 -0.1608590</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert the wide table to the long table</span></span>
 <span><span class="va">FX_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html" class="external-link">melt</a></span><span class="op">(</span></span>
@@ -191,12 +191,12 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">FX_long</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Neocortex area Time period   Factor          F</span></span>
-<span><span class="co">#&gt; 1            OFC           3 Factor 1 0.08541967</span></span>
-<span><span class="co">#&gt; 2            DFC           3 Factor 1 0.08541967</span></span>
-<span><span class="co">#&gt; 3            VFC           3 Factor 1 0.08557500</span></span>
-<span><span class="co">#&gt; 4            MFC           3 Factor 1 0.08495108</span></span>
-<span><span class="co">#&gt; 5            M1C           3 Factor 1 0.08557500</span></span>
-<span><span class="co">#&gt; 6            S1C           3 Factor 1 0.08516765</span></span></code></pre></div>
+<span><span class="co">#&gt; 1            OFC           3 Factor 1 0.08541949</span></span>
+<span><span class="co">#&gt; 2            DFC           3 Factor 1 0.08541949</span></span>
+<span><span class="co">#&gt; 3            VFC           3 Factor 1 0.08557482</span></span>
+<span><span class="co">#&gt; 4            MFC           3 Factor 1 0.08495090</span></span>
+<span><span class="co">#&gt; 5            M1C           3 Factor 1 0.08557482</span></span>
+<span><span class="co">#&gt; 6            S1C           3 Factor 1 0.08516747</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualization of F(.)</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
@@ -234,12 +234,12 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           Factor 1   Factor 2   Factor 3</span></span>
-<span><span class="co">#&gt; DCUN1D2 -1.0973503  0.4754915 -0.4656469</span></span>
-<span><span class="co">#&gt; ARRB1    3.7897532  0.5357543  0.3688409</span></span>
-<span><span class="co">#&gt; PDE1B    0.1807724  3.1537716 -0.5730507</span></span>
-<span><span class="co">#&gt; PDE7B   -0.1510909  3.2482204 -1.5126715</span></span>
-<span><span class="co">#&gt; TOX      1.6022251 -1.6211513 -1.7326519</span></span>
-<span><span class="co">#&gt; LOXHD1  -3.4764486  0.1372477  0.1020409</span></span></code></pre></div>
+<span><span class="co">#&gt; DCUN1D2 -1.0973545  0.4754917 -0.4656467</span></span>
+<span><span class="co">#&gt; ARRB1    3.7897678  0.5357535  0.3688403</span></span>
+<span><span class="co">#&gt; PDE1B    0.1807732  3.1537712 -0.5730507</span></span>
+<span><span class="co">#&gt; PDE7B   -0.1510914  3.2482200 -1.5126716</span></span>
+<span><span class="co">#&gt; TOX      1.6022312 -1.6211514 -1.7326521</span></span>
+<span><span class="co">#&gt; LOXHD1  -3.4764620  0.1372484  0.1020414</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Heatmap of the inferred gene factors</span></span>
 <span><span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span>,</span>
