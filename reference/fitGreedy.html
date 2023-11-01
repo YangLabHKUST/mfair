@@ -102,7 +102,7 @@
 
 
 <dt>null_check</dt>
-<dd><p>Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.</p></dd>
+<dd><p>Logical. If TRUE, then mfair will check whether the currently inferred factor is close to zero compared to the estimated noise strength. If the check is performed and successful, the factor will be deleted in the returned fit, and the greedy algorithm will be terminated.</p></dd>
 
 
 <dt>tol_snr</dt>
