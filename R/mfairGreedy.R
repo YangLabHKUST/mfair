@@ -10,7 +10,7 @@
 #' @param maxdepth Integer. Parameter for the gradient boosting part.
 #' @param other_tree_para A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.
 #' @param tol_snr Numeric. The convergence criterion which determine the inferred rank of data.
-#' @param null_check Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.
+#' @param null_check Logical. If TRUE, then mfair will check whether the currently inferred factor is close to zero compared to the estimated noise strength. If the check is performed and successful, the factor will be deleted in the returned fit, and the greedy algorithm will be terminated.
 #' @param verbose_greedy Logical. Whether to display the detailed information when fitting the model.
 #' @param save_init Logical. Whether to save the initialization of the model.
 #' @param sf_para A list containing parameters for fitting the single factor MFAI model. See fitSFFully(), fitSFMissing(), or fitSFSparse() for details.

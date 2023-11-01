@@ -34,7 +34,7 @@ fitGreedy(
 
 \item{other_tree_para}{A list containing other parameters for the gradient boosting part. See rpart::rpart.control() for details.}
 
-\item{null_check}{Logical. If TRUE, then mfair will check whether the current factor is close to zero. If the check is performed and successful, the factor will be deleted in the returned fit.}
+\item{null_check}{Logical. If TRUE, then mfair will check whether the currently inferred factor is close to zero compared to the estimated noise strength. If the check is performed and successful, the factor will be deleted in the returned fit, and the greedy algorithm will be terminated.}
 
 \item{tol_snr}{Numeric. The convergence criterion which determine the inferred rank of data.}
 
