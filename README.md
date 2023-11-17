@@ -6,8 +6,7 @@
 <!-- badges: start -->
 
 [![DOI](https://zenodo.org/badge/609644044.svg)](https://zenodo.org/badge/latestdoi/609644044)
-[![Codecov test
-coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main)
+<!-- [![Codecov test coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main) -->
 [![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
 ![GitHub repo
 size](https://img.shields.io/github/repo-size/YangLabHKUST/mfair)
@@ -105,13 +104,13 @@ mfairObject <- createMFAIR(Y_obs, as.data.frame(X), K_max = K_true)
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
-#> Initialize the parameters of factor 1......
-#> After 1 iterations Stage 1 ends!
-#> After 43 iterations Stage 2 ends!
+#> Initialize the parameters of Factor 1......
+#> After 2 iterations Stage 1 ends!
+#> After 77 iterations Stage 2 ends!
 #> Factor 1 retained!
-#> Initialize the parameters of factor 2......
-#> After 1 iterations Stage 1 ends!
-#> After 40 iterations Stage 2 ends!
+#> Initialize the parameters of Factor 2......
+#> After 2 iterations Stage 1 ends!
+#> After 76 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -120,15 +119,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_obs - Y_hat)^2))
-#> [1] 12.22526
+#> [1] 12.23344
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs))
-#> [1] 0.471485
+#> [1] 0.4714952
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
-#> [1] 0.9884637
+#> [1] 0.9871629
 ```
 
 - `mfair` can also handle the matrix with missing entries:
@@ -145,18 +144,18 @@ Y_test[train_set] <- NA
 # Create MFAIR object
 mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
 #> The main data matrix Y is partially observed!
-#> The main data matrix Y has been centered with mean = 0.227350351267622!
+#> The main data matrix Y has been centered with mean = 0.187847085351627!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
-#> Initialize the parameters of factor 1......
-#> After 1 iterations Stage 1 ends!
-#> After 68 iterations Stage 2 ends!
+#> Initialize the parameters of Factor 1......
+#> After 2 iterations Stage 1 ends!
+#> After 96 iterations Stage 2 ends!
 #> Factor 1 retained!
-#> Initialize the parameters of factor 2......
-#> After 1 iterations Stage 1 ends!
-#> After 66 iterations Stage 2 ends!
+#> Initialize the parameters of Factor 2......
+#> After 2 iterations Stage 1 ends!
+#> After 79 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -164,15 +163,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 12.88825
+#> [1] 13.08594
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4311948
+#> [1] 0.4080135
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.8554015
+#> [1] 0.7990528
 ```
 
 - Empirically, the backfitting algorithm can further improve the
@@ -184,27 +183,25 @@ mfairObject <- fitBack(mfairObject,
   verbose_bf_inner = FALSE,
   sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
 )
-#> Iteration: 1, relative difference of model parameters: 0.2212487.
-#> Iteration: 2, relative difference of model parameters: 0.05861598.
-#> Iteration: 3, relative difference of model parameters: 0.01781071.
-#> Iteration: 4, relative difference of model parameters: 0.02649139.
-#> Iteration: 5, relative difference of model parameters: 0.01830385.
-#> Iteration: 6, relative difference of model parameters: 0.007152868.
+#> Iteration: 1, relative difference of model parameters: 0.2677281.
+#> Iteration: 2, relative difference of model parameters: 0.06144878.
+#> Iteration: 3, relative difference of model parameters: 0.01419201.
+#> Iteration: 4, relative difference of model parameters: 0.007719868.
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 12.84545
+#> [1] 13.03081
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4434191
+#> [1] 0.4255564
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.8846744
+#> [1] 0.8398119
 ```
 
 - Explore the [vignette illustrating the enrichment of the movie genre
