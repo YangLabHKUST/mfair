@@ -201,7 +201,10 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <code class="sourceCode R"><span><span class="co"># Visualization of F(.)</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">FX_long</span>,</span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">`Time period`</span>, y <span class="op">=</span> <span class="cn">F</span>, linetype <span class="op">=</span> <span class="va">`Neocortex area`</span>, colour <span class="op">=</span> <span class="va">`Neocortex area`</span>, group <span class="op">=</span> <span class="va">`Neocortex area`</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">`Time period`</span>, y <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="va">`Neocortex area`</span>, colour <span class="op">=</span> <span class="va">`Neocortex area`</span>, group <span class="op">=</span> <span class="va">`Neocortex area`</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
@@ -228,12 +231,12 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <h2 id="gene-set-enrichment-analysis">Gene set enrichment analysis<a class="anchor" aria-label="anchor" href="#gene-set-enrichment-analysis"></a>
 </h2>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Inferred gene factors (corresponding to the W matrix in the MFAI paper)</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">W</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mfairObject</span><span class="op">@</span><span class="va">Y</span><span class="op">)</span> <span class="co"># Assign gene symbols</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           Factor 1   Factor 2   Factor 3</span></span>
+<code class="sourceCode R"><span><span class="co"># Inferred gene loadings (corresponding to the W matrix in the MFAI paper)</span></span>
+<span><span class="va">gene_loadings</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">W</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mfairObject</span><span class="op">@</span><span class="va">Y</span><span class="op">)</span> <span class="co"># Assign gene symbols</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Loading"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          Loading 1  Loading 2  Loading 3</span></span>
 <span><span class="co">#&gt; DCUN1D2 -1.0973545  0.4754917 -0.4656467</span></span>
 <span><span class="co">#&gt; ARRB1    3.7897678  0.5357535  0.3688403</span></span>
 <span><span class="co">#&gt; PDE1B    0.1807732  3.1537712 -0.5730507</span></span>
@@ -241,8 +244,8 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <span><span class="co">#&gt; TOX      1.6022312 -1.6211514 -1.7326521</span></span>
 <span><span class="co">#&gt; LOXHD1  -3.4764620  0.1372484  0.1020414</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Heatmap of the inferred gene factors</span></span>
-<span><span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="co"># Heatmap of the inferred gene loadings</span></span>
+<span><span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"column"</span>,</span>
 <span>  clustering_method <span class="op">=</span> <span class="st">"complete"</span>,</span>
 <span>  cluster_row <span class="op">=</span> <span class="cn">FALSE</span>, cluster_col <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -253,14 +256,14 @@ by <span class="math inline">\(\{ F_1 (\cdot) , F_2 (\cdot) , F_3
 <span>  fontsize <span class="op">=</span> <span class="fl">12</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="neocortex_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>We first calculated the relative weight of the <span class="math inline">\(k\)</span>-th factor for the <span class="math inline">\(m\)</span>-th gene by <span class="math inline">\(\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3}
+<p>We first calculated the relative weight of the <span class="math inline">\(k\)</span>-th loading for the <span class="math inline">\(m\)</span>-th gene by <span class="math inline">\(\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3}
 \left| W_{mk^{\prime}} \right|\)</span>, where <span class="math inline">\(W_{m \cdot} \in \mathbb{R}^{3 \times 1}\)</span>
-is the <span class="math inline">\(m\)</span>-th row of gene factors,
-and then selected the top 300 weighted genes in each factor to form the
+is the <span class="math inline">\(m\)</span>-th row of gene loadings,
+and then selected the top 300 weighted genes in each loading to form the
 gene sets.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Normalize each factor to have l2-norm equal one</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">gene_factors</span>,</span>
+<code class="sourceCode R"><span><span class="co"># Normalize each loading to have l2-norm equal one</span></span>
+<span><span class="va">gene_loadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">gene_loadings</span>,</span>
 <span>  MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">x</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -268,14 +271,14 @@ gene sets.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Relative weight</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
-<span><span class="va">gene_factors</span> <span class="op">&lt;-</span> <span class="va">gene_factors</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span></span>
+<span><span class="va">gene_loadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span></span>
+<span><span class="va">gene_loadings</span> <span class="op">&lt;-</span> <span class="va">gene_loadings</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Total number of genes M = 2,000</span></span>
-<span><span class="va">ntop</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">*</span> <span class="fl">0.15</span> <span class="co"># We use the top 300 weighted genes in each factor to form the gene sets</span></span>
+<span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># Total number of genes M = 2,000</span></span>
+<span><span class="va">ntop</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">*</span> <span class="fl">0.15</span> <span class="co"># We use the top 300 weighted genes in each loading to form the gene sets</span></span>
 <span></span>
 <span><span class="co"># Index of top genes</span></span>
-<span><span class="va">top_gene_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">gene_factors</span>,</span>
+<span><span class="va">top_gene_idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">gene_loadings</span>,</span>
 <span>  MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank</a></span><span class="op">(</span><span class="op">-</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="va">ntop</span><span class="op">)</span></span>
@@ -285,18 +288,18 @@ gene sets.</p>
 <span><span class="va">top_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">top_gene_idx</span>,</span>
 <span>  MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">gene_factors</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">]</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">gene_loadings</span><span class="op">)</span><span class="op">[</span><span class="va">x</span><span class="op">]</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">top_genes</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">top_genes</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Loading"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">top_genes</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      Factor 1  Factor 2 Factor 3</span></span>
-<span><span class="co">#&gt; [1,] "ARRB1"   "PDE1B"  "AJAP1" </span></span>
-<span><span class="co">#&gt; [2,] "LOXHD1"  "PDE7B"  "KCNA3" </span></span>
-<span><span class="co">#&gt; [3,] "TYRP1"   "KCNA2"  "ASTN2" </span></span>
-<span><span class="co">#&gt; [4,] "PRKG1"   "PMP22"  "EMID1" </span></span>
-<span><span class="co">#&gt; [5,] "MS4A8B"  "GPR155" "GPR52" </span></span>
-<span><span class="co">#&gt; [6,] "FAM131B" "SMAD2"  "SEC24D"</span></span></code></pre></div>
+<span><span class="co">#&gt;      Loading 1 Loading 2 Loading 3</span></span>
+<span><span class="co">#&gt; [1,] "ARRB1"   "PDE1B"   "AJAP1"  </span></span>
+<span><span class="co">#&gt; [2,] "LOXHD1"  "PDE7B"   "KCNA3"  </span></span>
+<span><span class="co">#&gt; [3,] "TYRP1"   "KCNA2"   "ASTN2"  </span></span>
+<span><span class="co">#&gt; [4,] "PRKG1"   "PMP22"   "EMID1"  </span></span>
+<span><span class="co">#&gt; [5,] "MS4A8B"  "GPR155"  "GPR52"  </span></span>
+<span><span class="co">#&gt; [6,] "FAM131B" "SMAD2"   "SEC24D"</span></span></code></pre></div>
 <p>Then we can conduct the gene set enrichment analysis based on <a href="http://geneontology.org/" class="external-link">Gene Ontology</a> for each factor.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
