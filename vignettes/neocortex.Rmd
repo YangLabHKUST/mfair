@@ -99,7 +99,10 @@ head(FX_long)
 # Visualization of F(.)
 p <- ggplot(
   data = FX_long,
-  aes(x = `Time period`, y = F, linetype = `Neocortex area`, colour = `Neocortex area`, group = `Neocortex area`)
+  aes(
+    x = `Time period`, y = F,
+    linetype = `Neocortex area`, colour = `Neocortex area`, group = `Neocortex area`
+  )
 ) +
   geom_line(linewidth = 0.5) +
   ylab(NULL) +
@@ -125,16 +128,16 @@ p
 # Gene set enrichment analysis
 
 ```{r}
-# Inferred gene factors (corresponding to the W matrix in the MFAI paper)
-gene_factors <- mfairObject@W
-rownames(gene_factors) <- colnames(mfairObject@Y) # Assign gene symbols
-colnames(gene_factors) <- paste("Factor", c(1:3))
-head(gene_factors)
+# Inferred gene loadings (corresponding to the W matrix in the MFAI paper)
+gene_loadings <- mfairObject@W
+rownames(gene_loadings) <- colnames(mfairObject@Y) # Assign gene symbols
+colnames(gene_loadings) <- paste("Loading", c(1:3))
+head(gene_loadings)
 ```
 
 ```{r}
-# Heatmap of the inferred gene factors
-pheatmap::pheatmap(t(gene_factors),
+# Heatmap of the inferred gene loadings
+pheatmap::pheatmap(t(gene_loadings),
   scale = "column",
   clustering_method = "complete",
   cluster_row = FALSE, cluster_col = TRUE,
@@ -146,11 +149,11 @@ pheatmap::pheatmap(t(gene_factors),
 )
 ```
 
-We first calculated the relative weight of the $k$-th factor for the $m$-th gene by $\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3} \left| W_{mk^{\prime}} \right|$, where $W_{m \cdot} \in \mathbb{R}^{3 \times 1}$ is the $m$-th row of gene factors, and then selected the top 300 weighted genes in each factor to form the gene sets.
+We first calculated the relative weight of the $k$-th loading for the $m$-th gene by $\left| W_{mk} \right| / \sum_{k^{\prime}=1}^{3} \left| W_{mk^{\prime}} \right|$, where $W_{m \cdot} \in \mathbb{R}^{3 \times 1}$ is the $m$-th row of gene loadings, and then selected the top 300 weighted genes in each loading to form the gene sets.
 
 ```{r}
-# Normalize each factor to have l2-norm equal one
-gene_factors <- apply(gene_factors,
+# Normalize each loading to have l2-norm equal one
+gene_loadings <- apply(gene_loadings,
   MARGIN = 2,
   FUN = function(x) {
     x / sqrt(sum(x^2))
@@ -158,14 +161,14 @@ gene_factors <- apply(gene_factors,
 )
 
 # Relative weight
-gene_factors <- abs(gene_factors)
-gene_factors <- gene_factors / rowSums(gene_factors)
+gene_loadings <- abs(gene_loadings)
+gene_loadings <- gene_loadings / rowSums(gene_loadings)
 
-M <- nrow(gene_factors)[1] # Total number of genes M = 2,000
-ntop <- M * 0.15 # We use the top 300 weighted genes in each factor to form the gene sets
+M <- nrow(gene_loadings)[1] # Total number of genes M = 2,000
+ntop <- M * 0.15 # We use the top 300 weighted genes in each loading to form the gene sets
 
 # Index of top genes
-top_gene_idx <- apply(gene_factors,
+top_gene_idx <- apply(gene_loadings,
   MARGIN = 2,
   FUN = function(x) {
     which(rank(-x) <= ntop)
@@ -175,10 +178,10 @@ top_gene_idx <- apply(gene_factors,
 top_genes <- apply(top_gene_idx,
   MARGIN = 2,
   FUN = function(x) {
-    rownames(gene_factors)[x]
+    rownames(gene_loadings)[x]
   }
 )
-colnames(top_genes) <- paste("Factor", c(1:3))
+colnames(top_genes) <- paste("Loading", c(1:3))
 head(top_genes)
 ```
 
