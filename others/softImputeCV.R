@@ -26,7 +26,11 @@ softImputeCrossVal <- function(Y, rank_max = NULL, lambda_range = NULL,
   if (is.null(lambda_range)) {
     hi_fit <- softImpute(Y, rank.max = rank_max)
     lambda_min <- tail(hi_fit$d, 1) / 100
-    lambda_max <- mean((hi_fit$d)[1:2])
+    if(length(hi_fit$d) > 1) {
+      lambda_max <- mean((hi_fit$d)[1:2])
+    } else {
+      lambda_max <- hi_fit$d
+    }
   } else {
     lambda_min <- lambda_range[1]
     lambda_max <- lambda_range[2]
