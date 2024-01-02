@@ -236,8 +236,8 @@ repository useful for your work, please cite:
 
 The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
 
-## Contact Information
+## Contact
 
 Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>),
 Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang
-(<macyang@ust.hk>) if any inquiries.
+(<macyang@ust.hk>) with any inquiries.

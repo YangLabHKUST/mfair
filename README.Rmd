@@ -195,6 +195,6 @@ If you find the `mfair` package or any of the source code in this repository use
 
 The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
 
-## Contact Information
+## Contact
 
-Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>), Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang (<macyang@ust.hk>) if any inquiries.
+Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>), Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang (<macyang@ust.hk>) with any inquiries.
