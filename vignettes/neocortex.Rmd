@@ -101,7 +101,9 @@ p <- ggplot(
   data = FX_long,
   aes(
     x = `Time period`, y = F,
-    linetype = `Neocortex area`, colour = `Neocortex area`, group = `Neocortex area`
+    linetype = `Neocortex area`,
+    colour = `Neocortex area`,
+    group = `Neocortex area`
   )
 ) +
   geom_line(linewidth = 0.5) +
