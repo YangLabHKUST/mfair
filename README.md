@@ -21,10 +21,7 @@ The R package `mfair` implements the methods based on the paper [MFAI: A
 scalable Bayesian matrix factorization approach to leveraging auxiliary
 information](https://doi.org/10.48550/arXiv.2303.02566). MFAI integrates
 gradient boosted trees in the probabilistic matrix factorization
-framework to effectively leverage auxiliary information. The parameters
-in MAFI can be automatically determined under the empirical Bayes
-framework, making it adaptive to the utilization of auxiliary
-information and immune to overfitting.
+framework to leverage auxiliary information effectively and adaptively.
 
 ## Installation
 
@@ -151,11 +148,11 @@ mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 96 iterations Stage 2 ends!
+#> After 97 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 79 iterations Stage 2 ends!
+#> After 82 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -163,15 +160,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.08594
+#> [1] 13.08502
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4080135
+#> [1] 0.4078598
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.7990528
+#> [1] 0.7989475
 ```
 
 - Empirically, the backfitting algorithm can further improve the
@@ -183,25 +180,26 @@ mfairObject <- fitBack(mfairObject,
   verbose_bf_inner = FALSE,
   sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
 )
-#> Iteration: 1, relative difference of model parameters: 0.2677281.
-#> Iteration: 2, relative difference of model parameters: 0.06144878.
-#> Iteration: 3, relative difference of model parameters: 0.01419201.
-#> Iteration: 4, relative difference of model parameters: 0.007719868.
+#> Iteration: 1, relative difference of model parameters: 0.2678141.
+#> Iteration: 2, relative difference of model parameters: 0.03957596.
+#> Iteration: 3, relative difference of model parameters: 0.08902799.
+#> Iteration: 4, relative difference of model parameters: 0.02089378.
+#> Iteration: 5, relative difference of model parameters: 0.001688755.
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.03081
+#> [1] 13.03505
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4255564
+#> [1] 0.4259078
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.8398119
+#> [1] 0.8400624
 ```
 
 - Explore the [vignette illustrating the enrichment of the movie genre
