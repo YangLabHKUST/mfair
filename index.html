@@ -70,7 +70,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The R package <code>mfair</code> implements the methods based on the paper <a href="https://doi.org/10.48550/arXiv.2303.02566" class="external-link">MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information</a>. MFAI integrates gradient boosted trees in the probabilistic matrix factorization framework to effectively leverage auxiliary information. The parameters in MAFI can be automatically determined under the empirical Bayes framework, making it adaptive to the utilization of auxiliary information and immune to overfitting.</p>
+<p>The R package <code>mfair</code> implements the methods based on the paper <a href="https://doi.org/10.48550/arXiv.2303.02566" class="external-link">MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information</a>. MFAI integrates gradient boosted trees in the probabilistic matrix factorization framework to leverage auxiliary information effectively and adaptively.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -191,11 +191,11 @@
 <span><span class="co">#&gt; Set K_max = 2!</span></span>
 <span><span class="co">#&gt; Initialize the parameters of Factor 1......</span></span>
 <span><span class="co">#&gt; After 2 iterations Stage 1 ends!</span></span>
-<span><span class="co">#&gt; After 96 iterations Stage 2 ends!</span></span>
+<span><span class="co">#&gt; After 97 iterations Stage 2 ends!</span></span>
 <span><span class="co">#&gt; Factor 1 retained!</span></span>
 <span><span class="co">#&gt; Initialize the parameters of Factor 2......</span></span>
 <span><span class="co">#&gt; After 2 iterations Stage 1 ends!</span></span>
-<span><span class="co">#&gt; After 79 iterations Stage 2 ends!</span></span>
+<span><span class="co">#&gt; After 82 iterations Stage 2 ends!</span></span>
 <span><span class="co">#&gt; Factor 2 retained!</span></span>
 <span></span>
 <span><span class="co"># Prediction based on the low-rank approximation</span></span>
@@ -203,15 +203,15 @@
 <span></span>
 <span><span class="co"># Root-mean-square-error</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">Y_test</span> <span class="op">-</span> <span class="va">Y_hat</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 13.08594</span></span>
+<span><span class="co">#&gt; [1] 13.08502</span></span>
 <span></span>
 <span><span class="co"># Predicted/true matrix variance ratio</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_obs</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.4080135</span></span>
+<span><span class="co">#&gt; [1] 0.4078598</span></span>
 <span></span>
 <span><span class="co"># Prediction/noise variance ratio</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_obs</span> <span class="op">-</span> <span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.7990528</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.7989475</span></span></code></pre></div>
 <ul>
 <li>Empirically, the backfitting algorithm can further improve the performance:</li>
 </ul>
@@ -221,25 +221,26 @@
 <span>  verbose_bf_inner <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_sf <span class="op">=</span> <span class="cn">FALSE</span>, verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Iteration: 1, relative difference of model parameters: 0.2677281.</span></span>
-<span><span class="co">#&gt; Iteration: 2, relative difference of model parameters: 0.06144878.</span></span>
-<span><span class="co">#&gt; Iteration: 3, relative difference of model parameters: 0.01419201.</span></span>
-<span><span class="co">#&gt; Iteration: 4, relative difference of model parameters: 0.007719868.</span></span>
+<span><span class="co">#&gt; Iteration: 1, relative difference of model parameters: 0.2678141.</span></span>
+<span><span class="co">#&gt; Iteration: 2, relative difference of model parameters: 0.03957596.</span></span>
+<span><span class="co">#&gt; Iteration: 3, relative difference of model parameters: 0.08902799.</span></span>
+<span><span class="co">#&gt; Iteration: 4, relative difference of model parameters: 0.02089378.</span></span>
+<span><span class="co">#&gt; Iteration: 5, relative difference of model parameters: 0.001688755.</span></span>
 <span></span>
 <span><span class="co"># Prediction based on the low-rank approximation</span></span>
 <span><span class="va">Y_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mfairObject</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Root-mean-square-error</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">Y_test</span> <span class="op">-</span> <span class="va">Y_hat</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 13.03081</span></span>
+<span><span class="co">#&gt; [1] 13.03505</span></span>
 <span></span>
 <span><span class="co"># Predicted/true matrix variance ratio</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_obs</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.4255564</span></span>
+<span><span class="co">#&gt; [1] 0.4259078</span></span>
 <span></span>
 <span><span class="co"># Prediction/noise variance ratio</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Y_obs</span> <span class="op">-</span> <span class="va">Y_hat</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8398119</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.8400624</span></span></code></pre></div>
 <ul>
 <li>Explore the <a href="https://yanglabhkust.github.io/mfair/articles/ml100k.html">vignette illustrating the enrichment of the movie genre information</a>:</li>
 </ul>
