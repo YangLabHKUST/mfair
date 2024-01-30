@@ -22,7 +22,7 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    Y_hat <- object@Z[, which_factors] %*% t(object@W[, which_factors])
+    Y_hat <- tcrossprod(object@Z[, which_factors], object@W[, which_factors])
     if (add_mean) {
       Y_hat <- Y_hat + object@Y_mean
     }
@@ -46,7 +46,7 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    return(Y_hat = as.matrix(object@mu) %*% t(object@nu))
+    return(Y_hat = tcrossprod(as.matrix(object@mu), as.matrix(object@nu)))
   }
 )
 

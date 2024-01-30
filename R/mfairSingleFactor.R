@@ -53,16 +53,25 @@ fitSFSparse <- function(Y, X, init,
       E_zsq <- (init@mu)^2 + init@a_sq
       init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
       init@nu <- init@b_sq *
-        as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
+        as.vector(init@tau * crossprod(Y, as.matrix(init@mu)))
 
       # M-step
       mu_sq <- (init@mu)^2
       nu_sq <- (init@nu)^2
 
       init@tau <- init@n_obs /
-        sum((Y - projSparse(as.matrix(init@mu) %*% t(init@nu), obs_indices))^2 +
-          projSparse(as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq), obs_indices) -
-          projSparse(as.matrix(mu_sq) %*% t(nu_sq), obs_indices))
+        sum((Y - projSparse(
+          tcrossprod(as.matrix(init@mu), as.matrix(init@nu)),
+          obs_indices
+        ))^2 +
+          projSparse(
+            tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)),
+            obs_indices
+          ) -
+          projSparse(
+            tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)),
+            obs_indices
+          ))
       tau_mat@x <- rep(init@tau, length(tau_mat@x))
 
       init@beta <- N / (sum((init@mu - init@FX)^2) + sum(init@a_sq))
@@ -111,21 +120,26 @@ fitSFSparse <- function(Y, X, init,
         as.vector(init@tau * (Y %*% as.matrix(init@nu))))
 
     E_zsq <- (init@mu)^2 + init@a_sq
-    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+    init@b_sq <- 1 / (1 + as.vector(crossprod(tau_mat, as.matrix(E_zsq))))
     init@nu <- init@b_sq *
-      as.vector(init@tau * (t(Y) %*% as.matrix(init@mu)))
+      as.vector(init@tau * (crossprod(Y, as.matrix(init@mu))))
 
     # M-step
     mu_sq <- (init@mu)^2
     nu_sq <- (init@nu)^2
 
     init@tau <- init@n_obs /
-      sum((Y - projSparse(as.matrix(init@mu) %*% t(init@nu), obs_indices))^2 +
+      sum((Y - projSparse(
+        tcrossprod(as.matrix(init@mu), as.matrix(init@nu)),
+        obs_indices
+      ))^2 +
         projSparse(
-          as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq), obs_indices
+          tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)),
+          obs_indices
         ) -
         projSparse(
-          as.matrix(mu_sq) %*% t(nu_sq), obs_indices
+          tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)),
+          obs_indices
         ))
     tau_mat@x <- rep(init@tau, length(tau_mat@x))
 
@@ -219,9 +233,9 @@ fitSFMissing <- function(Y, X, init,
           as.vector(init@tau * (ProjY %*% as.matrix(init@nu))))
 
       E_zsq <- (init@mu)^2 + init@a_sq
-      init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+      init@b_sq <- 1 / (1 + as.vector(crossprod(tau_mat, as.matrix(E_wsq))))
       init@nu <- init@b_sq *
-        as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
+        as.vector(init@tau * (crossprod(ProjY, as.matrix(init@mu))))
 
       # M-step
       mu_sq <- (init@mu)^2
@@ -229,9 +243,9 @@ fitSFMissing <- function(Y, X, init,
 
       init@tau <- init@n_obs /
         sum(
-          (Y - as.matrix(init@mu) %*% t(init@nu))^2 +
-            as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq) -
-            as.matrix(mu_sq) %*% t(nu_sq),
+          (Y - tcrossprod(as.matrix(init@mu), as.matrix(init@nu)))^2 +
+            tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)) -
+            tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)),
           na.rm = TRUE
         )
       tau_mat <- matrix(init@tau, N, M)
@@ -283,9 +297,9 @@ fitSFMissing <- function(Y, X, init,
         as.vector(init@tau * (ProjY %*% as.matrix(init@nu))))
 
     E_zsq <- (init@mu)^2 + init@a_sq
-    init@b_sq <- 1 / (1 + as.vector(t(tau_mat) %*% as.matrix(E_zsq)))
+    init@b_sq <- 1 / (1 + as.vector(crossprod(tau_mat, as.matrix(E_zsq))))
     init@nu <- init@b_sq *
-      as.vector(init@tau * (t(ProjY) %*% as.matrix(init@mu)))
+      as.vector(init@tau * crossprod(ProjY, as.matrix(init@mu)))
 
     # M-step
     mu_sq <- (init@mu)^2
@@ -293,9 +307,9 @@ fitSFMissing <- function(Y, X, init,
 
     init@tau <- init@n_obs /
       sum(
-        (Y - as.matrix(init@mu) %*% t(init@nu))^2 +
-          as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq) -
-          as.matrix(mu_sq) %*% t(nu_sq),
+        (Y - tcrossprod(as.matrix(init@mu), as.matrix(init@nu)))^2 +
+          tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)) -
+          tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)),
         na.rm = TRUE
       )
     tau_mat <- matrix(init@tau, N, M)
@@ -379,15 +393,15 @@ fitSFFully <- function(Y, X, init,
           init@tau * as.vector(Y %*% as.matrix(init@nu)))
       init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
       init@nu <- init@b_sq *
-        init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
+        init@tau * as.vector(crossprod(Y, as.matrix(init@mu)))
 
       # M-step
       mu_sq <- (init@mu)^2
       nu_sq <- (init@nu)^2
       init@tau <- N * M /
-        sum((Y - as.matrix(init@mu) %*% t(init@nu))^2 +
-          as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq) -
-          as.matrix(mu_sq) %*% t(nu_sq))
+        sum((Y - tcrossprod(as.matrix(init@mu), as.matrix(init@nu)))^2 +
+          tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)) -
+          tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)))
       init@beta <- N / (sum((init@mu - init@FX)^2) + N * init@a_sq)
       # init@beta <- ifelse(init@beta < 1e-8, 1e-8, init@beta)
 
@@ -433,15 +447,15 @@ fitSFFully <- function(Y, X, init,
         init@tau * as.vector(Y %*% as.matrix(init@nu)))
     init@b_sq <- 1 / (1 + init@tau * (sum((init@mu)^2) + N * init@a_sq))
     init@nu <- init@b_sq *
-      init@tau * as.vector(t(Y) %*% as.matrix(init@mu))
+      init@tau * as.vector(crossprod(Y, as.matrix(init@mu)))
 
     # M-step
     mu_sq <- (init@mu)^2
     nu_sq <- (init@nu)^2
     init@tau <- N * M /
-      sum((Y - as.matrix(init@mu) %*% t(init@nu))^2 +
-        as.matrix(mu_sq + init@a_sq) %*% t(nu_sq + init@b_sq) -
-        as.matrix(mu_sq) %*% t(nu_sq))
+      sum((Y - tcrossprod(as.matrix(init@mu), as.matrix(init@nu)))^2 +
+        tcrossprod(as.matrix(mu_sq + init@a_sq), as.matrix(nu_sq + init@b_sq)) -
+        tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)))
     init@beta <- N / (sum((init@mu - init@FX)^2) + N * init@a_sq)
     # init@beta <- ifelse(init@beta < 1e-8, 1e-8, init@beta)
 
