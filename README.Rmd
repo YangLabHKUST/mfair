@@ -16,8 +16,10 @@ knitr::opts_chunk$set(
 # mfair: Matrix Factorization with Auxiliary Information in R
 
 <!-- badges: start -->
+
 [![DOI](https://zenodo.org/badge/609644044.svg)](https://zenodo.org/badge/latestdoi/609644044)
 ![GitHub repo size](https://img.shields.io/github/repo-size/YangLabHKUST/mfair)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/YangLabHKUST/mfair)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FYangLabHKUST%2Fmfair&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 ![GitHub Repo stars](https://img.shields.io/github/stars/YangLabHKUST/mfair)
 ![GitHub forks](https://img.shields.io/github/forks/YangLabHKUST/mfair)
@@ -26,7 +28,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The R package `mfair` implements the methods based on the paper [MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information](https://doi.org/10.48550/arXiv.2303.02566).
+The R package `mfair` implements the methods based on the paper [**MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information**](https://doi.org/10.48550/arXiv.2303.02566).
 MFAI integrates gradient boosted trees in the probabilistic matrix factorization framework to leverage auxiliary information effectively and adaptively.
 
 ## Installation
@@ -188,12 +190,12 @@ vignette("neocortex")
 
 If you find the `mfair` package or any of the source code in this repository useful for your work, please cite:
 
-> Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., and Yang, C. (2023). MFAI: A scalable Bayesian matrix factorization approach to leveraging auxiliary information. arXiv preprint arXiv:2303.02566. URL: https://doi.org/10.48550/arXiv.2303.02566.
+> Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., & Yang, C. (2024). MFAI: A Scalable Bayesian Matrix Factorization Approach to Leveraging Auxiliary Information. *Journal of Computational and Graphical Statistics*, 33(4), 1339–1349. <https://doi.org/10.1080/10618600.2024.2319160>
 
 ## Development
 
-The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
+The R package `mfair` is developed by [Zhiwei Wang](https://sites.google.com/view/statwangz).
 
 ## Contact
 
-Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>), Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang (<macyang@ust.hk>) with any inquiries.
+Please feel free to contact [Zhiwei Wang](mailto:zhiwei.wang@connect.ust.hk), [Prof. Mingxuan Cai](mailto:mingxcai@cityu.edu.hk), or [Prof. Can Yang](mailto:macyang@ust.hk) if any inquiries.

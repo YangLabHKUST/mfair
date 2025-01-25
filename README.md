@@ -8,6 +8,8 @@
 [![DOI](https://zenodo.org/badge/609644044.svg)](https://zenodo.org/badge/latestdoi/609644044)
 ![GitHub repo
 size](https://img.shields.io/github/repo-size/YangLabHKUST/mfair)
+![GitHub commit
+activity](https://img.shields.io/github/commit-activity/t/YangLabHKUST/mfair)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FYangLabHKUST%2Fmfair&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 ![GitHub Repo
 stars](https://img.shields.io/github/stars/YangLabHKUST/mfair) ![GitHub
@@ -17,11 +19,12 @@ forks](https://img.shields.io/github/forks/YangLabHKUST/mfair)
 
 <!-- badges: end -->
 
-The R package `mfair` implements the methods based on the paper [MFAI: A
-scalable Bayesian matrix factorization approach to leveraging auxiliary
-information](https://doi.org/10.48550/arXiv.2303.02566). MFAI integrates
-gradient boosted trees in the probabilistic matrix factorization
-framework to leverage auxiliary information effectively and adaptively.
+The R package `mfair` implements the methods based on the paper [**MFAI:
+A scalable Bayesian matrix factorization approach to leveraging
+auxiliary information**](https://doi.org/10.48550/arXiv.2303.02566).
+MFAI integrates gradient boosted trees in the probabilistic matrix
+factorization framework to leverage auxiliary information effectively
+and adaptively.
 
 ## Installation
 
@@ -148,11 +151,11 @@ mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 97 iterations Stage 2 ends!
+#> After 96 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 82 iterations Stage 2 ends!
+#> After 79 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -160,15 +163,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.08502
+#> [1] 13.08594
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4078598
+#> [1] 0.4080135
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.7989475
+#> [1] 0.7990528
 ```
 
 - Empirically, the backfitting algorithm can further improve the
@@ -180,26 +183,25 @@ mfairObject <- fitBack(mfairObject,
   verbose_bf_inner = FALSE,
   sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
 )
-#> Iteration: 1, relative difference of model parameters: 0.2678141.
-#> Iteration: 2, relative difference of model parameters: 0.03957596.
-#> Iteration: 3, relative difference of model parameters: 0.08902799.
-#> Iteration: 4, relative difference of model parameters: 0.02089378.
-#> Iteration: 5, relative difference of model parameters: 0.001688755.
+#> Iteration: 1, relative difference of model parameters: 0.2677281.
+#> Iteration: 2, relative difference of model parameters: 0.06144878.
+#> Iteration: 3, relative difference of model parameters: 0.01419201.
+#> Iteration: 4, relative difference of model parameters: 0.007719868.
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.03505
+#> [1] 13.03081
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4259078
+#> [1] 0.4255564
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.8400624
+#> [1] 0.8398119
 ```
 
 - Explore the [vignette illustrating the enrichment of the movie genre
@@ -225,17 +227,20 @@ vignette("neocortex")
 If you find the `mfair` package or any of the source code in this
 repository useful for your work, please cite:
 
-> Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., and Yang, C. (2023).
-> MFAI: A scalable Bayesian matrix factorization approach to leveraging
-> auxiliary information. arXiv preprint arXiv:2303.02566. URL:
-> <https://doi.org/10.48550/arXiv.2303.02566>.
+> Wang, Z., Zhang, F., Zheng, C., Hu, X., Cai, M., & Yang, C. (2024).
+> MFAI: A Scalable Bayesian Matrix Factorization Approach to Leveraging
+> Auxiliary Information. *Journal of Computational and Graphical
+> Statistics*, 33(4), 1339–1349.
+> <https://doi.org/10.1080/10618600.2024.2319160>
 
 ## Development
 
-The package is developed by Zhiwei Wang (<zhiwei.wang@connect.ust.hk>).
+The R package `mfair` is developed by [Zhiwei
+Wang](https://sites.google.com/view/statwangz).
 
 ## Contact
 
-Please feel free to contact Zhiwei Wang (<zhiwei.wang@connect.ust.hk>),
-Prof. Mingxuan Cai (<mingxcai@cityu.edu.hk>), or Prof. Can Yang
-(<macyang@ust.hk>) with any inquiries.
+Please feel free to contact [Zhiwei
+Wang](mailto:zhiwei.wang@connect.ust.hk), [Prof. Mingxuan
+Cai](mailto:mingxcai@cityu.edu.hk), or [Prof. Can
+Yang](mailto:macyang@ust.hk) if any inquiries.
