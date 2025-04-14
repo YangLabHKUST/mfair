@@ -26,6 +26,19 @@ MFAI integrates gradient boosted trees in the probabilistic matrix
 factorization framework to leverage auxiliary information effectively
 and adaptively.
 
+*Note: Two years later, I realized there are a bunch of areas for
+improvement in my code. Taking memory management as an example, using
+functions like `c()`, `append()`, `cbind()`, or `rbind()` to dynamically
+grow variables is not recommended, especially with large datasets. A
+more efficient approach is to pre-allocate memory if the output size is
+known. If the size is uncertain, a good way is to store outputs in a
+list. Then, you can combine them afterwards using functions like
+`lapply()` and `do.call()`. For more details, please refer to [Advanced
+R Chapter 24 Improving
+performance](https://adv-r.hadley.nz/perf-improve.html) or [Advanced R
+Course Chapter 5
+Performance](https://privefl.github.io/advr38book/performance.html).*
+
 ## Installation
 
 For a quick start, you can install the development version of `mfair`
@@ -61,7 +74,7 @@ M <- 100
 K_true <- 2L
 
 # Set the proportion of variance explained (PVE)
-PVE_Z <- 0.8
+PVE_Z <- 0.9
 PVE_Y <- 0.5
 
 # Generate auxiliary information X
@@ -99,18 +112,18 @@ Y_obs <- Y + matrix(
 # Create MFAIR object
 mfairObject <- createMFAIR(Y_obs, as.data.frame(X), K_max = K_true)
 #> The main data matrix Y is completely observed!
-#> The main data matrix Y has been centered with mean = 0.147726471347656!
+#> The main data matrix Y has been centered with mean = 0.138668156442213!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 77 iterations Stage 2 ends!
+#> After 78 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 76 iterations Stage 2 ends!
+#> After 93 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -119,15 +132,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_obs - Y_hat)^2))
-#> [1] 12.23344
+#> [1] 11.54134
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs))
-#> [1] 0.4714952
+#> [1] 0.4703533
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
-#> [1] 0.9871629
+#> [1] 0.9821173
 ```
 
 - `mfair` can also handle the matrix with missing entries:
@@ -143,19 +156,21 @@ Y_test[train_set] <- NA
 
 # Create MFAIR object
 mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
-#> The main data matrix Y is partially observed!
-#> The main data matrix Y has been centered with mean = 0.187847085351627!
+#> The main data matrix Y has 50% missing entries!
+#> Warning in createMFAIR(Y_train, as.data.frame(X), K_max = K_true): If there are
+#> a large number of missing entries, we recommend setting Y_sparse = TRUE!
+#> The main data matrix Y has been centered with mean = 0.184902729040383!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 96 iterations Stage 2 ends!
+#> After 78 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 79 iterations Stage 2 ends!
+#> After 149 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -163,15 +178,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.08594
+#> [1] 12.31729
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4080135
+#> [1] 0.4577823
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.7990528
+#> [1] 0.9052328
 ```
 
 - Empirically, the backfitting algorithm can further improve the
@@ -179,29 +194,31 @@ var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE
 
 ``` r
 # Refine the MFAI model with the backfitting algorithm
-mfairObject <- fitBack(mfairObject,
+mfairObject <- fitBack(
+  mfairObject,
   verbose_bf_inner = FALSE,
   sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
 )
-#> Iteration: 1, relative difference of model parameters: 0.2677281.
-#> Iteration: 2, relative difference of model parameters: 0.06144878.
-#> Iteration: 3, relative difference of model parameters: 0.01419201.
-#> Iteration: 4, relative difference of model parameters: 0.007719868.
+#> Iteration: 1, relative difference of model parameters: 1.407193.
+#> Iteration: 2, relative difference of model parameters: 0.488026.
+#> Iteration: 3, relative difference of model parameters: 0.248992.
+#> Iteration: 4, relative difference of model parameters: 0.01848598.
+#> Iteration: 5, relative difference of model parameters: 0.003648884.
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 13.03081
+#> [1] 12.29008
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4255564
+#> [1] 0.475175
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.8398119
+#> [1] 0.9433908
 ```
 
 - Explore the [vignette illustrating the enrichment of the movie genre
