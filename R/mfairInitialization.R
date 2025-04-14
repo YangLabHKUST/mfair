@@ -29,41 +29,46 @@ createMFAIR <- function(Y, X,
     stop("The number of samples in Y and X should be consistent!")
   } # End
 
-  # Check whether to transfer Y to the sparse matrix mode
-  if ("dgCMatrix" %in% class(Y)) { # Y is already in sparse mode
-    Y_sparse <- TRUE
-    message("The main data matrix Y has been stored in the sparse mode!")
-  } else if (Y_sparse == TRUE) { # Y is not in sparse mode, but we want it to be
-    obs_indices <- which(!is.na(Y), arr.ind = TRUE) # Indices of observed entries
-    Y <- Matrix::sparseMatrix(
-      i = obs_indices[, "row"], j = obs_indices[, "col"],
-      x = Y[obs_indices],
-      dims = c(N, M),
-      symmetric = FALSE, triangular = FALSE,
-      index1 = TRUE
-    )
-    message("The main data matrix Y has been transferred to the sparse mode!")
-  } # Otherwise, Y is not in sparse mode and we don't want it to be
-
-  # Check Y's sparsity
-  if (!Y_sparse) {
-    n_missing <- sum(is.na(Y))
-  } else {
+  # Check missingness
+  if (inherits(Y, "sparseMatrix")) {
     n_missing <- length(Y) - length(Y@x)
-    # Do not store the complete matrix in the sparse mode
-    if (n_missing == 0) {
-      stop("Please do not store the complete matrix in the sparse mode!")
-    } # End
+  } else {
+    n_missing <- sum(is.na(Y))
   }
   if (n_missing >= 1) {
-    if (n_missing == length(Y)) {
+    if (n_missing == N * M) {
       stop("The main data matrix Y has no observed values!")
     } # End
     Y_missing <- TRUE
-    message("The main data matrix Y is partially observed!")
+    message("The main data matrix Y has ", n_missing / N / M, "% missing entries!")
   } else {
     Y_missing <- FALSE
     message("The main data matrix Y is completely observed!")
+  }
+
+  # Check whether to transfer Y to the sparse matrix mode
+  if (Y_sparse) { # We want Y to be in sparse mode
+    if (!Y_missing) { # Y is completely observed and sparse mode is unnecessary
+      warning("Please do not store the complete matrix in the sparse mode!")
+    }
+    if (inherits(Y, "sparseMatrix")) { # Y is already in sparse mode
+      message("The main data matrix Y has been stored in the sparse mode and no transformation is needed!")
+    } else { # Y is not in sparse mode but we want it to be
+      obs_indices <- which(!is.na(Y), arr.ind = TRUE) # Indices of observed entries
+      Y <- Matrix::sparseMatrix(
+        i = obs_indices[, "row"], j = obs_indices[, "col"],
+        x = Y[obs_indices],
+        dims = c(N, M),
+        symmetric = FALSE, triangular = FALSE,
+        index1 = TRUE
+      )
+      message("The main data matrix Y has been transferred to the sparse mode!")
+    }
+  } else { # We don't want Y to be in sparse mode
+    if (Y_missing) { # Y is partially observed
+      warning("If there are a large number of missing entries, we recommend setting Y_sparse = TRUE!")
+    }
+    Y <- as.matrix(Y)
   }
 
   # Center the matrix Y
