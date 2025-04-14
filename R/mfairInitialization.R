@@ -40,7 +40,7 @@ createMFAIR <- function(Y, X,
       stop("The main data matrix Y has no observed values!")
     } # End
     Y_missing <- TRUE
-    message("The main data matrix Y has ", n_missing / N / M, "% missing entries!")
+    message("The main data matrix Y has ", n_missing / N / M * 100, "% missing entries!")
   } else {
     Y_missing <- FALSE
     message("The main data matrix Y is completely observed!")
