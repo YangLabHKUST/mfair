@@ -32,11 +32,10 @@ functions like `c()`, `append()`, `cbind()`, or `rbind()` to dynamically
 grow variables is not recommended, especially with large datasets. A
 more efficient approach is to pre-allocate memory if the output size is
 known. If the size is uncertain, a good way is to store outputs in a
-list. Then, you can combine them afterwards using functions like
-`lapply()` and `do.call()`. For more details, please refer to [Advanced
-R Chapter 24 Improving
-performance](https://adv-r.hadley.nz/perf-improve.html) or [Advanced R
-Course Chapter 5
+list. You can combine them afterwards using functions like `lapply()`
+and `do.call()`. For more details, please refer to [Advanced R Chapter
+24 Improving performance](https://adv-r.hadley.nz/perf-improve.html) or
+[Advanced R Course Chapter 5
 Performance](https://privefl.github.io/advr38book/performance.html).*
 
 ## Installation
