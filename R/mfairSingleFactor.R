@@ -233,7 +233,7 @@ fitSFMissing <- function(Y, X, init,
           as.vector(init@tau * (ProjY %*% as.matrix(init@nu))))
 
       E_zsq <- (init@mu)^2 + init@a_sq
-      init@b_sq <- 1 / (1 + as.vector(crossprod(tau_mat, as.matrix(E_wsq))))
+      init@b_sq <- 1 / (1 + as.vector(crossprod(tau_mat, as.matrix(E_zsq))))
       init@nu <- init@b_sq *
         as.vector(init@tau * (crossprod(ProjY, as.matrix(init@mu))))
 
