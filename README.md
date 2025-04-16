@@ -69,7 +69,7 @@ library(mfair)
 # Simulate data
 # Set the data dimension and rank
 N <- 100
-M <- 100
+M <- 200
 K_true <- 2L
 
 # Set the proportion of variance explained (PVE)
@@ -111,18 +111,18 @@ Y_obs <- Y + matrix(
 # Create MFAIR object
 mfairObject <- createMFAIR(Y_obs, as.data.frame(X), K_max = K_true)
 #> The main data matrix Y is completely observed!
-#> The main data matrix Y has been centered with mean = 0.138668156442213!
+#> The main data matrix Y has been centered with mean = 0.196418181646673!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 78 iterations Stage 2 ends!
+#> After 77 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 93 iterations Stage 2 ends!
+#> After 78 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -131,15 +131,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_obs - Y_hat)^2))
-#> [1] 11.54134
+#> [1] 11.04169
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs))
-#> [1] 0.4703533
+#> [1] 0.466571
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat)) / var(as.vector(Y_obs - Y_hat))
-#> [1] 0.9821173
+#> [1] 0.9493455
 ```
 
 - `mfair` can also handle the matrix with missing entries:
@@ -158,18 +158,18 @@ mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
 #> The main data matrix Y has 50% missing entries!
 #> Warning in createMFAIR(Y_train, as.data.frame(X), K_max = K_true): If there are
 #> a large number of missing entries, we recommend setting Y_sparse = TRUE!
-#> The main data matrix Y has been centered with mean = 0.184902729040383!
+#> The main data matrix Y has been centered with mean = 0.0364079914822442!
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
 #> Set K_max = 2!
 #> Initialize the parameters of Factor 1......
 #> After 2 iterations Stage 1 ends!
-#> After 78 iterations Stage 2 ends!
+#> After 99 iterations Stage 2 ends!
 #> Factor 1 retained!
 #> Initialize the parameters of Factor 2......
 #> After 2 iterations Stage 1 ends!
-#> After 149 iterations Stage 2 ends!
+#> After 68 iterations Stage 2 ends!
 #> Factor 2 retained!
 
 # Prediction based on the low-rank approximation
@@ -177,15 +177,15 @@ Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 12.31729
+#> [1] 11.6532
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.4577823
+#> [1] 0.4505973
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.9052328
+#> [1] 0.8830444
 ```
 
 - Empirically, the backfitting algorithm can further improve the
@@ -198,26 +198,26 @@ mfairObject <- fitBack(
   verbose_bf_inner = FALSE,
   sf_para = list(verbose_sf = FALSE, verbose_loop = FALSE)
 )
-#> Iteration: 1, relative difference of model parameters: 1.407193.
-#> Iteration: 2, relative difference of model parameters: 0.488026.
-#> Iteration: 3, relative difference of model parameters: 0.248992.
-#> Iteration: 4, relative difference of model parameters: 0.01848598.
-#> Iteration: 5, relative difference of model parameters: 0.003648884.
+#> Iteration: 1, relative difference of model parameters: 0.2827721.
+#> Iteration: 2, relative difference of model parameters: 0.05223744.
+#> Iteration: 3, relative difference of model parameters: 0.07034077.
+#> Iteration: 4, relative difference of model parameters: 0.08374642.
+#> Iteration: 5, relative difference of model parameters: 0.009833483.
 
 # Prediction based on the low-rank approximation
 Y_hat <- predict(mfairObject)
 
 # Root-mean-square-error
 sqrt(mean((Y_test - Y_hat)^2, na.rm = TRUE))
-#> [1] 12.29008
+#> [1] 11.63093
 
 # Predicted/true matrix variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs), na.rm = TRUE)
-#> [1] 0.475175
+#> [1] 0.4697753
 
 # Prediction/noise variance ratio
 var(as.vector(Y_hat), na.rm = TRUE) / var(as.vector(Y_obs - Y_hat), na.rm = TRUE)
-#> [1] 0.9433908
+#> [1] 0.9254147
 ```
 
 - Explore the [vignette illustrating the enrichment of the movie genre

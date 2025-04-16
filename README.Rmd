@@ -68,7 +68,7 @@ library(mfair)
 # Simulate data
 # Set the data dimension and rank
 N <- 100
-M <- 100
+M <- 200
 K_true <- 2L
 
 # Set the proportion of variance explained (PVE)
