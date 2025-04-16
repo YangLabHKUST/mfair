@@ -42,12 +42,11 @@ Then we proceed to fit the MFAI model with top three factors.
 # Create MFAIR object
 Y <- t(ml100k$rating)
 X <- ml100k$genre
-mfairObject <- createMFAIR(Y, X, K_max = 3)
+mfairObject <- createMFAIR(Y, X, Y_sparse = TRUE, K_max = 3)
 
 # Fit the MFAI model
-mfairObject <- fitGreedy(mfairObject,
-  save_init = TRUE,
-  sf_para = list(verbose_loop = FALSE)
+mfairObject <- fitGreedy(
+  mfairObject, save_init = TRUE, sf_para = list(verbose_loop =FALSE)
 )
 ```
 
