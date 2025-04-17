@@ -84,8 +84,8 @@ fitBack <- function(object,
     }
   }
 
-  tau <- object@tau
-  beta <- object@beta
+  tau <- unlist(object@tau)
+  beta <- unlist(object@beta)
 
   # Begin backfitting algorithm
   for (iter in 1:iter_max_bf) {
@@ -183,8 +183,8 @@ fitBack <- function(object,
       }
     }
 
-    tau_new <- object@tau
-    beta_new <- object@beta
+    tau_new <- unlist(object@tau)
+    beta_new <- unlist(object@beta)
 
     gap <- mean(abs(tau_new - tau) / abs(tau)) +
       mean(abs(beta_new - beta) / abs(beta))
