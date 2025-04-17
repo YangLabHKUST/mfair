@@ -14,7 +14,7 @@ activity](https://img.shields.io/github/commit-activity/t/YangLabHKUST/mfair)
 ![GitHub Repo
 stars](https://img.shields.io/github/stars/YangLabHKUST/mfair) ![GitHub
 forks](https://img.shields.io/github/forks/YangLabHKUST/mfair)
-[![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml)
+<!-- [![R-CMD-check](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YangLabHKUST/mfair/actions/workflows/R-CMD-check.yaml) -->
 <!-- [![Codecov test coverage](https://codecov.io/gh/YangLabHKUST/mfair/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YangLabHKUST/mfair?branch=main) -->
 
 <!-- badges: end -->
