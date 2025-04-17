@@ -198,8 +198,8 @@ fitGreedy <- function(object, K_max = NULL,
     object@FX[[k]] <- mfair_sf@FX
 
     # Save the tree list
-    object@tree_0[[k]] <- object_sf@tree_0
-    object@tree_lists[[k]] <- object_sf@tree_list
+    object@tree_0[[k]] <- mfair_sf@tree_0
+    object@tree_lists[[k]] <- mfair_sf@tree_list
 
     # Update the inferred rank of the data
     object@K <- as.integer(object@K + 1)
