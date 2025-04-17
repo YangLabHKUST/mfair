@@ -35,14 +35,16 @@ fitBack <- function(object,
 
   # Check fitted functions F(), i.e., tree_0 and tree_lists
   if (length(object@tree_0) == 0) {
-    object@tree_0 <- matrix(0, nrow = 1, ncol = object@K)
+    # object@tree_0 <- matrix(0, nrow = 1, ncol = object@K)
+    object@tree_0 <- as.list(rep(0, object@K))
     warning("The previous tree_0 (i.e., fitted functions) may not be saved!\n")
     warning("The new tree_lists obtained after the backfitting algorithm
             may not accurately predict the new sample
             with auxiliary covariates!\n")
   }
   if (length(object@tree_lists) == 0) {
-    object@tree_lists <- lapply(1:object@K,
+    object@tree_lists <- lapply(
+      1:object@K,
       FUN = function(x) {
         list()
       }
@@ -93,14 +95,14 @@ fitBack <- function(object,
         Class = "MFAIRSingleFactor",
         Y_missing = object@Y_missing,
         n_obs = object@n_obs,
-        mu = object@Z[, k],
-        a_sq = object@a_sq[, k],
-        nu = object@W[, k],
-        b_sq = object@b_sq[, k],
-        tau = object@tau[k],
-        beta = object@beta[k],
-        FX = object@FX[, k],
-        tree_0 = object@tree_0[1, k],
+        mu = object@Z[[k]],
+        a_sq = object@a_sq[[k]],
+        nu = object@W[[k]],
+        b_sq = object@b_sq[[k]],
+        tau = object@tau[[k]],
+        beta = object@beta[[k]],
+        FX = object@FX[[k]],
+        tree_0 = object@tree_0[[k]],
         tree_list = object@tree_lists[[k]]
       )
 

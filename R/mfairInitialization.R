@@ -85,13 +85,13 @@ createMFAIR <- function(Y, X,
     Y_mean <- 0
   }
 
-  if (Y_missing) {
-    a_sq <- matrix(nrow = N, ncol = 0)
-    b_sq <- matrix(nrow = M, ncol = 0)
-  } else {
-    a_sq <- matrix(nrow = 1, ncol = 0)
-    b_sq <- matrix(nrow = 1, ncol = 0)
-  }
+  # if (Y_missing) {
+    # a_sq <- matrix(nrow = N, ncol = 0)
+    # b_sq <- matrix(nrow = M, ncol = 0)
+  # } else {
+  #   a_sq <- matrix(nrow = 1, ncol = 0)
+  #   b_sq <- matrix(nrow = 1, ncol = 0)
+  # }
 
   # Inheriting
   object <- new(
@@ -108,13 +108,22 @@ createMFAIR <- function(Y, X,
     C = ncol(X),
     K_max = as.integer(K_max),
     K = 0L,
-    Z = matrix(nrow = N, ncol = 0),
-    a_sq = a_sq,
-    W = matrix(nrow = M, ncol = 0),
-    b_sq = b_sq,
-    FX = matrix(nrow = N, ncol = 0),
-    tree_0 = matrix(nrow = 1, ncol = 0),
+    # Z = matrix(nrow = N, ncol = 0),
+    # a_sq = a_sq,
+    # W = matrix(nrow = M, ncol = 0),
+    # b_sq = b_sq,
+    Z = list(),
+    a_sq = list(),
+    W = list(),
+    b_sq = list(),
+    tau = list(),
+    beta = list(),
+    # FX = matrix(nrow = N, ncol = 0),
+    # tree_0 = matrix(nrow = 1, ncol = 0),
+    FX = list(),
+    tree_0 = list(),
     tree_lists = list(),
+    initialization = list(),
     project = project
   )
 

@@ -22,7 +22,10 @@ setMethod(
       stop("The model has not been fitted!")
     } # End
 
-    Y_hat <- tcrossprod(object@Z[, which_factors], object@W[, which_factors])
+    Y_hat <- tcrossprod(
+      do.call(cbind, object@Z[which_factors]),
+      do.call(cbind, object@W[which_factors])
+      )
     if (add_mean) {
       Y_hat <- Y_hat + object@Y_mean
     }
@@ -72,12 +75,15 @@ predictFX <- function(object, newdata, which_factors = seq_len(object@K)) {
   } # End
 
   # Predicted F(X) in factors interested
-  FX <- sapply(object@tree_lists[which_factors],
+  FX <- mapply(
     FUN = predictFXSF,
-    newdata = newdata,
-    learning_rate = object@learning_rate
-  ) + matrix(rep((object@tree_0)[1, which_factors], each = N),
-    nrow = N, ncol = length(which_factors)
+    object@tree_lists[which_factors],
+    object@tree_0[which_factors],
+    MoreArgs = list(
+      newdata = newdata,
+      learning_rate = object@learning_rate
+    ),
+    SIMPLIFY = TRUE
   )
   colnames(FX) <- paste("Factor", which_factors)
 
@@ -87,11 +93,12 @@ predictFX <- function(object, newdata, which_factors = seq_len(object@K)) {
 #' Prediction function for fitted function F() in single factor.
 #'
 #' @param tree_list A fitted function represented by a list of trees.
+#' @param tree_0 A numeric value representing the mean value.
 #' @param newdata Data frame containing the values at which predictions are required.
 #' @param learning_rate Numeric. The learning rate in the gradient boosting part.
 #'
 #' @return A vector containing predicted F(X). Each entry corresponds to a new sample.
 #'
-predictFXSF <- function(tree_list, newdata, learning_rate) {
-  learning_rate * rowSums(sapply(tree_list, predict, newdata = newdata))
+predictFXSF <- function(tree_list, tree_0, newdata, learning_rate) {
+  learning_rate * rowSums(sapply(tree_list, predict, newdata = newdata)) + tree_0
 }

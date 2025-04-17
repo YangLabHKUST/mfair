@@ -21,14 +21,22 @@ setClassUnion(
 #' @slot C An integer. Number of columns (auxiliary covariates) of X.
 #' @slot K_max An integer. Please note that increasing K_max does not ensure that the actual K also increases since K_max is just an upper bound, and the model will automatically infer K below K_max under the default setting. If you want to fit the model with larger rank K, please set the `null_check` argument as FALSE, or make sure that K_max is large enough and the `tol_snr` argument in the fitting function `fitGreedy()` is small enough simultaneously in the fitting function `fitGreedy()`.
 #' @slot K An integer. The inferred rank of Y.
-#' @slot Z An N * K matrix. Estimated loading matrix, corresponding to the inferred posterior mean of Z in the MFAI model.
-#' @slot a_sq A matrix containing posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of one specific loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of one specific loading have different posterior variances, then a_sq is an N * K matrix.
-#' @slot W An M * K matrix. Estimated factor matrix, corresponding to the inferred posterior mean of W in the MFAI model.
-#' @slot b_sq A matrix containing posterior variance of W with k-th column corresponding to the k-th factor. For fully observed Y, all M elements of one specific factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of one specific factor have different posterior variances, then b_sq is an M * K matrix.
-#' @slot tau Numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.
-#' @slot beta Numeric. A vector of length K, containing the precision parameter for each loading Z_k.
-#' @slot FX An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
-#' @slot tree_0 An 1 * K matrix containing tree_0 with k-th column corresponding to the k-th factor. Tree_0 is defined as the mean of mu vector in each factor.
+# #' @slot Z An N * K matrix. Estimated factor matrix, corresponding to the posterior mean of Z in the MFAI model.
+# #' @slot a_sq A matrix containing posterior variance of Z with k-th column corresponding to the k-th factor. For fully observed Y, all N samples of one specific factor share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, samples of one specific factor have different posterior variances, then a_sq is an N * K matrix.
+# #' @slot W An M * K matrix. Estimated loading matrix, corresponding to the posterior mean of W in the MFAI model.
+# #' @slot b_sq A matrix containing posterior variance of W with k-th column corresponding to the k-th loading. For fully observed Y, all M features of one specific loading share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, features of one specific loading have different posterior variances, then b_sq is an M * K matrix.
+#' @slot Z A list of length K. Each element is a vector of length N, representing the posterior mean of one factor in the MFAI model.
+#' @slot a_sq A list of length K with each element representing the posterior variance of one factor in the MFAI model.  For fully observed Y, all N samples of one specific factor share the same posterior variance, then each element is a numeric value. For Y with missing data, the samples have different posterior variances, then each element is a vector of length N.
+#' @slot W A list of length K. Each element is a vector of length M, representing the posterior mean of one loading in the MFAI model.
+#' @slot b_sq A list of length K with each element representing the posterior variance of one loading in the MFAI model. For fully observed Y, all M features of one specific loading share the same posterior variance, then each element is a numeric value. For Y with missing data, the features have different posterior variances, then each element is a vector of length M.
+# #' @slot tau Numeric. A vector of length K, containing the precision parameter for each pair of factor/loading.
+# #' @slot beta Numeric. A vector of length K, containing the precision parameter for each factor Z_k.
+#' @slot tau A list of length K. Each elements is a numeric value representing the precision parameter for the combination of each pair of factor and loading.
+#' @slot beta A list of length K. Each elements is a numeric value representing the precision parameter for each factor Z_k.
+# #' @slot FX An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.
+# #' @slot tree_0 An 1 * K matrix containing tree_0 with k-th column corresponding to the k-th factor. Tree_0 is defined as the mean of mu vector in each factor.
+#' @slot FX A list of length K. Each element is a vector of length N, representing the prior mean of one factor in the MFAI model.
+#' @slot tree_0 A list of length K. Each element is a numeric value representing tree_0 in one factor, which is defined as the mean of mu vector.
 #' @slot tree_lists A list of length K, containing K fitted functions and each function is represented as a list of trees, i.e., the k-th list corresponds to function F_k(.) in the MFAI model.
 #' @slot initialization A list. Initialization of the fitted model.
 #' @slot learning_rate Numeric. The learning rate in the gradient boosting part.
@@ -55,14 +63,22 @@ setClass(
     C = "integer",
     K_max = "integer",
     K = "integer",
-    Z = "matrix",
-    a_sq = "matrix",
-    W = "matrix",
-    b_sq = "matrix",
-    tau = "numeric",
-    beta = "numeric",
-    FX = "matrix",
-    tree_0 = "matrix",
+    # Z = "matrix",
+    # a_sq = "matrix",
+    # W = "matrix",
+    # b_sq = "matrix",
+    Z = "list",
+    a_sq = "list",
+    W = "list",
+    b_sq = "list",
+    # tau = "numeric",
+    # beta = "numeric",
+    tau = "list",
+    beta = "list",
+    # FX = "matrix",
+    # tree_0 = "matrix",
+    FX = "list",
+    tree_0 = "list",
     tree_lists = "list",
     initialization = "list",
     learning_rate = "numeric",

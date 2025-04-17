@@ -19,7 +19,8 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
   } # End
 
   # Importance measures of variables in factors interested
-  importance <- sapply(object@tree_lists[which_factors],
+  importance <- sapply(
+    object@tree_lists[which_factors],
     FUN = getImportanceSF,
     variables_names = colnames(object@X)
   )
@@ -39,7 +40,8 @@ getImportance <- function(object, which_factors = seq_len(object@K)) {
 #' @return Importance score vector. Each entry is the importance score of one auxiliary covariate.
 #'
 getImportanceSF <- function(tree_list, variables_names) {
-  importance_list <- lapply(tree_list,
+  importance_list <- lapply(
+    tree_list,
     FUN = function(x) {
       x$variable.importance
     }

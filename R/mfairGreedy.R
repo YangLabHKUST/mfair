@@ -178,7 +178,7 @@ fitGreedy <- function(object, K_max = NULL,
       }
     }
 
-    # Prepare for the fitting the next factor
+    # Prepare for fitting the next factor
     if (object@Y_sparse) {
       R <- R - projSparse(Y_k, obs_indices)
     } else {
@@ -186,14 +186,29 @@ fitGreedy <- function(object, K_max = NULL,
     }
 
     # Save the information about the fitted single factor MFAI model
-    object <- appendMFAIR(object, mfair_sf)
+    # object <- appendMFAIR(object, mfair_sf)
+    object@Z[[k]] <- mfair_sf@mu
+    object@a_sq[[k]] <- mfair_sf@a_sq
+    object@W[[k]] <- mfair_sf@nu
+    object@b_sq[[k]] <- mfair_sf@b_sq
 
-    # Save the initialization
+    object@tau[[k]] <- mfair_sf@tau
+    object@beta[[k]] <- mfair_sf@beta
+
+    object@FX[[k]] <- mfair_sf@FX
+
+    # Save the tree list
+    object@tree_0[[k]] <- object_sf@tree_0
+    object@tree_lists[[k]] <- object_sf@tree_list
+
+    # Update the inferred rank of the data
+    object@K <- as.integer(object@K + 1)
+
     if (save_init) {
       if (verbose_greedy) {
         message("Save the initializaiton information......")
       }
-      object@initialization <- c(object@initialization, list(init))
+      object@initialization[[k]] <- init
     }
     # Free the memory
     rm(init)

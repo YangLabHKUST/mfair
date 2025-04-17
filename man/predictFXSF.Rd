@@ -4,10 +4,12 @@
 \alias{predictFXSF}
 \title{Prediction function for fitted function F() in single factor.}
 \usage{
-predictFXSF(tree_list, newdata, learning_rate)
+predictFXSF(tree_list, tree_0, newdata, learning_rate)
 }
 \arguments{
 \item{tree_list}{A fitted function represented by a list of trees.}
+
+\item{tree_0}{A numeric value representing the mean value.}
 
 \item{newdata}{Data frame containing the values at which predictions are required.}
 
