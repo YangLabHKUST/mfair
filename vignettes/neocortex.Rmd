@@ -128,7 +128,7 @@ p
 
 ```{r}
 # Inferred gene loadings (corresponding to the W matrix in the MFAI paper)
-gene_loadings <- mfairObject@W
+gene_loadings <- do.call(cbind, mfairObject@W)
 rownames(gene_loadings) <- colnames(mfairObject@Y) # Assign gene symbols
 colnames(gene_loadings) <- paste("Loading", c(1:3))
 head(gene_loadings)
