@@ -65,10 +65,7 @@ X_new <- data.frame(
   Region = factor(rep(region, length(stage)), levels = region),
   Stage = rep(stage, each = length(region))
 )
-FX <- predictFX(mfairObject,
-  newdata = X_new,
-  which_factors = c(1:3)
-)
+FX <- predictFX(mfairObject, newdata = X_new, which_factors = c(1:3))
 ```
 
 ```{r}
@@ -155,7 +152,8 @@ We first calculated the relative weight of the $k$-th loading for the $m$-th gen
 
 ```{r}
 # Normalize each loading to have l2-norm equal one
-gene_loadings <- apply(gene_loadings,
+gene_loadings <- apply(
+  gene_loadings,
   MARGIN = 2,
   FUN = function(x) {
     x / sqrt(sum(x^2))
@@ -170,14 +168,16 @@ M <- nrow(gene_loadings)[1] # Total number of genes M = 2,000
 ntop <- M * 0.15 # We use the top 300 weighted genes in each loading to form the gene sets
 
 # Index of top genes
-top_gene_idx <- apply(gene_loadings,
+top_gene_idx <- apply(
+  gene_loadings,
   MARGIN = 2,
   FUN = function(x) {
     which(rank(-x) <= ntop)
   }
 )
 
-top_genes <- apply(top_gene_idx,
+top_genes <- apply(
+  top_gene_idx,
   MARGIN = 2,
   FUN = function(x) {
     rownames(gene_loadings)[x]
