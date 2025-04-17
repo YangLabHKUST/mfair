@@ -99,35 +99,35 @@
 
 
 <dt><code>Z</code></dt>
-<dd><p>An N * K matrix. Estimated loading matrix, corresponding to the inferred posterior mean of Z in the MFAI model.</p></dd>
+<dd><p>A list of length K. Each element is a vector of length N, representing the posterior mean of one factor in the MFAI model.</p></dd>
 
 
 <dt><code>a_sq</code></dt>
-<dd><p>A matrix containing posterior variance of Z with k-th column corresponding to the k-th loading. For fully observed Y, all N elements of one specific loading share the same posterior variance, then a_sq is a 1 * K matrix. For Y with missing data, elements of one specific loading have different posterior variances, then a_sq is an N * K matrix.</p></dd>
+<dd><p>A list of length K with each element representing the posterior variance of one factor in the MFAI model.  For fully observed Y, all N samples of one specific factor share the same posterior variance, then each element is a numeric value. For Y with missing data, the samples have different posterior variances, then each element is a vector of length N.</p></dd>
 
 
 <dt><code>W</code></dt>
-<dd><p>An M * K matrix. Estimated factor matrix, corresponding to the inferred posterior mean of W in the MFAI model.</p></dd>
+<dd><p>A list of length K. Each element is a vector of length M, representing the posterior mean of one loading in the MFAI model.</p></dd>
 
 
 <dt><code>b_sq</code></dt>
-<dd><p>A matrix containing posterior variance of W with k-th column corresponding to the k-th factor. For fully observed Y, all M elements of one specific factor share the same posterior variance, then b_sq is a 1 * K matrix. For Y with missing data, elements of one specific factor have different posterior variances, then b_sq is an M * K matrix.</p></dd>
+<dd><p>A list of length K with each element representing the posterior variance of one loading in the MFAI model. For fully observed Y, all M features of one specific loading share the same posterior variance, then each element is a numeric value. For Y with missing data, the features have different posterior variances, then each element is a vector of length M.</p></dd>
 
 
 <dt><code>tau</code></dt>
-<dd><p>Numeric. A vector of length K, containing the precision parameter for each pair of loading/factor.</p></dd>
+<dd><p>A list of length K. Each elements is a numeric value representing the precision parameter for the combination of each pair of factor and loading.</p></dd>
 
 
 <dt><code>beta</code></dt>
-<dd><p>Numeric. A vector of length K, containing the precision parameter for each loading Z_k.</p></dd>
+<dd><p>A list of length K. Each elements is a numeric value representing the precision parameter for each factor Z_k.</p></dd>
 
 
 <dt><code>FX</code></dt>
-<dd><p>An N * K matrix representing the prior mean of Z, corresponding to F(X) in the MFAI model.</p></dd>
+<dd><p>A list of length K. Each element is a vector of length N, representing the prior mean of one factor in the MFAI model.</p></dd>
 
 
 <dt><code>tree_0</code></dt>
-<dd><p>An 1 * K matrix containing tree_0 with k-th column corresponding to the k-th factor. Tree_0 is defined as the mean of mu vector in each factor.</p></dd>
+<dd><p>A list of length K. Each element is a numeric value representing tree_0 in one factor, which is defined as the mean of mu vector.</p></dd>
 
 
 <dt><code>tree_lists</code></dt>

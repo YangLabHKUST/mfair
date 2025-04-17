@@ -99,15 +99,14 @@ Then we proceed to fit the MFAI model with top three factors.</p>
 <code class="sourceCode R"><span><span class="co"># Create MFAIR object</span></span>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">ml100k</span><span class="op">$</span><span class="va">rating</span><span class="op">)</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">ml100k</span><span class="op">$</span><span class="va">genre</span></span>
-<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode!</span></span>
-<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, Y_sparse <span class="op">=</span> <span class="cn">TRUE</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y has 93.6953306357755% missing entries!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode and no transformation is needed!</span></span>
 <span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
-<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject</span>,</span>
-<span>  save_init <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
+<span>  <span class="va">mfairObject</span>, save_init <span class="op">=</span> <span class="cn">TRUE</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Initialize the parameters of Factor 1......</span></span>
@@ -204,15 +203,15 @@ as input.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">X_pmt</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, <span class="st">"_permuted"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create MFAIR object and use the same initialization</span></span>
-<span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_pmt</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode!</span></span>
-<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_pmt</span>, Y_sparse <span class="op">=</span> <span class="cn">TRUE</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y has 93.6953306357755% missing entries!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode and no transformation is needed!</span></span>
 <span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span><span class="va">mfairObject_pmt</span><span class="op">@</span><span class="va">initialization</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">initialization</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
-<span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject_pmt</span>,</span>
-<span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
+<span>  <span class="va">mfairObject_pmt</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Use the user-specific initialization for Factor 1......</span></span>
@@ -278,15 +277,15 @@ as the input auxiliary information and fit the MFAI model.</p>
 <code class="sourceCode R"><span><span class="va">X_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">X_pmt</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create MFAIR object and use the same initialization</span></span>
-<span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_both</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode!</span></span>
-<span><span class="co">#&gt; The main data matrix Y is partially observed!</span></span>
+<span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">X_both</span>, Y_sparse <span class="op">=</span> <span class="cn">TRUE</span>, K_max <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The main data matrix Y has 93.6953306357755% missing entries!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been stored in the sparse mode and no transformation is needed!</span></span>
 <span><span class="co">#&gt; The main data matrix Y has been centered with mean = 3.52986!</span></span>
 <span><span class="va">mfairObject_both</span><span class="op">@</span><span class="va">initialization</span> <span class="op">&lt;-</span> <span class="va">mfairObject</span><span class="op">@</span><span class="va">initialization</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
-<span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span><span class="va">mfairObject_both</span>,</span>
-<span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
+<span>  <span class="va">mfairObject_both</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Use the user-specific initialization for Factor 1......</span></span>
