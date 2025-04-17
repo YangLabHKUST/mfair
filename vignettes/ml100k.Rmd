@@ -120,12 +120,12 @@ colnames(X_pmt) <- paste0(colnames(X), "_permuted")
 
 ```{r}
 # Create MFAIR object and use the same initialization
-mfairObject_pmt <- createMFAIR(Y, X_pmt, K_max = 3)
+mfairObject_pmt <- createMFAIR(Y, X_pmt, Y_sparse = TRUE, K_max = 3)
 mfairObject_pmt@initialization <- mfairObject@initialization
 
 # Fit the MFAI model
-mfairObject_pmt <- fitGreedy(mfairObject_pmt,
-  sf_para = list(verbose_loop = FALSE)
+mfairObject_pmt <- fitGreedy(
+  mfairObject_pmt, sf_para = list(verbose_loop = FALSE)
 )
 ```
 
@@ -179,12 +179,12 @@ At last, we use $X^{\text{both}} = [X, X^{\text{pmt}}]$ as the input auxiliary i
 X_both <- cbind(X, X_pmt)
 
 # Create MFAIR object and use the same initialization
-mfairObject_both <- createMFAIR(Y, X_both, K_max = 3)
+mfairObject_both <- createMFAIR(Y, X_both, Y_sparse = TRUE, K_max = 3)
 mfairObject_both@initialization <- mfairObject@initialization
 
 # Fit the MFAI model
-mfairObject_both <- fitGreedy(mfairObject_both,
-  sf_para = list(verbose_loop = FALSE)
+mfairObject_both <- fitGreedy(
+  mfairObject_both, sf_para = list(verbose_loop = FALSE)
 )
 ```
 
