@@ -25,8 +25,7 @@ getELBO <- function(Y, object, obs_indices = NULL) {
   FX <- object@FX
 
   if (object@Y_missing) {
-    n_obs <- object@n_obs
-    elbo1 <- -n_obs * log(2 * pi / tau) / 2
+    elbo1 <- -object@n_obs * log(2 * pi / tau) / 2
 
     if (!is.null(obs_indices)) { # Sparse mode
       elbo2 <- -tau *
