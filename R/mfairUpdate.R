@@ -50,7 +50,7 @@ updateMFAIR <- function(object, object_sf, k) {
   object@FX[[k]] <- object_sf@FX
 
   # Save the tree list
-  object@tree_lists[[k]] <- c(object@tree_lists[[k]], object_sf@tree_list)
+  object@tree_lists[[k]] <- object_sf@tree_list
 
   return(object)
 }
