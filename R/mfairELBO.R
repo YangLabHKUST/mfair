@@ -37,7 +37,7 @@ getELBO <- function(Y, object, obs_indices = NULL) {
           ) -
           projSparse(
             tcrossprod(as.matrix(mu_sq), as.matrix(nu_sq)), obs_indices
-          ))
+          )) / 2
     } else {
       elbo2 <- -tau * sum(
         (Y - tcrossprod(as.matrix(mu), as.matrix(nu)))^2 +
