@@ -116,7 +116,7 @@ fitBack <- function(object,
 
         mfair_sf <- do.call(
           what = "fitSFSparse",
-          args = append(
+          args = c(
             list(
               Y = R, X = object@X, init = mfair_sf,
               obs_indices = obs_indices,
@@ -140,7 +140,7 @@ fitBack <- function(object,
           # )
           mfair_sf <- do.call(
             what = "fitSFMissing",
-            args = append(
+            args = c(
               list(
                 Y = R, X = object@X, init = mfair_sf,
                 obs_indices = obs_indices,
@@ -159,7 +159,7 @@ fitBack <- function(object,
           # )
           mfair_sf <- do.call(
             what = "fitSFFully",
-            args = append(
+            args = c(
               list(
                 Y = R, X = object@X,
                 init = mfair_sf,
