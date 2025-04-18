@@ -78,7 +78,7 @@ fitGreedy <- function(object, K_max = NULL,
   # )
   object@tree_parameters <- do.call(
     what = "rpart.control",
-    args = append(
+    args = c(
       list(
         minsplit = minsplit,
         minbucket = minbucket,
@@ -110,7 +110,7 @@ fitGreedy <- function(object, K_max = NULL,
     if (object@Y_sparse) { # The main data matrix is partially observed and stored in the sparse mode
       mfair_sf <- do.call(
         what = "fitSFSparse",
-        args = append(
+        args = c(
           list(
             Y = R, X = object@X, init = init,
             obs_indices = obs_indices,
@@ -123,7 +123,7 @@ fitGreedy <- function(object, K_max = NULL,
     } else if (object@Y_missing) { # The main data matrix is partially observed but not stored in the sparse mode
       mfair_sf <- do.call(
         what = "fitSFMissing",
-        args = append(
+        args = c(
           list(
             Y = R, X = object@X, init = init,
             obs_indices = obs_indices,
@@ -141,7 +141,7 @@ fitGreedy <- function(object, K_max = NULL,
     } else { # The main data matrix is fully observed
       mfair_sf <- do.call(
         what = "fitSFFully",
-        args = append(
+        args = c(
           list(
             Y = R, X = object@X, init = init,
             learning_rate = object@learning_rate,
