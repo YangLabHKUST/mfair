@@ -171,10 +171,9 @@
 <span><span class="va">Y_test</span><span class="op">[</span><span class="va">train_set</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span></span>
 <span><span class="co"># Create MFAIR object</span></span>
-<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_train</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
+<span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/createMFAIR.html">createMFAIR</a></span><span class="op">(</span><span class="va">Y_train</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, Y_sparse <span class="op">=</span> <span class="cn">TRUE</span>, K_max <span class="op">=</span> <span class="va">K_true</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The main data matrix Y has 50% missing entries!</span></span>
-<span><span class="co">#&gt; Warning in createMFAIR(Y_train, as.data.frame(X), K_max = K_true): If there are</span></span>
-<span><span class="co">#&gt; a large number of missing entries, we recommend setting Y_sparse = TRUE!</span></span>
+<span><span class="co">#&gt; The main data matrix Y has been transferred to the sparse mode!</span></span>
 <span><span class="co">#&gt; The main data matrix Y has been centered with mean = 0.0364079914822442!</span></span>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
