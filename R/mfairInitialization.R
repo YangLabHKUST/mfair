@@ -49,7 +49,7 @@ createMFAIR <- function(Y, X,
   # Check whether to transfer Y to the sparse matrix mode
   if (Y_sparse) { # We want Y to be in sparse mode
     if (!Y_missing) { # Y is completely observed and sparse mode is unnecessary
-      warning("Please do not store the complete matrix in the sparse mode!")
+      stop("Please do not store the complete matrix in the sparse mode!")
     }
     if (inherits(Y, "sparseMatrix")) { # Y is already in sparse mode
       message("The main data matrix Y has been stored in the sparse mode and no transformation is needed!")
