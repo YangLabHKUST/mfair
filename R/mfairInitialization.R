@@ -68,7 +68,7 @@ createMFAIR <- function(Y, X,
     if (Y_missing) { # Y is partially observed
       warning("If there are a large number of missing entries, we recommend setting Y_sparse = TRUE!")
     }
-    if(inherits(Y, "sparseMatrix")){
+    if (inherits(Y, "sparseMatrix")) {
       Y <- as.matrix(Y)
       message("The main data matrix Y has been transferred to the normal matrix mode!")
     }
@@ -89,8 +89,8 @@ createMFAIR <- function(Y, X,
   }
 
   # if (Y_missing) {
-    # a_sq <- matrix(nrow = N, ncol = 0)
-    # b_sq <- matrix(nrow = M, ncol = 0)
+  #   a_sq <- matrix(nrow = N, ncol = 0)
+  #   b_sq <- matrix(nrow = M, ncol = 0)
   # } else {
   #   a_sq <- matrix(nrow = 1, ncol = 0)
   #   b_sq <- matrix(nrow = 1, ncol = 0)

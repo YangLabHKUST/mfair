@@ -25,7 +25,7 @@ setMethod(
     Y_hat <- tcrossprod(
       do.call(cbind, object@Z[which_factors]),
       do.call(cbind, object@W[which_factors])
-      )
+    )
     if (add_mean) {
       Y_hat <- Y_hat + object@Y_mean
     }
