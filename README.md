@@ -154,10 +154,9 @@ Y_train[-train_set] <- NA
 Y_test[train_set] <- NA
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
+mfairObject <- createMFAIR(Y_train, as.data.frame(X), Y_sparse = TRUE, K_max = K_true)
 #> The main data matrix Y has 50% missing entries!
-#> Warning in createMFAIR(Y_train, as.data.frame(X), K_max = K_true): If there are
-#> a large number of missing entries, we recommend setting Y_sparse = TRUE!
+#> The main data matrix Y has been transferred to the sparse mode!
 #> The main data matrix Y has been centered with mean = 0.0364079914822442!
 
 # Fit the MFAI model

@@ -138,7 +138,7 @@ Y_train[-train_set] <- NA
 Y_test[train_set] <- NA
 
 # Create MFAIR object
-mfairObject <- createMFAIR(Y_train, as.data.frame(X), K_max = K_true)
+mfairObject <- createMFAIR(Y_train, as.data.frame(X), Y_sparse = TRUE, K_max = K_true)
 
 # Fit the MFAI model
 mfairObject <- fitGreedy(mfairObject, sf_para = list(verbose_loop = FALSE))
