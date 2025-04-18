@@ -152,7 +152,7 @@ fitSFSparse <- function(Y, X, init,
 
     # save tree list
     if (save_tree_list) {
-      init@tree_list <- append(init@tree_list, list(fitted_tree))
+      init@tree_list <- c(init@tree_list, list(fitted_tree))
     }
 
     ELBO_current <- getELBO(Y, init, obs_indices)
@@ -324,7 +324,7 @@ fitSFMissing <- function(Y, X, init,
 
     # save tree list
     if (save_tree_list) {
-      init@tree_list <- append(init@tree_list, list(fitted_tree))
+      init@tree_list <- c(init@tree_list, list(fitted_tree))
     }
 
     ELBO_current <- getELBO(Y, init)
@@ -466,7 +466,7 @@ fitSFFully <- function(Y, X, init,
 
     # save tree list
     if (save_tree_list) {
-      init@tree_list <- append(init@tree_list, list(fitted_tree))
+      init@tree_list <- c(init@tree_list, list(fitted_tree))
     }
 
     ELBO_current <- getELBO(Y, init)
