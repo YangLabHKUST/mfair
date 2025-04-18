@@ -106,7 +106,8 @@ Then we proceed to fit the MFAI model with top three factors.</p>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
-<span>  <span class="va">mfairObject</span>, save_init <span class="op">=</span> <span class="cn">TRUE</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">mfairObject</span>,</span>
+<span>  save_init <span class="op">=</span> <span class="cn">TRUE</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Initialize the parameters of Factor 1......</span></span>
@@ -211,7 +212,8 @@ as input.</p>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject_pmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
-<span>  <span class="va">mfairObject_pmt</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">mfairObject_pmt</span>,</span>
+<span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Use the user-specific initialization for Factor 1......</span></span>
@@ -285,7 +287,8 @@ as the input auxiliary information and fit the MFAI model.</p>
 <span></span>
 <span><span class="co"># Fit the MFAI model</span></span>
 <span><span class="va">mfairObject_both</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitGreedy.html">fitGreedy</a></span><span class="op">(</span></span>
-<span>  <span class="va">mfairObject_both</span>, sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">mfairObject_both</span>,</span>
+<span>  sf_para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>verbose_loop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Set K_max = 3!</span></span>
 <span><span class="co">#&gt; Use the user-specific initialization for Factor 1......</span></span>
