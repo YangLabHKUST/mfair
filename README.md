@@ -19,24 +19,24 @@ forks](https://img.shields.io/github/forks/YangLabHKUST/mfair)
 
 <!-- badges: end -->
 
-The R package `mfair` implements the methods based on the paper [**MFAI:
+The R package `mfair` implements the methods based on the paper [*MFAI:
 A scalable Bayesian matrix factorization approach to leveraging
-auxiliary information**](https://doi.org/10.48550/arXiv.2303.02566).
-MFAI integrates gradient boosted trees in the probabilistic matrix
+auxiliary information*](https://doi.org/10.48550/arXiv.2303.02566). MFAI
+integrates gradient boosted trees in the probabilistic matrix
 factorization framework to leverage auxiliary information effectively
 and adaptively.
 
-*Note: Two years later, I realized there are a bunch of areas for
+**Note**: Two years later, I realized there are a bunch of areas for
 improvement in my code. Taking memory management as an example, using
 functions like `c()`, `append()`, `cbind()`, or `rbind()` to dynamically
 grow variables is not recommended, especially with large datasets. A
 more efficient approach is to pre-allocate memory if the output size is
-known. If the size is uncertain, a good way is to store outputs in a
-list. You can combine them afterwards using functions like `lapply()`
-and `do.call()`. For more details, please refer to [Advanced R Chapter
-24 Improving performance](https://adv-r.hadley.nz/perf-improve.html) or
-[Advanced R Course Chapter 5
-Performance](https://privefl.github.io/advr38book/performance.html).*
+known. If you don’t know the size, a good way is to store outputs in a
+list. You can merge them afterwards using functions like `lapply()` and
+`do.call()`. For more details, please refer to [*Advanced R Chapter 24
+Improving performance*](https://adv-r.hadley.nz/perf-improve.html) or
+[*Advanced R Course Chapter 5
+Performance*](https://privefl.github.io/advr38book/performance.html).
 
 ## Installation
 
@@ -250,7 +250,7 @@ repository useful for your work, please cite:
 
 ## Development
 
-The R package `mfair` is developed by [Zhiwei
+The R package `mfair` is developed and maintained by [Zhiwei
 Wang](https://sites.google.com/view/statwangz).
 
 ## Contact
