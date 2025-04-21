@@ -54,7 +54,7 @@ getImportanceSF <- function(tree_list, variables_names) {
   importance_data_frame <- data.frame(variable = gsub("[[:punct:]]", ".", variables_names))
 
   # For-loop for each tree
-  for (t in seq_len(length(importance_list))) {
+  for (t in seq_along(importance_list)) {
     if (!is.null(importance_list[[t]])) {
       # Importance measures of variables contained in the t-th tree
       importance_t <- data.frame(
